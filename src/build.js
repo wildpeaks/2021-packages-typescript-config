@@ -3,19 +3,19 @@
 const {join} = require('path');
 const {mkdirSync, writeFileSync} = require('fs');
 const {version} = require('../package.json');
-const configs = require('./configs');
+const presets = require('./presets');
 const packagesFolder = join(__dirname, '../packages');
 
 
 function generatePackage(id){
-	const config = configs[id];
+	const preset = presets[id];
 	const packageId = `tsconfig-${id}`;
 	const packageFolder = join(packagesFolder, packageId);
 	mkdirSync(packageFolder);
 
 	writeFileSync(
 		join(packageFolder, 'tsconfig.json'),
-		JSON.stringify(config.tsconfig),
+		JSON.stringify(preset.tsconfig),
 		'utf8'
 	);
 	writeFileSync(
@@ -23,7 +23,7 @@ function generatePackage(id){
 		JSON.stringify({
 			name: `@wildpeaks/${packageId}`,
 			version,
-			description: config.description,
+			description: preset.description,
 			author: 'Cecile Muller',
 			license: 'MIT',
 			keywords: ['wildpeaks', 'typescript', 'tsconfig'],
@@ -40,12 +40,12 @@ function generatePackage(id){
 	writeFileSync(
 		join(packageFolder, 'README.md'),
 		[
-			`# Typescript Config: ${config.title}`,
+			`# Typescript Config: ${preset.title}`,
 			'',
-			'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
-			'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
-			'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
-			'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'
+			preset.description
+			//
+			// TODO add usage example
+			//
 		].join('\n'),
 		'utf8'
 	);
@@ -54,7 +54,7 @@ function generatePackage(id){
 
 describe('Build', () => {
 	mkdirSync(packagesFolder);
-	for (const id in configs){
+	for (const id in presets){
 		it(id, generatePackage.bind(null, id));
 	}
 });
