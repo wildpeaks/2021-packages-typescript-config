@@ -1,0 +1,17 @@
+{
+	"eslint.validate": [
+		"javascript",
+	],
+	"files.exclude": {
+		"LICENSE": true,
+		"*.lnk": true,
+		"*.log": true,
+		".npmrc": true,
+		".editorconfig": true,
+		"package-lock.json": true,
+		"lib": true,
+		"node_modules": true,
+		"*/**/node_modules": false,
+		"packages/*/node_modules": true
+	}
+}
