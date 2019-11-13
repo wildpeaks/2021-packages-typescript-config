@@ -1,0 +1,19 @@
+{
+  "name": "@wildpeaks/tsconfig-cli",
+  "version": "0.0.1",
+  "description": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+  "author": "Cecile Muller",
+  "license": "MIT",
+  "keywords": [
+    "wildpeaks",
+    "typescript",
+    "tsconfig"
+  ],
+  "homepage": "https://github.com/wildpeaks/packages-typescript-config#readme",
+  "repository": "https://github.com/wildpeaks/packages-typescript-config",
+  "bugs": {
+    "url": "https://github.com/wildpeaks/packages-typescript-config/issues"
+  },
+  "main": "tsconfig.json",
+  "files": ["tsconfig.json"]
+}
