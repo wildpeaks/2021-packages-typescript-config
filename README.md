@@ -1,9 +1,9 @@
 # Tsconfig Shared Configs
 
 
-## Config: CLI
+## Config: Node
 
-First, add `@wildpeaks/tsconfig-cli` to your devDependencies.
+For transpiled packages targeting Node.
 
 Key features:
  - sources in /src
@@ -11,10 +11,11 @@ Key features:
  - outputs CommonJS modules (es2017) in /lib
  - lib 2017
 
+First, install package `@wildpeaks/tsconfig-node`.
 Then reference it in `tsconfig.json`:
 ````json
 {
-	"extends": "@wildpeaks/tsconfig-cli",
+  "extends": "@wildpeaks/tsconfig-node"
 }
 ````
 
