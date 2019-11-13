@@ -23,13 +23,17 @@
     }
   },
   "scripts": {
-    "test": "mocha test/*.spec.js"
+    "test:lint": "mocha test/lint.spec.js"
+  },
+  "dependencies": {
+    "typescript": "3.7.2"
   },
   "devDependencies": {
     "@types/node": "12.12.7",
+    "@wildpeaks/async": "1.2.2",
     "@wildpeaks/eslint-config-commonjs": "7.2.0",
+    "ajv": "6.10.2",
     "eslint": "6.6.0",
-    "mocha": "6.2.2",
-    "typescript": "3.7.2"
+    "mocha": "6.2.2"
   }
 }
