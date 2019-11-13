@@ -23,7 +23,7 @@
     }
   },
   "scripts": {
-    "test:lint": "mocha test/lint.spec.js"
+    "test": "mocha test/tests.spec.js"
   },
   "dependencies": {
     "typescript": "3.7.2"
