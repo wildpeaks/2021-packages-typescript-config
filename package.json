@@ -23,9 +23,16 @@
     }
   },
   "scripts": {
-    "test": "mocha test/tests.spec.js"
+    "build:reset": "rimraf packages",
+    "build:packages": "mocha --exit src/build.js",
+    "build": "npm run build:reset && npm run build:packages",
+    "test:lint": "mocha test/lint.spec.js",
+    "test:fixtures": "mocha test/fixtures.spec.js",
+    "test": "npm run test:lint && npm run test:fixtures"
   },
   "dependencies": {
+    "mocha": "6.2.2",
+    "rimraf": "3.0.0",
     "typescript": "3.7.2"
   },
   "devDependencies": {
@@ -34,6 +41,6 @@
     "@wildpeaks/eslint-config-commonjs": "7.2.0",
     "ajv": "6.10.2",
     "eslint": "6.6.0",
-    "mocha": "6.2.2"
+    "puppeteer": "2.0.0"
   }
 }
