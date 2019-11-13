@@ -30,10 +30,10 @@ module.exports = {
 				outDir: 'lib'
 			},
 			include: [
-				'./src/*.d.ts',
-				'./src/*.ts',
-				'./src/**/*.ts',
-				'./src/node_modules/**/*.ts'
+				'../../../src/*.d.ts',
+				'../../../src/*.ts',
+				'../../../src/**/*.ts',
+				'../../../src/node_modules/**/*.ts'
 			]
 		}
 	}
