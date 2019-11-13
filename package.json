@@ -1,0 +1,35 @@
+{
+  "private": true,
+  "name": "@wildpeaks/tsconfig",
+  "version": "0.0.1",
+  "description": "Typescript configuration packages",
+  "author": "Cecile Muller",
+  "license": "MIT",
+  "homepage": "https://github.com/wildpeaks/packages-typescript-config#readme",
+  "repository": "https://github.com/wildpeaks/packages-typescript-config",
+  "bugs": {
+    "url": "https://github.com/wildpeaks/packages-typescript-config/issues"
+  },
+  "eslintIgnore": [
+    "packages"
+  ],
+  "eslintConfig": {
+    "extends": "@wildpeaks/commonjs"
+  },
+  "greenkeeper": {
+    "commitMessages": {
+      "dependencyUpdate": "fix: Update ${dependency}",
+      "devDependencyUpdate": "chore: Update ${dependency}"
+    }
+  },
+  "scripts": {
+    "test": "mocha test/*.spec.js"
+  },
+  "devDependencies": {
+    "@types/node": "12.12.7",
+    "@wildpeaks/eslint-config-commonjs": "7.2.0",
+    "eslint": "6.6.0",
+    "mocha": "6.2.2",
+    "typescript": "3.7.2"
+  }
+}
