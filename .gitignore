@@ -13,7 +13,7 @@
 !/.vscode
 !/src
 !/test
-!/packages
+# !/packages
 !/package.json
 
 # But make sure to ignore those regardless:
