@@ -12,6 +12,9 @@
 		"lib": true,
 		"node_modules": true,
 		"*/**/node_modules": false,
-		"packages/*/node_modules": true
+		"packages/*/node_modules": true,
+		"test/fixtures/*/tsconfig.json": true,
+		"test/fixtures/*/lib": true,
+		"test/fixtures/*/dist": true
 	}
 }

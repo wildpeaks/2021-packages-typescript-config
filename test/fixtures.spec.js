@@ -1,9 +1,7 @@
 /* eslint-env node, mocha */
+/* eslint-disable no-undefined */
 'use strict';
 
-// Not sure I really need @types/node given I write the tests in JS directly
-// although I'm not sure if I can really use the TS compiler in JS, it might require TS to work properly
-
 //
-//
+// spawn + tsc is more reliable, and I can just write the tsconfig in fixtures
 //
