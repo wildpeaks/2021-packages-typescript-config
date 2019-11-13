@@ -7,7 +7,7 @@ jobs:
   todelete:
     timeout-minutes: 5
     runs-on: ubuntu-latest
-	steps:
+  steps:
 
       - name: Use Node 12
         uses: actions/setup-node@v1
