@@ -1,0 +1,20 @@
+# Ignore everything by default:
+/*
+/*/
+
+# But allow those files and folders:
+!/LICENSE
+!/README.md
+!/.editorconfig
+!/.gitattributes
+!/.gitignore
+!/.github
+!/.npmrc
+!/.vscode
+!/src
+!/test
+!/packages
+!/package.json
+
+# But make sure to ignore those regardless:
+/packages/*/node_modules
