@@ -21,3 +21,4 @@
 /test/fixtures/*/tsconfig.json
 /test/fixtures/*/lib
 /test/fixtures/*/dist
+/test/fixtures/*/node_modules
