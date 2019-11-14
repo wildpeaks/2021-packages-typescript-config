@@ -27,7 +27,6 @@
     "test:lint": "mocha test/lint.spec.js",
     "test:fixtures": "mocha test/fixtures.spec.js",
     "test": "npm run test:lint && npm run test:fixtures",
-
     "WAS__build:reset": "rimraf packages",
     "WAS__test:reset1": "rimraf test/fixtures/*/node_modules",
     "WAS__test:reset2": "rimraf test/fixtures/*/tsconfig.json",
@@ -36,8 +35,9 @@
     "WAS__test": "npm run test:reset1 && npm run test:reset2 && npm run test:lint && npm run test:fixtures"
   },
   "dependencies": {
-    "mocha": "6.2.2",
     "fs-extra": "8.1.0",
+    "mocha": "6.2.2",
+    "recursive-readdir": "^2.2.2",
     "typescript": "3.7.2"
   },
   "devDependencies": {
