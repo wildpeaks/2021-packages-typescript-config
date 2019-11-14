@@ -36,6 +36,16 @@ function assertPath(text, id){
 
 function assertPaths(presetId){
 	const preset = presets[presetId];
+
+	if (typeof preset.compilerOptions === 'object'){
+		for (const id of ['outDir', 'outFile', 'rootDir']){
+			if (id in preset.compilerOptions){
+				assertPath(preset.compilerOptions[id]);
+			}
+		}
+	}
+	// "outDir": "lib"
+
 	for (const id of ['outDir', 'outFile', 'rootDir']){
 		if (id in preset){
 			assertPath(preset[id]);

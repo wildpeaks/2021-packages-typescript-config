@@ -1,9 +1,10 @@
 /* eslint-env node, mocha */
 /* eslint-disable prefer-arrow-callback */
+/* eslint-disable no-empty */
 'use strict';
 const {strictEqual, deepStrictEqual} = require('assert');
 const {exec} = require('child_process');
-const {writeFileSync} = require('fs');
+const {readdirSync, writeFileSync} = require('fs');
 const {relative} = require('path');
 const {copySync, removeSync, mkdirpSync} = require('fs-extra');
 const {join} = require('path');
@@ -26,14 +27,15 @@ function compile(fixtureFolder){
 
 
 before('Setup', function(){
-
-	//
-	// TODO for every fixture
-	//
-	const modulesFolder = join(fixturesFolder, 'basic', 'node_modules/@wildpeaks');
-	removeSync(modulesFolder);
-	mkdirpSync(modulesFolder);
-	copySync(packagesFolder, modulesFolder);
+	const fixtureIds = readdirSync(fixturesFolder);
+	for (const fixtureId of fixtureIds){
+		const modulesFolder = join(fixturesFolder, fixtureId, 'node_modules/@wildpeaks');
+		try {
+			removeSync(modulesFolder);
+		} catch(e){}
+		mkdirpSync(modulesFolder);
+		copySync(packagesFolder, modulesFolder);
+	}
 });
 
 
@@ -67,7 +69,6 @@ describe('Package: Node', function(){
 		const {throws, filesBefore, filesAfter} = await compileFixture('basic', 'node');
 
 		strictEqual(throws, false, 'No error');
-
 		deepStrictEqual(
 			filesBefore,
 			[
@@ -76,7 +77,6 @@ describe('Package: Node', function(){
 			],
 			'Files before'
 		);
-
 		deepStrictEqual(
 			filesAfter,
 			[

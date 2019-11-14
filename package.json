@@ -26,7 +26,8 @@
     "build": "mocha --exit src/build.js",
     "test:lint": "mocha test/lint.spec.js",
     "test:fixtures": "mocha test/fixtures.spec.js",
-    "test": "npm run test:lint && npm run test:fixtures",
+    "test": "npm run build && npm run test:lint && npm run test:fixtures",
+
     "WAS__build:reset": "rimraf packages",
     "WAS__test:reset1": "rimraf test/fixtures/*/node_modules",
     "WAS__test:reset2": "rimraf test/fixtures/*/tsconfig.json",
@@ -37,12 +38,10 @@
   "dependencies": {
     "fs-extra": "8.1.0",
     "mocha": "6.2.2",
-    "recursive-readdir": "^2.2.2",
+    "recursive-readdir": "2.2.2",
     "typescript": "3.7.2"
   },
   "devDependencies": {
-    "@types/node": "12.12.7",
-    "@wildpeaks/async": "1.2.2",
     "@wildpeaks/eslint-config-commonjs": "7.2.0",
     "ajv": "6.10.2",
     "eslint": "6.6.0",

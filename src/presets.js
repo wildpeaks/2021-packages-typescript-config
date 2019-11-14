@@ -27,7 +27,7 @@ module.exports = {
 				target: 'es2017',
 				sourceMap: false,
 				removeComments: true,
-				outDir: 'lib'
+				outDir: '../../../lib'
 			},
 			include: [
 				'../../../src/*.d.ts',
