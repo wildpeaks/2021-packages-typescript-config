@@ -5,6 +5,7 @@ const {mkdirSync, writeFileSync} = require('fs');
 const {version} = require('../package.json');
 const presets = require('./presets');
 const packagesFolder = join(__dirname, '../packages');
+const {removeSync} = require('fs-extra');
 
 
 function generatePackage(id){
@@ -53,6 +54,7 @@ function generatePackage(id){
 
 
 describe('Build', () => {
+	removeSync(packagesFolder);
 	mkdirSync(packagesFolder);
 	for (const id in presets){
 		it(id, generatePackage.bind(null, id));
