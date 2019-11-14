@@ -1,4 +1,4 @@
 /* eslint-env node */
 
-const text: string = String(process.argv.join(','));
-console.log(text);
+console.log('AAAAAA');
+console.log('123');

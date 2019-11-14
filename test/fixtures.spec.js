@@ -13,13 +13,16 @@ const packagesFolder = join(process.cwd(), 'packages');
 const rreaddir = require('recursive-readdir');
 
 
-function compile(fixtureFolder){
+function execCommand(command, folder){
 	return new Promise((resolve, reject) => {
-		exec('tsc --build tsconfig.json', {cwd: fixtureFolder}, (error, _stdout, _stderr) => {
+		exec(command, {cwd: folder}, (error, stdout, stderr) => {
 			if (error){
 				reject(error);
 			} else {
-				resolve();
+				resolve({
+					output: stdout.trim().split('\n').map(line => line.trim()).filter(line => (line !== '')),
+					errors: stderr.trim().split('\n').map(line => line.trim()).filter(line => (line !== ''))
+				});
 			}
 		});
 	});
@@ -29,9 +32,16 @@ function compile(fixtureFolder){
 before('Setup', function(){
 	const fixtureIds = readdirSync(fixturesFolder);
 	for (const fixtureId of fixtureIds){
-		const modulesFolder = join(fixturesFolder, fixtureId, 'node_modules/@wildpeaks');
+		const baseFolder = join(fixturesFolder, fixtureId);
+		const modulesFolder = join(baseFolder, 'node_modules/@wildpeaks');
 		try {
 			removeSync(modulesFolder);
+		} catch(e){}
+		try {
+			removeSync(join(baseFolder, 'lib'));
+		} catch(e){}
+		try {
+			removeSync(join(baseFolder, 'dist'));
 		} catch(e){}
 		mkdirpSync(modulesFolder);
 		copySync(packagesFolder, modulesFolder);
@@ -52,7 +62,7 @@ async function compileFixture(fixtureId, configId){
 
 	let throws = false;
 	try {
-		await compile(folder);
+		await execCommand('tsc --build tsconfig.json', folder); // AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 	} catch(e){
 		throws = e;
 	}
@@ -66,7 +76,7 @@ describe('Package: Node', function(){
 
 	it(`Basic`, /* @this */ async function(){
 		this.slow(15000);
-		const {throws, filesBefore, filesAfter} = await compileFixture('basic', 'node');
+		const {folder, throws, filesBefore, filesAfter} = await compileFixture('basic', 'node');
 
 		strictEqual(throws, false, 'No error');
 		deepStrictEqual(
@@ -87,9 +97,17 @@ describe('Package: Node', function(){
 			'Files after'
 		);
 
-		//
-		// TODO run in Node (or Puppeteer for web config)
-		//
+		const output = await execCommand('node lib/main.js', folder);
+		deepStrictEqual(
+			output,
+			{
+				errors: [],
+				output: [
+					'AAAAAA',
+					'123'
+				]
+			}
+		);
 	});
 });
 
