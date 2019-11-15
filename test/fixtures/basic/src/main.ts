@@ -1,4 +1,2 @@
-/* eslint-env node */
-
-console.log('AAAAAA');
-console.log('123');
+/* eslint-env shared-node-browser */
+console.log('Hello World');

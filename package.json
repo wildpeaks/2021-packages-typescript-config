@@ -26,14 +26,7 @@
     "build": "mocha --exit src/build.js",
     "test:lint": "mocha test/lint.spec.js",
     "test:fixtures": "mocha test/fixtures.spec.js",
-    "test": "npm run build && npm run test:lint && npm run test:fixtures",
-
-    "WAS__build:reset": "rimraf packages",
-    "WAS__test:reset1": "rimraf test/fixtures/*/node_modules",
-    "WAS__test:reset2": "rimraf test/fixtures/*/tsconfig.json",
-    "WAS__build:packages": "mocha --exit src/build.js",
-    "WAS__build": "npm run build:reset && npm run build:packages",
-    "WAS__test": "npm run test:reset1 && npm run test:reset2 && npm run test:lint && npm run test:fixtures"
+    "test": "npm run build && npm run test:lint && npm run test:fixtures"
   },
   "dependencies": {
     "fs-extra": "8.1.0",
@@ -42,9 +35,11 @@
     "typescript": "3.7.2"
   },
   "devDependencies": {
+    "@types/node": "12.12.7",
     "@wildpeaks/eslint-config-commonjs": "7.2.0",
     "ajv": "6.10.2",
     "eslint": "6.6.0",
+    "preact": "10.0.5",
     "puppeteer": "2.0.0"
   }
 }

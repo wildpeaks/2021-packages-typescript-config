@@ -18,6 +18,8 @@
 
 # But make sure to ignore those regardless:
 /packages/*/node_modules
+/test/fixtures/*/package.json
+/test/fixtures/*/package-lock.json
 /test/fixtures/*/tsconfig.json
 /test/fixtures/*/lib
 /test/fixtures/*/dist

@@ -35,7 +35,7 @@ before('Setup', function(){
 		const baseFolder = join(fixturesFolder, fixtureId);
 		const modulesFolder = join(baseFolder, 'node_modules/@wildpeaks');
 		try {
-			removeSync(modulesFolder);
+			removeSync(modulesFolder); // I'll need to delete subfolder instead of @wildpeaks once I need other packages from the namespace
 		} catch(e){}
 		try {
 			removeSync(join(baseFolder, 'lib'));
@@ -82,18 +82,22 @@ describe('Package: Node', function(){
 		deepStrictEqual(
 			filesBefore,
 			[
+				'package.json',
+				'package-lock.json',
 				'src/main.ts',
 				'tsconfig.json'
-			],
+			].sort(),
 			'Files before'
 		);
 		deepStrictEqual(
 			filesAfter,
 			[
+				'package.json',
+				'package-lock.json',
 				'lib/main.js',
 				'src/main.ts',
 				'tsconfig.json'
-			],
+			].sort(),
 			'Files after'
 		);
 
@@ -103,8 +107,7 @@ describe('Package: Node', function(){
 			{
 				errors: [],
 				output: [
-					'AAAAAA',
-					'123'
+					'[preact] object'
 				]
 			}
 		);
