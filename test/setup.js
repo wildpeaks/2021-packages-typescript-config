@@ -5,10 +5,10 @@ const {writeFileSync} = require('fs');
 const {removeSync, mkdirpSync} = require('fs-extra');
 const {devDependencies} = require('../package.json');
 const tmpFolder = join(__dirname, `tmp`);
-const execCommand = require('./execCommand');
+const {execCommand} = require('./shared');
 
 
-async function setup(id, extraPackages){
+async function setupFolder(id, extraPackages){
 	const targetFolder = join(tmpFolder, id);
 	try {
 		removeSync(targetFolder);
@@ -26,13 +26,23 @@ async function setup(id, extraPackages){
 	writeFileSync(join(targetFolder, 'package.json'), JSON.stringify(targetPackage), 'utf8');
 	writeFileSync(join(targetFolder, 'tsconfig.json'), '{"extends":"@wildpeaks/tsconfig-node"}', 'utf8');
 
-	await execCommand('npm install --no-save', targetFolder);
+	const {output, errors} = await execCommand('npm install --no-save', targetFolder);
+	console.log(output.join('\n'));
+	if (errors.length > 0){
+		throw new Error(errors);
+	}
 }
 
 
 async function main(){ // eslint-disable-line require-await
-	await setup('node', ['typescript']);
-	// await setup('web', ['typescript', 'webpack', 'webpack-cli', '@wildpeaks/webpack-config/web']);
+	await setupFolder('node', ['typescript']);
+	// await setupFolder('web', ['typescript', 'webpack', 'webpack-cli', '@wildpeaks/webpack-config/web']);
 }
-main().then(() => {}, () => {}); // eslint-disable-line no-empty-function
-
+main().then(
+	() => {
+		console.log('[OK] Done.');
+	},
+	e => {
+		console.log('[ERROR]', e);
+	}
+);
