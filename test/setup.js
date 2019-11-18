@@ -16,15 +16,15 @@ async function setupFolder(id, extraPackages){
 	mkdirpSync(targetFolder);
 
 	const {dependencies} = require(`../packages/tsconfig-${id}/package.json`); // eslint-disable-line global-require
-	const targetPackage = {
+	const settings = {
 		private: true,
 		dependencies
 	};
 	for (const packageId of extraPackages){
-		targetPackage.dependencies[packageId] = devDependencies[packageId];
+		settings.dependencies[packageId] = devDependencies[packageId];
 	}
-	writeFileSync(join(targetFolder, 'package.json'), JSON.stringify(targetPackage), 'utf8');
-	writeFileSync(join(targetFolder, 'tsconfig.json'), '{"extends":"@wildpeaks/tsconfig-node"}', 'utf8');
+	writeFileSync(join(targetFolder, 'package.json'), JSON.stringify(settings), 'utf8');
+	writeFileSync(join(targetFolder, 'tsconfig.json'), `{"extends":"@wildpeaks/tsconfig-${id}"}`, 'utf8');
 
 	const {output, errors} = await execCommand('npm install --no-save', targetFolder);
 	console.log(output.join('\n'));
