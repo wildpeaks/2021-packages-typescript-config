@@ -7,6 +7,6 @@ container.setAttribute('id', 'hello');
 document.body.appendChild(container);
 
 render(
-	h('article', {className: 'example'}, ['TS Hello World']),
+	<article class="example">TSX Hello World</article>,
 	container
 );

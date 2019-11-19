@@ -15,7 +15,7 @@ describe('Package: Web', function(){
 	//
 
 
-	it(`DOM`, /* @this */ async function(){
+	it(`No import or export`, /* @this */ async function(){
 		this.slow(10000);
 		this.timeout(15000);
 
@@ -40,7 +40,7 @@ describe('Package: Web', function(){
 	});
 
 
-	it(`DOM + Exports`, /* @this */ async function(){
+	it(`Toplevel export`, /* @this */ async function(){
 		this.slow(10000);
 		this.timeout(15000);
 
@@ -65,7 +65,7 @@ describe('Package: Web', function(){
 	});
 
 
-	it(`DOM + Preact`, /* @this */ async function(){
+	it(`Preact`, /* @this */ async function(){
 		this.slow(10000);
 		this.timeout(15000);
 
@@ -79,6 +79,31 @@ describe('Package: Web', function(){
 		const outputFiles = [
 			'dist/index.html',
 			'dist/app-preact.js'
+		];
+		deepStrictEqual(filesBefore, inputFiles.sort(), 'Files before');
+		deepStrictEqual(errors, [], 'No errors');
+		deepStrictEqual(filesAfter, inputFiles.concat(outputFiles).sort(), 'Files after');
+
+		//
+		// TODO pupeteer + express
+		//
+	});
+
+
+	it(`TSX`, /* @this */ async function(){
+		this.slow(10000);
+		this.timeout(15000);
+
+		const {filesBefore, filesAfter, errors} = await compileFixture('web', 'web-tsx', 'webpack');
+		const inputFiles = [
+			'package.json',
+			'tsconfig.json',
+			'webpack.config.js',
+			'src/application-tsx.tsx'
+		];
+		const outputFiles = [
+			'dist/index.html',
+			'dist/app-tsx.js'
 		];
 		deepStrictEqual(filesBefore, inputFiles.sort(), 'Files before');
 		deepStrictEqual(errors, [], 'No errors');
