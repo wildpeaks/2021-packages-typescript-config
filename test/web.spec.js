@@ -20,8 +20,6 @@ describe('Package: Web', function(){
 		this.timeout(15000);
 
 		const {filesBefore, filesAfter, errors} = await compileFixture('web', 'web-dom', 'webpack');
-		deepStrictEqual(errors, [], 'No errors');
-
 		const inputFiles = [
 			'package.json',
 			'tsconfig.json',
@@ -30,9 +28,10 @@ describe('Package: Web', function(){
 		];
 		const outputFiles = [
 			'dist/index.html',
-			'dist/app.js'
+			'dist/app-dom.js'
 		];
 		deepStrictEqual(filesBefore, inputFiles.sort(), 'Files before');
+		deepStrictEqual(errors, [], 'No errors');
 		deepStrictEqual(filesAfter, inputFiles.concat(outputFiles).sort(), 'Files after');
 
 		//
@@ -46,8 +45,6 @@ describe('Package: Web', function(){
 		this.timeout(15000);
 
 		const {filesBefore, filesAfter, errors} = await compileFixture('web', 'web-exports', 'webpack');
-		deepStrictEqual(errors, [], 'No errors');
-
 		const inputFiles = [
 			'package.json',
 			'tsconfig.json',
@@ -56,9 +53,10 @@ describe('Package: Web', function(){
 		];
 		const outputFiles = [
 			'dist/index.html',
-			'dist/app.js'
+			'dist/app-exports.js'
 		];
 		deepStrictEqual(filesBefore, inputFiles.sort(), 'Files before');
+		deepStrictEqual(errors, [], 'No errors');
 		deepStrictEqual(filesAfter, inputFiles.concat(outputFiles).sort(), 'Files after');
 
 		//
