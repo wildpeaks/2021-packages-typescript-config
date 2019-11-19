@@ -20,8 +20,8 @@ describe('Package: Node', function(){
 			filesBefore,
 			[
 				'package.json',
-				'src/main.ts',
-				'tsconfig.json'
+				'tsconfig.json',
+				'src/main.ts'
 			].sort(),
 			'Files before'
 		);
@@ -29,9 +29,9 @@ describe('Package: Node', function(){
 			filesAfter,
 			[
 				'package.json',
-				'lib/main.js',
+				'tsconfig.json',
 				'src/main.ts',
-				'tsconfig.json'
+				'lib/main.js'
 			].sort(),
 			'Files after'
 		);
