@@ -31,12 +31,15 @@
 		"outDir": "../../../dist",
 
 		"jsx": "react",
-		"jsxFactory": "h",
+		"jsxFactory": "h"
 	},
 	"include": [
 		"../../../src/*.d.ts",
 		"../../../src/*.ts",
+		"../../../src/*.tsx",
 		"../../../src/**/*.ts",
-		"../../../src/node_modules/**/*.ts"
+		"../../../src/**/*.tsx",
+		"../../../src/node_modules/**/*.ts",
+		"../../../src/node_modules/**/*.tsx"
 	]
 }
