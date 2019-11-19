@@ -1,0 +1,42 @@
+{
+	"compilerOptions": {
+		"newLine": "LF",
+		"alwaysStrict": true,
+		"noEmitOnError": true,
+		"noImplicitAny": true,
+		"noImplicitReturns": true,
+		"noImplicitThis": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"strictNullChecks": true,
+		"preserveConstEnums": true,
+		"useDefineForClassFields": true,
+		"moduleResolution": "node",
+		"resolveJsonModule": true,
+		"allowJs": false,
+		"sourceMap": false,
+		"removeComments": true,
+
+		"typeRoots" : [
+			"../../../node_modules"
+		],
+		"types": [
+			"local-types",
+			"@types/node"
+		],
+
+		"module": "esnext",
+		"lib": ["es2017", "dom"],
+		"target": "es5",
+		"outDir": "../../../dist",
+
+		"jsx": "react",
+		"jsxFactory": "h",
+	},
+	"include": [
+		"../../../src/*.d.ts",
+		"../../../src/*.ts",
+		"../../../src/**/*.ts",
+		"../../../src/node_modules/**/*.ts"
+	]
+}

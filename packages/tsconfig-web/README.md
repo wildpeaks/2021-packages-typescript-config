@@ -1,0 +1,3 @@
+# Typescript Config: Web
+
+AAaaaaaaaaaaaaaaaaaaaaa
