@@ -9,10 +9,15 @@ const rreaddir = require('recursive-readdir');
 
 
 function execCommand(command, folder){
-	return new Promise((resolve, reject) => {
+	// return new Promise((resolve, reject) => {
+	return new Promise(resolve => {
 		exec(command, {cwd: folder}, (error, stdout, stderr) => {
 			if (error){
-				reject(error);
+				// reject(error);
+				resolve({
+					output: [],
+					errors: error
+				});
 			} else {
 				resolve({
 					output: stdout.trim().split('\n').map(line => line.trim()).filter(line => (line !== '')),
@@ -45,9 +50,9 @@ async function compileFixture(configId, fixtureId, command){
 	const fromFixtureFolder = join(__dirname, `fixtures/${fixtureId}`);
 	const toTmpFolder = join(__dirname, `tmp/${configId}`);
 
-	// try {
-	// 	removeSync(join(toTmpFolder, 'bin'));
-	// } catch(e){}
+	try {
+		removeSync(join(toTmpFolder, 'bin'));
+	} catch(e){}
 	try {
 		removeSync(join(toTmpFolder, 'src'));
 	} catch(e){}
@@ -57,8 +62,19 @@ async function compileFixture(configId, fixtureId, command){
 	try {
 		removeSync(join(toTmpFolder, 'dist'));
 	} catch(e){}
-	// copySync(join(fromFixtureFolder, 'bin'), join(toTmpFolder, 'bin'));
-	copySync(join(fromFixtureFolder, 'src'), join(toTmpFolder, 'src'));
+	try {
+		removeSync(join(toTmpFolder, 'webpack.config.js'));
+	} catch(e){}
+
+	try {
+		copySync(join(fromFixtureFolder, 'bin'), join(toTmpFolder, 'bin'));
+	} catch(e){}
+	try {
+		copySync(join(fromFixtureFolder, 'src'), join(toTmpFolder, 'src'));
+	} catch(e){}
+	try {
+		copySync(join(fromFixtureFolder, 'webpack.config.js'), join(toTmpFolder, 'webpack.config.js'));
+	} catch(e){}
 	writeFileSync(join(toTmpFolder, 'package.json'), JSON.stringify({private: true, scripts: {build: command}}), 'utf8');
 
 	const filesBefore = await getFiles(toTmpFolder);
