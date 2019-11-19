@@ -39,4 +39,30 @@ describe('Package: Web', function(){
 		// TODO pupeteer + express
 		//
 	});
+
+
+	it(`DOM + Exports`, /* @this */ async function(){
+		this.slow(10000);
+		this.timeout(15000);
+
+		const {filesBefore, filesAfter, errors} = await compileFixture('web', 'web-exports', 'webpack');
+		deepStrictEqual(errors, [], 'No errors');
+
+		const inputFiles = [
+			'package.json',
+			'tsconfig.json',
+			'webpack.config.js',
+			'src/application-exports.ts'
+		];
+		const outputFiles = [
+			'dist/index.html',
+			'dist/app.js'
+		];
+		deepStrictEqual(filesBefore, inputFiles.sort(), 'Files before');
+		deepStrictEqual(filesAfter, inputFiles.concat(outputFiles).sort(), 'Files after');
+
+		//
+		// TODO pupeteer + express
+		//
+	});
 });
