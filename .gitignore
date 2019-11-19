@@ -17,3 +17,4 @@
 
 # But make sure to ignore those regardless:
 /test/tmp
+WAS *
