@@ -36,7 +36,7 @@ async function setupFolder(id, extraPackages){
 
 async function main(){ // eslint-disable-line require-await
 	await setupFolder('node', ['typescript']);
-	// await setupFolder('web', ['typescript', 'webpack', 'webpack-cli', '@wildpeaks/webpack-config/web']);
+	await setupFolder('web', ['typescript', 'webpack', 'webpack-cli', '@wildpeaks/webpack-config/web']);
 }
 main().then(
 	() => {
