@@ -1,7 +1,8 @@
 /* eslint-env worker */
-self.addEventListener('message', (e: any) => {
+self.addEventListener('message', (e: {data: MessageFromMain}) => {
 	// @ts-ignore
 	self.postMessage({
-		myresponse: `[REQUEST] ${e.myrequest} [RESPONSE] WORKER to MAIN`
-	});
+		myrequest: e.data.mytext,
+		myresponse: 'WORKER to MAIN'
+	} as MessageFromWorker);
 });

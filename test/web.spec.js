@@ -1,11 +1,28 @@
-/* eslint-env node, mocha */
+/* eslint-env node, mocha, browser */
 /* eslint-disable prefer-arrow-callback */
 'use strict';
-const {deepStrictEqual} = require('assert');
+const {strictEqual, deepStrictEqual} = require('assert');
+const {join} = require('path');
+const express = require('express');
+const puppeteer = require('puppeteer');
 const {copyConfig, compileFixture} = require('./shared');
 
+let app;
+let server;
+const port = 8888;
+const outputFolder = join(__dirname, `tmp/web/dist`);
 
-function testFixture({id, title, sourceFiles, tscFiles, webpackFiles, expectedOutput}){
+
+function sleep(duration){
+	return new Promise(resolve => {
+		setTimeout(() => {
+			resolve();
+		}, duration);
+	});
+}
+
+
+function testFixture({id, title, sourceFiles, tscFiles, webpackFiles, expectedHTML}){
 	it(title, /* @this */ async function(){
 		this.slow(30000);
 		this.timeout(30000);
@@ -20,21 +37,47 @@ function testFixture({id, title, sourceFiles, tscFiles, webpackFiles, expectedOu
 		deepStrictEqual(compiled.errors, [], 'No Webpack errors');
 		deepStrictEqual(compiled.filesAfter, sourceFiles.concat(webpackFiles).sort(), 'After Webpack');
 
-		//
-		// TODO test "expectedOutput" using Puppeteer
-		//
+		const browser = await puppeteer.launch();
+		try {
+			const page = await browser.newPage();
+			await page.goto(`http://localhost:${port}/`);
+			await sleep(300);
+			const actualHTML = await page.evaluate(() => {
+				const el = document.getElementById('hello');
+				if (el === null){
+					return 'Error: #hello not found';
+				}
+				return el.innerHTML;
+			});
+			strictEqual(actualHTML, expectedHTML);
+		} finally {
+			await browser.close();
+		}
 	});
 }
 
 
-describe('Package: Web', function(){
-	before('Setup', function(){
+before('Setup', function(){
+	return new Promise(resolve => {
 		copyConfig('web');
-		//
-		// TODO express must serve /dist for Puppeteer
-		//
+		app = express();
+		app.use(express.static(outputFolder));
+		server = app.listen(port, () => {
+			resolve();
+		});
 	});
+});
 
+after('Shutdown', function(){
+	return new Promise(resolve => {
+		server.close(() => {
+			resolve();
+		});
+	});
+});
+
+
+describe('Package: Web', function(){
 	testFixture({
 		id: 'web-dom',
 		title: 'No import or export',
@@ -50,7 +93,8 @@ describe('Package: Web', function(){
 		webpackFiles: [
 			'dist/index.html',
 			'dist/app-dom.js'
-		]
+		],
+		expectedHTML: '[DOM] Type of window is object'
 	});
 
 	testFixture({
@@ -68,7 +112,8 @@ describe('Package: Web', function(){
 		webpackFiles: [
 			'dist/index.html',
 			'dist/app-exports.js'
-		]
+		],
+		expectedHTML: '[EXPORTS] Type of window is object'
 	});
 
 	testFixture({
@@ -86,7 +131,8 @@ describe('Package: Web', function(){
 		webpackFiles: [
 			'dist/index.html',
 			'dist/app-preact.js'
-		]
+		],
+		expectedHTML: '<article class="example">TS Hello World</article>'
 	});
 
 	testFixture({
@@ -104,7 +150,8 @@ describe('Package: Web', function(){
 		webpackFiles: [
 			'dist/index.html',
 			'dist/app-tsx.js'
-		]
+		],
+		expectedHTML: '<article class="example">TSX Hello World</article>'
 	});
 
 	testFixture({
@@ -126,7 +173,8 @@ describe('Package: Web', function(){
 			'dist/index.html',
 			'dist/app-css.js',
 			'dist/app-css.css'
-		]
+		],
+		expectedHTML: 'CSS .myclass is a string'
 	});
 
 	testFixture({
@@ -148,7 +196,8 @@ describe('Package: Web', function(){
 			'dist/index.html',
 			'dist/app-scss.js',
 			'dist/app-scss.css'
-		]
+		],
+		expectedHTML: 'SCSS .myclass is a string'
 	});
 
 	testFixture({
@@ -179,7 +228,7 @@ describe('Package: Web', function(){
 			'dist/assets/example2.png',
 			'dist/assets/example3.svg'
 		],
-		expectedOutput: '[IMAGES] JPG string PNG string SVG string'
+		expectedHTML: '<img src="/assets/example1.jpg"><img src="/assets/example2.png"><img src="/assets/example3.svg">'
 	});
 
 	testFixture({
@@ -189,6 +238,7 @@ describe('Package: Web', function(){
 			'package.json',
 			'tsconfig.json',
 			'webpack.config.js',
+			'src/types.d.ts',
 			'src/application-webworker.ts',
 			'src/example.webworker.ts'
 		],
@@ -201,6 +251,6 @@ describe('Package: Web', function(){
 			'dist/app-webworker.js',
 			'dist/example.webworker.js'
 		],
-		expectedOutput: '[REQUEST] MAIN to WORKER [RESPONSE] WORKER to MAIN'
+		expectedHTML: '[REQUEST] MAIN to WORKER [RESPONSE] WORKER to MAIN'
 	});
 });

@@ -6,7 +6,6 @@ import {mymodule as mymodule3} from 'mymodule-svg';
 
 const container = document.createElement('div');
 container.setAttribute('id', 'hello');
-container.innerText = '[IMAGES]';
 mymodule1(container);
 mymodule2(container);
 mymodule3(container);

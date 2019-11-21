@@ -8,9 +8,9 @@ container.innerHTML = 'DEFAULT';
 document.body.appendChild(container);
 
 const worker: Worker = new MyWorker();
-worker.onmessage = (e: any) => {
-	container.innerHTML = JSON.stringify(e);
+worker.onmessage = (e: {data: MessageFromWorker}) => {
+	container.innerText = `[REQUEST] ${e.data.myrequest} [RESPONSE] ${e.data.myresponse}`
 };
-worker.postMessage({myrequest: 'MAIN to WORKER'});
+worker.postMessage({mytext: 'MAIN to WORKER'} as MessageFromMain);
 
 export default {};
