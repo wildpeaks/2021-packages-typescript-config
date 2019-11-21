@@ -5,46 +5,47 @@ const {deepStrictEqual} = require('assert');
 const {copyConfig, compileFixture, execCommand} = require('./shared');
 
 
+function testFixture({id, title, sourceFiles, tscFiles, mainFilename, expectedOutput}){
+	it(title, /* @this */ async function(){
+		this.slow(10000);
+		this.timeout(15000);
+
+		const typechecked = await compileFixture('node', id, 'tsc --build tsconfig.json');
+		deepStrictEqual(typechecked.filesBefore, sourceFiles.sort(), 'Before TSC');
+		deepStrictEqual(typechecked.errors, [], 'No TSC errors');
+		deepStrictEqual(typechecked.filesAfter, sourceFiles.concat(tscFiles).sort(), 'After TSC');
+
+		const executed = await execCommand(`node ${mainFilename}`, typechecked.folder);
+		deepStrictEqual(
+			executed,
+			{
+				errors: [],
+				output: expectedOutput
+			}
+		);
+	});
+}
+
+
 describe('Package: Node', function(){
 	before('Setup', function(){
 		copyConfig('node');
 	});
 
-	it(`Basic`, /* @this */ async function(){
-		this.slow(10000);
-		this.timeout(15000);
-
-		const {folder, filesBefore, filesAfter, errors} = await compileFixture('node', 'node-basic', 'tsc --build tsconfig.json');
-		deepStrictEqual(
-			filesBefore,
-			[
-				'package.json',
-				'tsconfig.json',
-				'src/main.ts'
-			].sort(),
-			'Files before'
-		);
-		deepStrictEqual(errors, [], 'No errors');
-		deepStrictEqual(
-			filesAfter,
-			[
-				'package.json',
-				'tsconfig.json',
-				'src/main.ts',
-				'lib/main.js'
-			].sort(),
-			'Files after'
-		);
-
-		const executed = await execCommand('node lib/main.js', folder);
-		deepStrictEqual(
-			executed,
-			{
-				errors: [],
-				output: [
-					'Hello World'
-				]
-			}
-		);
+	testFixture({
+		id: 'node-basic',
+		title: 'Basic',
+		sourceFiles: [
+			'package.json',
+			'tsconfig.json',
+			'src/main.ts'
+		],
+		tscFiles: [
+			'lib/main.js'
+		],
+		mainFilename: 'lib/main.js',
+		expectedOutput: [
+			'Hello World'
+		]
 	});
 });
