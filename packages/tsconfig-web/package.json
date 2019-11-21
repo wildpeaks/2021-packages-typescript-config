@@ -17,7 +17,8 @@
   "main": "tsconfig.json",
   "types": "types.d.ts",
   "files": [
-    "tsconfig.json"
+    "tsconfig.json",
+    "types.d.ts"
   ],
   "dependencies": {
     "@types/node": "12.12.11"
