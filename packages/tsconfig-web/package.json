@@ -15,10 +15,11 @@
     "url": "https://github.com/wildpeaks/packages-typescript-config/issues"
   },
   "main": "tsconfig.json",
+  "types": "types.d.ts",
   "files": [
     "tsconfig.json"
   ],
   "dependencies": {
-    "@types/node": "12.12.8"
+    "@types/node": "12.12.11"
   }
 }

@@ -21,25 +21,20 @@
 			"../../../node_modules"
 		],
 		"types": [
-			"local-types",
-			"@types/node"
+			"@types/node",
+			"@wildpeaks/tsconfig-web"
 		],
+		"jsx": "react",
+		"jsxFactory": "h",
 
 		"module": "esnext",
 		"lib": ["es2017", "dom"],
 		"target": "es5",
-		"outDir": "../../../dist",
-
-		"jsx": "react",
-		"jsxFactory": "h"
+		"outDir": "../../../lib"
 	},
 	"include": [
-		"../../../src/*.d.ts",
-		"../../../src/*.ts",
-		"../../../src/*.tsx",
-		"../../../src/**/*.ts",
-		"../../../src/**/*.tsx",
-		"../../../src/node_modules/**/*.ts",
-		"../../../src/node_modules/**/*.tsx"
+		"../../../node_modules/@wildpeaks/**/*",
+		"../../../src/**/*",
+		"../../../src/node_modules/**/*"
 	]
 }
