@@ -5,138 +5,149 @@ const {deepStrictEqual} = require('assert');
 const {copyConfig, compileFixture} = require('./shared');
 
 
+function testFixture({id, title, sourceFiles, tscFiles, webpackFiles}){
+	it(title, /* @this */ async function(){
+		this.slow(20000);
+		this.timeout(30000);
+
+		const typechecked = await compileFixture('web', id, 'tsc --build tsconfig.json');
+		deepStrictEqual(typechecked.filesBefore, sourceFiles.sort(), 'Before TSC');
+		deepStrictEqual(typechecked.errors, [], 'No TSC errors');
+		deepStrictEqual(typechecked.filesAfter, sourceFiles.concat(tscFiles).sort(), 'After TSC');
+
+		const compiled = await compileFixture('web', id, 'webpack');
+		deepStrictEqual(compiled.filesBefore, sourceFiles.sort(), 'Before Webpack');
+		deepStrictEqual(compiled.errors, [], 'No Webpack errors');
+		deepStrictEqual(compiled.filesAfter, sourceFiles.concat(webpackFiles).sort(), 'After Webpack');
+
+		//
+		// TODO test the compiled files in Puppeteer
+		//
+	});
+}
+
+
 describe('Package: Web', function(){
 	before('Setup', function(){
 		copyConfig('web');
+		//
+		// TODO express must serve /dist for Puppeteer
+		//
 	});
 
-	//
-	// TODO express must serve /dist for Puppeteer
-	//
-
-
-	it(`No import or export`, /* @this */ async function(){
-		this.slow(20000);
-		this.timeout(30000);
-		const {filesBefore, filesAfter, errors} = await compileFixture('web', 'web-dom', 'webpack');
-		const inputFiles = [
+	testFixture({
+		id: 'web-dom',
+		title: 'No import or export',
+		sourceFiles: [
 			'package.json',
 			'tsconfig.json',
 			'webpack.config.js',
 			'src/application-dom.ts'
-		];
-		const outputFiles = [
+		],
+		tscFiles: [
+			'lib/application-dom.js'
+		],
+		webpackFiles: [
 			'dist/index.html',
 			'dist/app-dom.js'
-		];
-		deepStrictEqual(filesBefore, inputFiles.sort(), 'Files before');
-		deepStrictEqual(errors, [], 'No errors');
-		deepStrictEqual(filesAfter, inputFiles.concat(outputFiles).sort(), 'Files after');
+		]
 	});
 
-
-	it(`Toplevel export`, /* @this */ async function(){
-		this.slow(20000);
-		this.timeout(30000);
-		const {filesBefore, filesAfter, errors} = await compileFixture('web', 'web-exports', 'webpack');
-		const inputFiles = [
+	testFixture({
+		id: 'web-exports',
+		title: 'Toplevel export',
+		sourceFiles: [
 			'package.json',
 			'tsconfig.json',
 			'webpack.config.js',
 			'src/application-exports.ts'
-		];
-		const outputFiles = [
+		],
+		tscFiles: [
+			'lib/application-exports.js'
+		],
+		webpackFiles: [
 			'dist/index.html',
 			'dist/app-exports.js'
-		];
-		deepStrictEqual(filesBefore, inputFiles.sort(), 'Files before');
-		deepStrictEqual(errors, [], 'No errors');
-		deepStrictEqual(filesAfter, inputFiles.concat(outputFiles).sort(), 'Files after');
+		]
 	});
 
-
-	it(`Preact`, /* @this */ async function(){
-		this.slow(20000);
-		this.timeout(30000);
-		const {filesBefore, filesAfter, errors} = await compileFixture('web', 'web-preact', 'webpack');
-		const inputFiles = [
+	testFixture({
+		id: 'web-preact',
+		title: 'Preact',
+		sourceFiles: [
 			'package.json',
 			'tsconfig.json',
 			'webpack.config.js',
 			'src/application-preact.ts'
-		];
-		const outputFiles = [
+		],
+		tscFiles: [
+			'lib/application-preact.js'
+		],
+		webpackFiles: [
 			'dist/index.html',
 			'dist/app-preact.js'
-		];
-		deepStrictEqual(filesBefore, inputFiles.sort(), 'Files before');
-		deepStrictEqual(errors, [], 'No errors');
-		deepStrictEqual(filesAfter, inputFiles.concat(outputFiles).sort(), 'Files after');
+		]
 	});
 
-
-	it(`TSX`, /* @this */ async function(){
-		this.slow(20000);
-		this.timeout(30000);
-		const {filesBefore, filesAfter, errors} = await compileFixture('web', 'web-tsx', 'webpack');
-		const inputFiles = [
+	testFixture({
+		id: 'web-tsx',
+		title: 'TSX',
+		sourceFiles: [
 			'package.json',
 			'tsconfig.json',
 			'webpack.config.js',
 			'src/application-tsx.tsx'
-		];
-		const outputFiles = [
+		],
+		tscFiles: [
+			'lib/application-tsx.js'
+		],
+		webpackFiles: [
 			'dist/index.html',
 			'dist/app-tsx.js'
-		];
-		deepStrictEqual(filesBefore, inputFiles.sort(), 'Files before');
-		deepStrictEqual(errors, [], 'No errors');
-		deepStrictEqual(filesAfter, inputFiles.concat(outputFiles).sort(), 'Files after');
+		]
 	});
 
-
-	it(`CSS`, /* @this */ async function(){
-		this.slow(20000);
-		this.timeout(30000);
-		const {filesBefore, filesAfter, errors} = await compileFixture('web', 'web-css', 'webpack');
-		const inputFiles = [
+	testFixture({
+		id: 'web-css',
+		title: 'CSS',
+		sourceFiles: [
 			'package.json',
 			'tsconfig.json',
 			'webpack.config.js',
 			'src/application-css.ts',
 			'src/node_modules/mymodule-css/index.ts',
 			'src/node_modules/mymodule-css/styles.css'
-		];
-		const outputFiles = [
+		],
+		tscFiles: [
+			'lib/application-css.js',
+			'lib/node_modules/mymodule-css/index.js'
+		],
+		webpackFiles: [
 			'dist/index.html',
 			'dist/app-css.js',
 			'dist/app-css.css'
-		];
-		deepStrictEqual(filesBefore, inputFiles.sort(), 'Files before');
-		deepStrictEqual(errors, [], 'No errors');
-		deepStrictEqual(filesAfter, inputFiles.concat(outputFiles).sort(), 'Files after');
+		]
 	});
 
-
-	it(`SCSS`, /* @this */ async function(){
-		this.slow(20000);
-		this.timeout(30000);
-		const {filesBefore, filesAfter, errors} = await compileFixture('web', 'web-scss', 'webpack');
-		const inputFiles = [
+	testFixture({
+		id: 'web-scss',
+		title: 'SCSS',
+		sourceFiles: [
 			'package.json',
 			'tsconfig.json',
 			'webpack.config.js',
 			'src/application-scss.ts',
 			'src/node_modules/mymodule-scss/index.ts',
 			'src/node_modules/mymodule-scss/styles.scss'
-		];
-		const outputFiles = [
+		],
+		tscFiles: [
+			'lib/application-scss.js',
+			'lib/node_modules/mymodule-scss/index.js'
+		],
+		webpackFiles: [
 			'dist/index.html',
 			'dist/app-scss.js',
 			'dist/app-scss.css'
-		];
-		deepStrictEqual(filesBefore, inputFiles.sort(), 'Files before');
-		deepStrictEqual(errors, [], 'No errors');
-		deepStrictEqual(filesAfter, inputFiles.concat(outputFiles).sort(), 'Files after');
+		]
 	});
 });
