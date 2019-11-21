@@ -32,7 +32,7 @@
   "devDependencies": {
     "@wildpeaks/async": "1.2.2",
     "@wildpeaks/eslint-config-commonjs": "7.2.0",
-    "@wildpeaks/webpack-config-web": "4.8.0",
+    "@wildpeaks/webpack-config-web": "4.9.0",
     "ajv": "6.10.2",
     "eslint": "6.6.0",
     "fs-extra": "8.1.0",
