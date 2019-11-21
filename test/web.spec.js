@@ -5,9 +5,9 @@ const {deepStrictEqual} = require('assert');
 const {copyConfig, compileFixture} = require('./shared');
 
 
-function testFixture({id, title, sourceFiles, tscFiles, webpackFiles}){
+function testFixture({id, title, sourceFiles, tscFiles, webpackFiles, expectedOutput}){
 	it(title, /* @this */ async function(){
-		this.slow(20000);
+		this.slow(30000);
 		this.timeout(30000);
 
 		const typechecked = await compileFixture('web', id, 'tsc --build tsconfig.json');
@@ -21,7 +21,7 @@ function testFixture({id, title, sourceFiles, tscFiles, webpackFiles}){
 		deepStrictEqual(compiled.filesAfter, sourceFiles.concat(webpackFiles).sort(), 'After Webpack');
 
 		//
-		// TODO test the compiled files in Puppeteer
+		// TODO test "expectedOutput" using Puppeteer
 		//
 	});
 }
@@ -149,5 +149,36 @@ describe('Package: Web', function(){
 			'dist/app-scss.js',
 			'dist/app-scss.css'
 		]
+	});
+
+	testFixture({
+		id: 'web-images',
+		title: 'Images',
+		sourceFiles: [
+			'package.json',
+			'tsconfig.json',
+			'webpack.config.js',
+			'src/application-images.ts',
+			'src/node_modules/mymodule-jpg/index.ts',
+			'src/node_modules/mymodule-jpg/example1.jpg',
+			'src/node_modules/mymodule-png/index.ts',
+			'src/node_modules/mymodule-png/example2.png',
+			'src/node_modules/mymodule-svg/index.ts',
+			'src/node_modules/mymodule-svg/example3.svg'
+		],
+		tscFiles: [
+			'lib/application-images.js',
+			'lib/node_modules/mymodule-jpg/index.js',
+			'lib/node_modules/mymodule-png/index.js',
+			'lib/node_modules/mymodule-svg/index.js'
+		],
+		webpackFiles: [
+			'dist/index.html',
+			'dist/app-images.js',
+			'dist/assets/example1.jpg',
+			'dist/assets/example2.png',
+			'dist/assets/example3.svg'
+		],
+		expectedOutput: '[IMAGES] JPG string PNG string SVG string'
 	});
 });
