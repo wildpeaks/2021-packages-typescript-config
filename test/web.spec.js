@@ -16,6 +16,7 @@ describe('Package: Web', function(){
 
 
 	it(`No import or export`, /* @this */ async function(){
+		this.slow(20000);
 		this.timeout(30000);
 		const {filesBefore, filesAfter, errors} = await compileFixture('web', 'web-dom', 'webpack');
 		const inputFiles = [
@@ -35,6 +36,7 @@ describe('Package: Web', function(){
 
 
 	it(`Toplevel export`, /* @this */ async function(){
+		this.slow(20000);
 		this.timeout(30000);
 		const {filesBefore, filesAfter, errors} = await compileFixture('web', 'web-exports', 'webpack');
 		const inputFiles = [
@@ -54,6 +56,7 @@ describe('Package: Web', function(){
 
 
 	it(`Preact`, /* @this */ async function(){
+		this.slow(20000);
 		this.timeout(30000);
 		const {filesBefore, filesAfter, errors} = await compileFixture('web', 'web-preact', 'webpack');
 		const inputFiles = [
@@ -73,6 +76,7 @@ describe('Package: Web', function(){
 
 
 	it(`TSX`, /* @this */ async function(){
+		this.slow(20000);
 		this.timeout(30000);
 		const {filesBefore, filesAfter, errors} = await compileFixture('web', 'web-tsx', 'webpack');
 		const inputFiles = [
@@ -92,6 +96,7 @@ describe('Package: Web', function(){
 
 
 	it(`CSS`, /* @this */ async function(){
+		this.slow(20000);
 		this.timeout(30000);
 		const {filesBefore, filesAfter, errors} = await compileFixture('web', 'web-css', 'webpack');
 		const inputFiles = [
@@ -114,6 +119,7 @@ describe('Package: Web', function(){
 
 
 	it(`SCSS`, /* @this */ async function(){
+		this.slow(20000);
 		this.timeout(30000);
 		const {filesBefore, filesAfter, errors} = await compileFixture('web', 'web-scss', 'webpack');
 		const inputFiles = [
