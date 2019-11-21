@@ -15,7 +15,6 @@ describe('Package: Node', function(){
 		this.timeout(15000);
 
 		const {folder, filesBefore, filesAfter, errors} = await compileFixture('node', 'node-basic', 'tsc --build tsconfig.json');
-		deepStrictEqual(errors, [], 'No errors');
 		deepStrictEqual(
 			filesBefore,
 			[
@@ -25,6 +24,7 @@ describe('Package: Node', function(){
 			].sort(),
 			'Files before'
 		);
+		deepStrictEqual(errors, [], 'No errors');
 		deepStrictEqual(
 			filesAfter,
 			[
@@ -48,4 +48,3 @@ describe('Package: Node', function(){
 		);
 	});
 });
-
