@@ -181,4 +181,26 @@ describe('Package: Web', function(){
 		],
 		expectedOutput: '[IMAGES] JPG string PNG string SVG string'
 	});
+
+	testFixture({
+		id: 'web-webworker',
+		title: 'Webworker',
+		sourceFiles: [
+			'package.json',
+			'tsconfig.json',
+			'webpack.config.js',
+			'src/application-webworker.ts',
+			'src/example.webworker.ts'
+		],
+		tscFiles: [
+			'lib/application-webworker.js',
+			'lib/example.webworker.js'
+		],
+		webpackFiles: [
+			'dist/index.html',
+			'dist/app-webworker.js',
+			'dist/example.webworker.js'
+		],
+		expectedOutput: '[REQUEST] MAIN to WORKER [RESPONSE] WORKER to MAIN'
+	});
 });
