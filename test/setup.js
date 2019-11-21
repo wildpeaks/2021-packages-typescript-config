@@ -24,7 +24,6 @@ async function setupFolder(id, extraPackages){
 		settings.dependencies[packageId] = devDependencies[packageId];
 	}
 	writeFileSync(join(targetFolder, 'package.json'), JSON.stringify(settings), 'utf8');
-	writeFileSync(join(targetFolder, 'tsconfig.json'), `{"extends":"@wildpeaks/tsconfig-${id}"}`, 'utf8');
 
 	const {output, errors} = await execCommand('npm install --no-save', targetFolder);
 	console.log(output.join('\n'));

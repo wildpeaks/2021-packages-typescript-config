@@ -58,6 +58,9 @@ async function compileFixture(configId, fixtureId, command){
 	try {
 		removeSync(join(toTmpFolder, 'webpack.config.js'));
 	} catch(e){}
+	try {
+		removeSync(join(toTmpFolder, 'tsconfig.json'));
+	} catch(e){}
 
 	try {
 		copySync(join(fromFixtureFolder, 'bin'), join(toTmpFolder, 'bin'));
@@ -67,6 +70,9 @@ async function compileFixture(configId, fixtureId, command){
 	} catch(e){}
 	try {
 		copySync(join(fromFixtureFolder, 'webpack.config.js'), join(toTmpFolder, 'webpack.config.js'));
+	} catch(e){}
+	try {
+		copySync(join(fromFixtureFolder, 'tsconfig.json'), join(toTmpFolder, 'tsconfig.json'));
 	} catch(e){}
 	writeFileSync(join(toTmpFolder, 'package.json'), JSON.stringify({private: true, scripts: {build: command}}), 'utf8');
 
