@@ -253,4 +253,27 @@ describe('Package: Web', function(){
 		],
 		expectedHTML: '[REQUEST] MAIN to WORKER [RESPONSE] WORKER to MAIN'
 	});
+
+	testFixture({
+		id: 'web-raw',
+		title: 'Local type definitions',
+		sourceFiles: [
+			'package.json',
+			'tsconfig.json',
+			'webpack.config.js',
+			'src/types.d.ts',
+			'src/application-raw.ts',
+			'src/node_modules/mymodule-raw/index.ts',
+			'src/node_modules/mymodule-raw/example.md'
+		],
+		tscFiles: [
+			'lib/application-raw.js',
+			'lib/node_modules/mymodule-raw/index.js'
+		],
+		webpackFiles: [
+			'dist/index.html',
+			'dist/app-raw.js'
+		],
+		expectedHTML: '# Hello World'
+	});
 });
