@@ -2,4 +2,4 @@
 'use strict';
 import data = require('./asset-import-require.json');
 
-console.log(`IMPORT REQUIRE is ${JSON.stringify(data)}`);
+console.log(`JSON IMPORT REQUIRE is ${JSON.stringify(data)}`);

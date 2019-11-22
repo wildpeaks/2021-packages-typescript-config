@@ -51,7 +51,7 @@ describe('Package: Node', function(){
 
 	testFixture({
 		id: 'node-json-import-from',
-		title: 'JSON: import from',
+		title: 'JSON: import * from',
 		sourceFiles: [
 			'package.json',
 			'tsconfig.json',
@@ -64,13 +64,13 @@ describe('Package: Node', function(){
 		],
 		mainFilename: 'lib/main-json-import-from.js',
 		expectedOutput: [
-			'IMPORT FROM is ["hello","world"]'
+			'JSON IMPORT FROM is ["hello","world"]'
 		]
 	});
 
 	testFixture({
 		id: 'node-json-import-require',
-		title: 'JSON: import require',
+		title: 'JSON: import = require',
 		sourceFiles: [
 			'package.json',
 			'tsconfig.json',
@@ -83,7 +83,7 @@ describe('Package: Node', function(){
 		],
 		mainFilename: 'lib/main-json-import-require.js',
 		expectedOutput: [
-			'IMPORT REQUIRE is ["hello","world"]'
+			'JSON IMPORT REQUIRE is ["hello","world"]'
 		]
 	});
 });
