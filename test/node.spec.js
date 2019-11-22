@@ -38,14 +38,52 @@ describe('Package: Node', function(){
 		sourceFiles: [
 			'package.json',
 			'tsconfig.json',
-			'src/main.ts'
+			'src/main-basic.ts'
 		],
 		tscFiles: [
-			'lib/main.js'
+			'lib/main-basic.js'
 		],
-		mainFilename: 'lib/main.js',
+		mainFilename: 'lib/main-basic.js',
 		expectedOutput: [
-			'Hello World'
+			'BASIC Hello World'
+		]
+	});
+
+	testFixture({
+		id: 'node-json-import-from',
+		title: 'JSON: import from',
+		sourceFiles: [
+			'package.json',
+			'tsconfig.json',
+			'src/asset-import-from.json',
+			'src/main-json-import-from.ts'
+		],
+		tscFiles: [
+			'lib/asset-import-from.json',
+			'lib/main-json-import-from.js'
+		],
+		mainFilename: 'lib/main-json-import-from.js',
+		expectedOutput: [
+			'IMPORT FROM is ["hello","world"]'
+		]
+	});
+
+	testFixture({
+		id: 'node-json-import-require',
+		title: 'JSON: import require',
+		sourceFiles: [
+			'package.json',
+			'tsconfig.json',
+			'src/asset-import-require.json',
+			'src/main-json-import-require.ts'
+		],
+		tscFiles: [
+			'lib/asset-import-require.json',
+			'lib/main-json-import-require.js'
+		],
+		mainFilename: 'lib/main-json-import-require.js',
+		expectedOutput: [
+			'IMPORT REQUIRE is ["hello","world"]'
 		]
 	});
 });
