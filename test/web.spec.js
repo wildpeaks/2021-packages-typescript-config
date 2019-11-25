@@ -104,22 +104,43 @@ describe('Package: Web', function(){
 	});
 
 	testFixture({
-		id: 'web-exports',
+		id: 'web-dom-export',
 		title: 'Toplevel export',
 		sourceFiles: [
 			'package.json',
 			'tsconfig.json',
 			'webpack.config.js',
-			'src/application-exports.ts'
+			'src/application.ts'
 		],
 		tscFiles: [
-			'lib/application-exports.js'
+			'lib/application.js'
 		],
 		webpackFiles: [
 			'dist/index.html',
-			'dist/app-exports.js'
+			'dist/app-dom-export.js'
 		],
 		expectedHTML: '[EXPORTS] Type of window is object'
+	});
+
+	testFixture({
+		id: 'web-export-default-import-from',
+		title: 'Export default object, import from',
+		sourceFiles: [
+			'package.json',
+			'tsconfig.json',
+			'webpack.config.js',
+			'src/application.ts',
+			'src/node_modules/mymodule/index.ts'
+		],
+		tscFiles: [
+			'lib/application.js',
+			'lib/node_modules/mymodule/index.js'
+		],
+		webpackFiles: [
+			'dist/index.html',
+			'dist/app-export-default-import-from.js'
+		],
+		expectedHTML: '[EXPORT DEFAULT OBJECT] Value is {"mynumber":123}'
 	});
 
 	testFixture({
