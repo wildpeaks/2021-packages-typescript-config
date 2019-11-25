@@ -140,7 +140,70 @@ describe('Package: Web', function(){
 			'dist/index.html',
 			'dist/app-export-default-import-from.js'
 		],
-		expectedHTML: '[EXPORT DEFAULT OBJECT] Value is {"mynumber":123}'
+		expectedHTML: '[EXPORT DEFAULT, IMPORT FROM] Value is {"mynumber":123}'
+	});
+
+	testFixture({
+		id: 'web-export-default-import-star',
+		title: 'Export default object, import * from',
+		sourceFiles: [
+			'package.json',
+			'tsconfig.json',
+			'webpack.config.js',
+			'src/application.ts',
+			'src/node_modules/mymodule/index.ts'
+		],
+		tscFiles: [
+			'lib/application.js',
+			'lib/node_modules/mymodule/index.js'
+		],
+		webpackFiles: [
+			'dist/index.html',
+			'dist/app-export-default-import-star.js'
+		],
+		expectTypecheckError: true
+	});
+
+	testFixture({
+		id: 'web-export-default-import-require',
+		title: 'Export default object, import = require',
+		sourceFiles: [
+			'package.json',
+			'tsconfig.json',
+			'webpack.config.js',
+			'src/application.ts',
+			'src/node_modules/mymodule/index.ts'
+		],
+		tscFiles: [
+			'lib/application.js',
+			'lib/node_modules/mymodule/index.js'
+		],
+		webpackFiles: [
+			'dist/index.html',
+			'dist/app-export-default-import-require.js'
+		],
+		expectTypecheckError: true
+	});
+
+	testFixture({
+		id: 'web-export-default-require',
+		title: 'Export default object, require',
+		sourceFiles: [
+			'package.json',
+			'tsconfig.json',
+			'webpack.config.js',
+			'src/application.ts',
+			'src/node_modules/mymodule/index.ts'
+		],
+		tscFiles: [
+			'lib/application.js',
+			'lib/node_modules/mymodule/index.js'
+		],
+		webpackFiles: [
+			'dist/index.html',
+			'dist/app-export-default-require.js'
+		],
+		expectedHTML: '[EXPORT DEFAULT, REQUIRE] Value is {"default":{"mynumber":123}}'
 	});
 
 	testFixture({

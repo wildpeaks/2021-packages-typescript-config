@@ -1,8 +1,8 @@
 /* eslint-env browser */
 'use strict';
-import mymodule from 'mymodule';
+import * from mymodule from 'mymodule';
 
 const container = document.createElement('div');
 container.setAttribute('id', 'hello');
-container.innerText = '[EXPORT DEFAULT, IMPORT FROM] Value is ' + JSON.stringify(mymodule);
+container.innerText = '[EXPORT DEFAULT, IMPORT STAR] Value is ' + JSON.stringify(mymodule);
 document.body.appendChild(container);
