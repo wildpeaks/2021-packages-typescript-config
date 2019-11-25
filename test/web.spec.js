@@ -161,7 +161,8 @@ describe('Package: Web', function(){
 			'dist/index.html',
 			'dist/app-export-default-import-star.js'
 		],
-		expectTypecheckError: true
+		// expectTypecheckError: true
+		expectedHTML: '[EXPORT DEFAULT, IMPORT STAR] Value is {"default":{"mynumber":123}}'
 	});
 
 	testFixture({

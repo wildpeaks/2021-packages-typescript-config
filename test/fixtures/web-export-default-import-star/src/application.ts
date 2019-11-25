@@ -1,6 +1,6 @@
 /* eslint-env browser */
 'use strict';
-import * from mymodule from 'mymodule';
+import * as mymodule from 'mymodule';
 
 const container = document.createElement('div');
 container.setAttribute('id', 'hello');
