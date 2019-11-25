@@ -208,6 +208,91 @@ describe('Package: Web', function(){
 	});
 
 	testFixture({
+		id: 'web-export-named-import-from',
+		title: 'Export named function, import from',
+		sourceFiles: [
+			'package.json',
+			'tsconfig.json',
+			'webpack.config.js',
+			'src/application.ts',
+			'src/node_modules/mymodule/index.ts'
+		],
+		tscFiles: [
+			'lib/application.js',
+			'lib/node_modules/mymodule/index.js'
+		],
+		webpackFiles: [
+			'dist/index.html',
+			'dist/app-export-named-import-from.js'
+		],
+		expectedHTML: '[EXPORT NAMED, IMPORT FROM] Type is function'
+	});
+
+	testFixture({
+		id: 'web-export-named-import-star',
+		title: 'Export named function, import * from',
+		sourceFiles: [
+			'package.json',
+			'tsconfig.json',
+			'webpack.config.js',
+			'src/application.ts',
+			'src/node_modules/mymodule/index.ts'
+		],
+		tscFiles: [
+			'lib/application.js',
+			'lib/node_modules/mymodule/index.js'
+		],
+		webpackFiles: [
+			'dist/index.html',
+			'dist/app-export-named-import-star.js'
+		],
+		// expectTypecheckError: true
+		expectedHTML: '[EXPORT NAMED, IMPORT STAR] Type is function'
+	});
+
+	testFixture({
+		id: 'web-export-named-import-require',
+		title: 'Export named function, import = require',
+		sourceFiles: [
+			'package.json',
+			'tsconfig.json',
+			'webpack.config.js',
+			'src/application.ts',
+			'src/node_modules/mymodule/index.ts'
+		],
+		tscFiles: [
+			'lib/application.js',
+			'lib/node_modules/mymodule/index.js'
+		],
+		webpackFiles: [
+			'dist/index.html',
+			'dist/app-export-named-import-require.js'
+		],
+		expectTypecheckError: true
+	});
+
+	testFixture({
+		id: 'web-export-named-require',
+		title: 'Export named function, require',
+		sourceFiles: [
+			'package.json',
+			'tsconfig.json',
+			'webpack.config.js',
+			'src/application.ts',
+			'src/node_modules/mymodule/index.ts'
+		],
+		tscFiles: [
+			'lib/application.js',
+			'lib/node_modules/mymodule/index.js'
+		],
+		webpackFiles: [
+			'dist/index.html',
+			'dist/app-export-named-require.js'
+		],
+		expectedHTML: '[EXPORT NAMED, REQUIRE] Type is function'
+	});
+
+	testFixture({
 		id: 'web-preact',
 		title: 'Preact',
 		sourceFiles: [
