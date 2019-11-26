@@ -9,12 +9,12 @@ module.exports = function(){
 		webworkerPolyfills: [],
 		sourcemaps: false,
 		entry: {
-			'app-preact': './src/application-preact.ts'
+			'app-preact-function': './src/application.ts'
 		},
 		pages: [
 			{
 				filename: 'index.html',
-				chunks: ['app-preact']
+				chunks: ['app-preact-function']
 			}
 		]
 	});

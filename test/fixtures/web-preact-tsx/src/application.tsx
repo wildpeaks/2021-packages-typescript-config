@@ -7,6 +7,6 @@ container.setAttribute('id', 'hello');
 document.body.appendChild(container);
 
 render(
-	<article class="example">TSX Hello World</article>,
+	<article class="example">[PREACT TSX] Hello World</article>,
 	container
 );

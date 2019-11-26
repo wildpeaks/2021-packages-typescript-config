@@ -9,12 +9,12 @@ module.exports = function(){
 		webworkerPolyfills: [],
 		sourcemaps: false,
 		entry: {
-			'app-tsx': './src/application-tsx.tsx'
+			'app-preact-h': './src/application.ts'
 		},
 		pages: [
 			{
 				filename: 'index.html',
-				chunks: ['app-tsx']
+				chunks: ['app-preact-h']
 			}
 		]
 	});
