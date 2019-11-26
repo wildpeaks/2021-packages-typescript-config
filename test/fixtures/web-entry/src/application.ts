@@ -3,5 +3,5 @@
 
 const container = document.createElement('div');
 container.setAttribute('id', 'hello');
-container.innerText = '[DOM] Type of window is ' + (typeof window);
+container.innerText = '[ENTRY] Type is ' + (typeof window);
 document.body.appendChild(container);

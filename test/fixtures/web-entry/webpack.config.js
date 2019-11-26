@@ -9,12 +9,12 @@ module.exports = function(){
 		webworkerPolyfills: [],
 		sourcemaps: false,
 		entry: {
-			'app-dom-export': './src/application.ts'
+			'app-entry': './src/application.ts'
 		},
 		pages: [
 			{
 				filename: 'index.html',
-				chunks: ['app-dom-export']
+				chunks: ['app-entry']
 			}
 		]
 	});

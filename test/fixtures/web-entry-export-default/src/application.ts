@@ -3,7 +3,7 @@
 
 const container = document.createElement('div');
 container.setAttribute('id', 'hello');
-container.innerText = '[EXPORTS] Type of window is ' + (typeof window);
+container.innerText = '[ENTRY EXPORT DEFAULT] Type is ' + (typeof window);
 document.body.appendChild(container);
 
 export function hello(): string {
