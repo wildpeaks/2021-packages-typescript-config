@@ -29,6 +29,9 @@
     "test:web": "mocha test/web.spec.js",
     "test": "npm run test:lint && npm run test:node && npm run test:web"
   },
+  "peerDependencies": {
+    "typescript": "*"
+  },
   "devDependencies": {
     "@wildpeaks/async": "1.2.2",
     "@wildpeaks/eslint-config-commonjs": "7.2.0",
