@@ -7,7 +7,7 @@ const myvariable = {
 
 const container = document.createElement('div');
 container.setAttribute('id', 'hello');
-container.innerText = `[ENTRY NO EXPORT] Value is ${JSON.stringify(myvariable)}`;
+container.innerText = `[ENTRIES WITH EXPORT] Value is ${JSON.stringify(myvariable)}`;
 document.body.appendChild(container);
 
 export {};
