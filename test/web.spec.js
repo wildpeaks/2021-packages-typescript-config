@@ -83,6 +83,50 @@ after('Shutdown', function(){
 });
 
 
+describe('[web] Basic features', function(){
+	testFixture({
+		id: 'web-basic-dom',
+		title: 'Accepts: DOM',
+		sourceFiles: [
+			'package.json',
+			'tsconfig.json',
+			'webpack.config.js',
+			'src/application.ts'
+		],
+		tscFiles: [
+			'lib/application.js'
+		],
+		webpackFiles: [
+			'dist/index.html',
+			'dist/app-basic-dom.js'
+		],
+		expectedHTML: '[BASIC DOM] Type is object'
+	});
+	testFixture({
+		id: 'web-basic-webworker',
+		title: 'Accepts: Web Workers',
+		sourceFiles: [
+			'package.json',
+			'tsconfig.json',
+			'webpack.config.js',
+			'src/types.d.ts',
+			'src/application.ts',
+			'src/example.webworker.ts'
+		],
+		tscFiles: [
+			'lib/application.js',
+			'lib/example.webworker.js'
+		],
+		webpackFiles: [
+			'dist/index.html',
+			'dist/app-basic-webworker.js',
+			'dist/example.webworker.js'
+		],
+		expectedHTML: '[REQUEST] MAIN to WORKER [RESPONSE] WORKER to MAIN'
+	});
+});
+
+
 describe('[web] Toplevel variables are global without "import" or "export"', function(){
 	testFixture({
 		id: 'web-entries',
@@ -767,28 +811,6 @@ describe('[web] Import additional assets', function(){
 			'dist/assets/example3.svg'
 		],
 		expectedHTML: '<img src="/assets/example1.jpg"><img src="/assets/example2.png"><img src="/assets/example3.svg">'
-	});
-	testFixture({
-		id: 'web-assets-webworker',
-		title: 'Accepts: Web Workers',
-		sourceFiles: [
-			'package.json',
-			'tsconfig.json',
-			'webpack.config.js',
-			'src/types.d.ts',
-			'src/application.ts',
-			'src/example.webworker.ts'
-		],
-		tscFiles: [
-			'lib/application.js',
-			'lib/example.webworker.js'
-		],
-		webpackFiles: [
-			'dist/index.html',
-			'dist/app-assets-webworker.js',
-			'dist/example.webworker.js'
-		],
-		expectedHTML: '[REQUEST] MAIN to WORKER [RESPONSE] WORKER to MAIN'
 	});
 	testFixture({
 		id: 'web-assets-raw',
