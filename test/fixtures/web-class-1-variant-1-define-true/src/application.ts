@@ -4,13 +4,13 @@ const container = document.createElement('div');
 container.setAttribute('id', 'hello');
 document.body.appendChild(container);
 
-class BaseClass1 {
+class BaseClass {
 	public myproperty: string;
 }
-class Class1_Variant1 extends BaseClass1 {
+class ChildClass extends BaseClass {
 }
 
-const myobj = new Class1_Variant1();
+const myobj = new ChildClass();
 const before = String(myobj.myproperty);
 myobj.myproperty = 'MODIFIED';
 const after = String(myobj.myproperty);
