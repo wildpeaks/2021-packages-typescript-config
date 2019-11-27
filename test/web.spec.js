@@ -341,13 +341,167 @@ describe('[web] Import a CommonJS named function, without .d.ts', function(){
 });
 
 
-//
-//TODO commonjs default, WITH d.ts
-//
+describe('[web] Import a CommonJS default object, with .d.ts', function(){
+	testFixture({
+		id: 'web-commonjs-typed-default-import-from',
+		title: 'Fails: import … from',
+		sourceFiles: [
+			'package.json',
+			'tsconfig.json',
+			'webpack.config.js',
+			'src/application.ts',
+			'src/node_modules/mymodule/package.json',
+			'src/node_modules/mymodule/mymodule.js',
+			'src/node_modules/mymodule/mymodule.d.ts'
+		],
+		tscFiles: [
+			'lib/application.js'
+		],
+		webpackFiles: [
+			'dist/index.html',
+			'dist/app-commonjs-typed-default-import-from.js'
+		],
+		expectTypecheckError: true
+	});
+	testFixture({
+		id: 'web-commonjs-typed-default-import-star',
+		title: 'Fails: import * from',
+		sourceFiles: [
+			'package.json',
+			'tsconfig.json',
+			'webpack.config.js',
+			'src/application.ts',
+			'src/node_modules/mymodule/package.json',
+			'src/node_modules/mymodule/mymodule.js',
+			'src/node_modules/mymodule/mymodule.d.ts'
+		],
+		expectTypecheckError: true
+	});
+	testFixture({
+		id: 'web-commonjs-typed-default-import-require',
+		title: 'Fails: import = require',
+		sourceFiles: [
+			'package.json',
+			'tsconfig.json',
+			'webpack.config.js',
+			'src/application.ts',
+			'src/node_modules/mymodule/package.json',
+			'src/node_modules/mymodule/mymodule.js',
+			'src/node_modules/mymodule/mymodule.d.ts'
+		],
+		expectTypecheckError: true
+	});
+	testFixture({
+		id: 'web-commonjs-typed-default-require',
+		title: 'Accepts: require',
+		sourceFiles: [
+			'package.json',
+			'tsconfig.json',
+			'webpack.config.js',
+			'src/application.ts',
+			'src/node_modules/mymodule/package.json',
+			'src/node_modules/mymodule/mymodule.js',
+			'src/node_modules/mymodule/mymodule.d.ts'
+		],
+		tscFiles: [
+			'lib/application.js'
+		],
+		webpackFiles: [
+			'dist/index.html',
+			'dist/app-commonjs-typed-default-require.js'
+		],
+		expectedHTML: '[COMMONJS TYPED DEFAULT, REQUIRE] Type is function'
+	});
+});
 
-//
-//TODO commonjs named, WITH d.ts
-//
+
+describe('[web] Import a CommonJS named function, with .d.ts', function(){
+	testFixture({
+		id: 'web-commonjs-typed-named-import-from',
+		title: 'Accepts: import … from',
+		sourceFiles: [
+			'package.json',
+			'tsconfig.json',
+			'webpack.config.js',
+			'src/application.ts',
+			'src/node_modules/mymodule/package.json',
+			'src/node_modules/mymodule/mymodule.js',
+			'src/node_modules/mymodule/mymodule.d.ts'
+		],
+		tscFiles: [
+			'lib/application.js'
+		],
+		webpackFiles: [
+			'dist/index.html',
+			'dist/app-commonjs-typed-named-import-from.js'
+		],
+		expectedHTML: '[COMMONJS TYPED NAMED, IMPORT FROM] Type is function'
+	});
+	testFixture({
+		id: 'web-commonjs-typed-named-import-star',
+		title: 'Accepts: import * from',
+		sourceFiles: [
+			'package.json',
+			'tsconfig.json',
+			'webpack.config.js',
+			'src/application.ts',
+			'src/node_modules/mymodule/package.json',
+			'src/node_modules/mymodule/mymodule.js',
+			'src/node_modules/mymodule/mymodule.d.ts'
+		],
+		tscFiles: [
+			'lib/application.js'
+		],
+		webpackFiles: [
+			'dist/index.html',
+			'dist/app-commonjs-typed-named-import-star.js'
+		],
+		expectedHTML: '[COMMONJS TYPED NAMED, IMPORT STAR] Type is function'
+	});
+	testFixture({
+		id: 'web-commonjs-typed-named-import-require',
+		title: 'Fails: import = require',
+		sourceFiles: [
+			'package.json',
+			'tsconfig.json',
+			'webpack.config.js',
+			'src/application.ts',
+			'src/node_modules/mymodule/package.json',
+			'src/node_modules/mymodule/mymodule.js',
+			'src/node_modules/mymodule/mymodule.d.ts'
+		],
+		tscFiles: [
+			'lib/application.js'
+		],
+		webpackFiles: [
+			'dist/index.html',
+			'dist/app-commonjs-typed-named-import-require.js'
+		],
+		expectTypecheckError: true
+	});
+	testFixture({
+		id: 'web-commonjs-typed-named-require',
+		title: 'Accepts: require',
+		sourceFiles: [
+			'package.json',
+			'tsconfig.json',
+			'webpack.config.js',
+			'src/application.ts',
+			'src/node_modules/mymodule/package.json',
+			'src/node_modules/mymodule/mymodule.js',
+			'src/node_modules/mymodule/mymodule.d.ts'
+		],
+		tscFiles: [
+			'lib/application.js'
+		],
+		webpackFiles: [
+			'dist/index.html',
+			'dist/app-commonjs-typed-named-require.js'
+		],
+		expectedHTML: '[COMMONJS TYPED NAMED, REQUIRE] Type is function'
+	});
+});
+
 
 describe('[web] Import an ES Module default object', function(){
 	testFixture({

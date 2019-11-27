@@ -1,0 +1,4 @@
+{
+  "main": "mymodule.js",
+  "types": "mymodule.d.ts"
+}
