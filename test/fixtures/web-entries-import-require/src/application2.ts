@@ -1,13 +1,14 @@
 /* eslint-env browser */
 'use strict';
+import shared = require('./shared');
 
 const myvariable = {
-	hello: 'APP1'
+	hello: 'APP2'
 };
 
 const container = document.createElement('div');
 container.setAttribute('id', 'hello');
-container.innerText = `[ENTRIES WITH EXPORT] Value is ${JSON.stringify(myvariable)}`;
+container.innerText = `[ENTRIES IMPORT REQUIRE] Value is ${JSON.stringify(myvariable)}`;
 document.body.appendChild(container);
 
-export {};
+console.log('typeof shared', typeof shared);

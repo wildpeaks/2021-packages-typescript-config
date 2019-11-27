@@ -9,17 +9,17 @@ module.exports = function(){
 		webworkerPolyfills: [],
 		sourcemaps: false,
 		entry: {
-			'app-entries-without-export-1': './src/application1.ts',
-			'app-entries-without-export-2': './src/application2.ts'
+			'app-entries-export-1': './src/application1.ts',
+			'app-entries-export-2': './src/application2.ts'
 		},
 		pages: [
 			{
 				filename: 'index1.html',
-				chunks: ['app-entries-without-export-1']
+				chunks: ['app-entries-export-1']
 			},
 			{
 				filename: 'index.html',
-				chunks: ['app-entries-without-export-2']
+				chunks: ['app-entries-export-2']
 			}
 		]
 	});
