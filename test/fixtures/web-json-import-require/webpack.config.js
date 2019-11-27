@@ -9,7 +9,7 @@ module.exports = function(){
 		webworkerPolyfills: [],
 		sourcemaps: false,
 		entry: {
-			'app-json-import-require': './src/application-json-import-require.ts'
+			'app-json-import-require': './src/application.ts'
 		},
 		pages: [
 			{

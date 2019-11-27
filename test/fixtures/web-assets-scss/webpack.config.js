@@ -8,13 +8,16 @@ module.exports = function(){
 		polyfills: [],
 		webworkerPolyfills: [],
 		sourcemaps: false,
+		scss: `
+			$primary: rgb(0, 255, 0);
+		`,
 		entry: {
-			'app-css': './src/application-css.ts'
+			'app-assets-scss': './src/application.ts'
 		},
 		pages: [
 			{
 				filename: 'index.html',
-				chunks: ['app-css']
+				chunks: ['app-assets-scss']
 			}
 		]
 	});

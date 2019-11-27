@@ -10,12 +10,12 @@ module.exports = function(){
 		sourcemaps: false,
 		embedLimit: 1,
 		entry: {
-			'app-images': './src/application-images.ts'
+			'app-assets-images': './src/application.ts'
 		},
 		pages: [
 			{
 				filename: 'index.html',
-				chunks: ['app-images']
+				chunks: ['app-assets-images']
 			}
 		]
 	});

@@ -8,14 +8,13 @@ module.exports = function(){
 		polyfills: [],
 		webworkerPolyfills: [],
 		sourcemaps: false,
-		rawExtensions: ['md'],
 		entry: {
-			'app-raw': './src/application-raw.ts'
+			'app-assets-css': './src/application.ts'
 		},
 		pages: [
 			{
 				filename: 'index.html',
-				chunks: ['app-raw']
+				chunks: ['app-assets-css']
 			}
 		]
 	});

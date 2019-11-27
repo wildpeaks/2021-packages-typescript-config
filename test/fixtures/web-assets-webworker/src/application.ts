@@ -13,4 +13,4 @@ worker.onmessage = (e: {data: MessageFromWorker}) => {
 };
 worker.postMessage({mytext: 'MAIN to WORKER'} as MessageFromMain);
 
-export default {};
+export {};

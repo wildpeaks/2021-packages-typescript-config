@@ -8,16 +8,14 @@ module.exports = function(){
 		polyfills: [],
 		webworkerPolyfills: [],
 		sourcemaps: false,
-		scss: `
-			$primary: rgb(0, 255, 0);
-		`,
+		rawExtensions: ['md'],
 		entry: {
-			'app-scss': './src/application-scss.ts'
+			'app-assets-raw': './src/application.ts'
 		},
 		pages: [
 			{
 				filename: 'index.html',
-				chunks: ['app-scss']
+				chunks: ['app-assets-raw']
 			}
 		]
 	});
