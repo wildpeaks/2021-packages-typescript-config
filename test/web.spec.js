@@ -206,13 +206,6 @@ describe('[web] Import a CommonJS default object, without .d.ts', function(){
 			'src/application.ts',
 			'src/node_modules/mymodule/index.js'
 		],
-		tscFiles: [
-			'lib/application.js'
-		],
-		webpackFiles: [
-			'dist/index.html',
-			'dist/app-commonjs-untyped-default-import-from.js'
-		],
 		expectTypecheckError: true
 	});
 	testFixture({
@@ -272,13 +265,6 @@ describe('[web] Import a CommonJS named function, without .d.ts', function(){
 			'src/application.ts',
 			'src/node_modules/mymodule/index.js'
 		],
-		tscFiles: [
-			'lib/application.js'
-		],
-		webpackFiles: [
-			'dist/index.html',
-			'dist/app-commonjs-untyped-named-import-from.js'
-		],
 		expectTypecheckError: true
 	});
 	testFixture({
@@ -291,13 +277,6 @@ describe('[web] Import a CommonJS named function, without .d.ts', function(){
 			'src/application.ts',
 			'src/node_modules/mymodule/index.js'
 		],
-		tscFiles: [
-			'lib/application.js'
-		],
-		webpackFiles: [
-			'dist/index.html',
-			'dist/app-commonjs-untyped-named-import-star.js'
-		],
 		expectTypecheckError: true
 	});
 	testFixture({
@@ -309,13 +288,6 @@ describe('[web] Import a CommonJS named function, without .d.ts', function(){
 			'webpack.config.js',
 			'src/application.ts',
 			'src/node_modules/mymodule/index.js'
-		],
-		tscFiles: [
-			'lib/application.js'
-		],
-		webpackFiles: [
-			'dist/index.html',
-			'dist/app-commonjs-untyped-named-import-require.js'
 		],
 		expectTypecheckError: true
 	});
@@ -353,13 +325,6 @@ describe('[web] Import a CommonJS default object, with .d.ts', function(){
 			'src/node_modules/mymodule/package.json',
 			'src/node_modules/mymodule/mymodule.js',
 			'src/node_modules/mymodule/mymodule.d.ts'
-		],
-		tscFiles: [
-			'lib/application.js'
-		],
-		webpackFiles: [
-			'dist/index.html',
-			'dist/app-commonjs-typed-default-import-from.js'
 		],
 		expectTypecheckError: true
 	});
@@ -470,13 +435,6 @@ describe('[web] Import a CommonJS named function, with .d.ts', function(){
 			'src/node_modules/mymodule/mymodule.js',
 			'src/node_modules/mymodule/mymodule.d.ts'
 		],
-		tscFiles: [
-			'lib/application.js'
-		],
-		webpackFiles: [
-			'dist/index.html',
-			'dist/app-commonjs-typed-named-import-require.js'
-		],
 		expectTypecheckError: true
 	});
 	testFixture({
@@ -554,14 +512,6 @@ describe('[web] Import an ES Module default object', function(){
 			'src/application.ts',
 			'src/node_modules/mymodule/index.ts'
 		],
-		tscFiles: [
-			'lib/application.js',
-			'lib/node_modules/mymodule/index.js'
-		],
-		webpackFiles: [
-			'dist/index.html',
-			'dist/app-export-default-import-require.js'
-		],
 		expectTypecheckError: true
 	});
 	testFixture({
@@ -637,14 +587,6 @@ describe('[web] Import an ES Module named function', function(){
 			'webpack.config.js',
 			'src/application.ts',
 			'src/node_modules/mymodule/index.ts'
-		],
-		tscFiles: [
-			'lib/application.js',
-			'lib/node_modules/mymodule/index.js'
-		],
-		webpackFiles: [
-			'dist/index.html',
-			'dist/app-export-named-import-require.js'
 		],
 		expectTypecheckError: true
 	});
@@ -884,14 +826,6 @@ describe('[web] JSON', function(){
 			'src/application.ts',
 			'src/asset-import-from.json'
 		],
-		tscFiles: [
-			'lib/application.js',
-			'lib/asset-import-from.json'
-		],
-		webpackFiles: [
-			'dist/index.html',
-			'dist/app-json-import-from.js'
-		],
 		expectTypecheckError: true
 	});
 	testFixture({
@@ -923,14 +857,6 @@ describe('[web] JSON', function(){
 			'webpack.config.js',
 			'src/application.ts',
 			'src/asset-import-require.json'
-		],
-		tscFiles: [
-			'lib/application.js',
-			'lib/asset-import-require.json'
-		],
-		webpackFiles: [
-			'dist/index.html',
-			'dist/app-json-import-require.js'
 		],
 		expectTypecheckError: true
 	});
