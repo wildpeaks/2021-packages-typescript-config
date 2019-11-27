@@ -83,48 +83,276 @@ after('Shutdown', function(){
 });
 
 
-describe('Package: Web', function(){
+describe('[web] Toplevel variables are global without "import" or "export"', function(){
 	testFixture({
-		id: 'web-dom',
-		title: 'No import or export',
+		id: 'web-entries',
+		title: 'Global: no export or import',
 		sourceFiles: [
 			'package.json',
 			'tsconfig.json',
 			'webpack.config.js',
-			'src/application-dom.ts'
+			'src/application1.ts',
+			'src/application2.ts'
+		],
+		expectTypecheckError: true
+	});
+	testFixture({
+		id: 'web-entries-require',
+		title: 'Global: require',
+		sourceFiles: [
+			'package.json',
+			'tsconfig.json',
+			'webpack.config.js',
+			'src/shared.js',
+			'src/application1.ts',
+			'src/application2.ts'
+		],
+		expectTypecheckError: true
+	});
+	testFixture({
+		id: 'web-entries-export',
+		title: 'Local: export {}',
+		sourceFiles: [
+			'package.json',
+			'tsconfig.json',
+			'webpack.config.js',
+			'src/application1.ts',
+			'src/application2.ts'
 		],
 		tscFiles: [
-			'lib/application-dom.js'
+			'lib/application1.js',
+			'lib/application2.js'
 		],
 		webpackFiles: [
+			'dist/index1.html',
 			'dist/index.html',
-			'dist/app-dom.js'
+			'dist/app-entries-export-1.js',
+			'dist/app-entries-export-2.js'
 		],
-		expectedHTML: '[DOM] Type of window is object'
+		expectedHTML: '[ENTRIES EXPORT] Value is {"hello":"APP2"}'
 	});
-
 	testFixture({
-		id: 'web-dom-export',
-		title: 'Toplevel export',
+		id: 'web-entries-import-from',
+		title: 'Local: import … from',
 		sourceFiles: [
 			'package.json',
 			'tsconfig.json',
 			'webpack.config.js',
-			'src/application.ts'
+			'src/shared.ts',
+			'src/application1.ts',
+			'src/application2.ts'
+		],
+		tscFiles: [
+			'lib/shared.js',
+			'lib/application1.js',
+			'lib/application2.js'
+		],
+		webpackFiles: [
+			'dist/index1.html',
+			'dist/index.html',
+			'dist/app-entries-import-from-1.js',
+			'dist/app-entries-import-from-2.js'
+		],
+		expectedHTML: '[ENTRIES IMPORT FROM] Value is {"hello":"APP2"}'
+	});
+	testFixture({
+		id: 'web-entries-import-star',
+		title: 'Local: import * from',
+		sourceFiles: [
+			'package.json',
+			'tsconfig.json',
+			'webpack.config.js',
+			'src/shared.ts',
+			'src/application1.ts',
+			'src/application2.ts'
+		],
+		tscFiles: [
+			'lib/shared.js',
+			'lib/application1.js',
+			'lib/application2.js'
+		],
+		webpackFiles: [
+			'dist/index1.html',
+			'dist/index.html',
+			'dist/app-entries-import-star-1.js',
+			'dist/app-entries-import-star-2.js'
+		],
+		expectedHTML: '[ENTRIES IMPORT STAR] Value is {"hello":"APP2"}'
+	});
+	testFixture({
+		id: 'web-entries-import-require',
+		title: 'Fails: import = require (cannot compile)',
+		sourceFiles: [
+			'package.json',
+			'tsconfig.json',
+			'webpack.config.js',
+			'src/shared.js',
+			'src/application1.ts',
+			'src/application2.ts'
+		],
+		expectTypecheckError: true
+	});
+});
+
+
+describe('[web] Import a CommonJS default object, without .d.ts', function(){
+	testFixture({
+		id: 'web-commonjs-untyped-default-import-from',
+		title: 'Fails: import … from',
+		sourceFiles: [
+			'package.json',
+			'tsconfig.json',
+			'webpack.config.js',
+			'src/application.ts',
+			'src/node_modules/mymodule/index.js'
 		],
 		tscFiles: [
 			'lib/application.js'
 		],
 		webpackFiles: [
 			'dist/index.html',
-			'dist/app-dom-export.js'
+			'dist/app-commonjs-untyped-default-import-from.js'
 		],
-		expectedHTML: '[EXPORTS] Type of window is object'
+		expectTypecheckError: true
 	});
+	testFixture({
+		id: 'web-commonjs-untyped-default-import-star',
+		title: 'Fails: import * from',
+		sourceFiles: [
+			'package.json',
+			'tsconfig.json',
+			'webpack.config.js',
+			'src/application.ts',
+			'src/node_modules/mymodule/index.js'
+		],
+		expectTypecheckError: true
+	});
+	testFixture({
+		id: 'web-commonjs-untyped-default-import-require',
+		title: 'Fails: import = require',
+		sourceFiles: [
+			'package.json',
+			'tsconfig.json',
+			'webpack.config.js',
+			'src/application.ts',
+			'src/node_modules/mymodule/index.js'
+		],
+		expectTypecheckError: true
+	});
+	testFixture({
+		id: 'web-commonjs-untyped-default-require',
+		title: 'Accepts: require',
+		sourceFiles: [
+			'package.json',
+			'tsconfig.json',
+			'webpack.config.js',
+			'src/application.ts',
+			'src/node_modules/mymodule/index.js'
+		],
+		tscFiles: [
+			'lib/application.js'
+		],
+		webpackFiles: [
+			'dist/index.html',
+			'dist/app-commonjs-untyped-default-require.js'
+		],
+		expectedHTML: '[COMMONJS UNTYPED DEFAULT, REQUIRE] Type is function'
+	});
+});
 
+
+describe('[web] Import a CommonJS named function, without .d.ts', function(){
+	testFixture({
+		id: 'web-commonjs-untyped-named-import-from',
+		title: 'Fails: import … from',
+		sourceFiles: [
+			'package.json',
+			'tsconfig.json',
+			'webpack.config.js',
+			'src/application.ts',
+			'src/node_modules/mymodule/index.js'
+		],
+		tscFiles: [
+			'lib/application.js'
+		],
+		webpackFiles: [
+			'dist/index.html',
+			'dist/app-commonjs-untyped-named-import-from.js'
+		],
+		expectTypecheckError: true
+	});
+	testFixture({
+		id: 'web-commonjs-untyped-named-import-star',
+		title: 'Fails: import * from',
+		sourceFiles: [
+			'package.json',
+			'tsconfig.json',
+			'webpack.config.js',
+			'src/application.ts',
+			'src/node_modules/mymodule/index.js'
+		],
+		tscFiles: [
+			'lib/application.js'
+		],
+		webpackFiles: [
+			'dist/index.html',
+			'dist/app-commonjs-untyped-named-import-star.js'
+		],
+		expectTypecheckError: true
+	});
+	testFixture({
+		id: 'web-commonjs-untyped-named-import-require',
+		title: 'Fails: import = require',
+		sourceFiles: [
+			'package.json',
+			'tsconfig.json',
+			'webpack.config.js',
+			'src/application.ts',
+			'src/node_modules/mymodule/index.js'
+		],
+		tscFiles: [
+			'lib/application.js'
+		],
+		webpackFiles: [
+			'dist/index.html',
+			'dist/app-commonjs-untyped-named-import-require.js'
+		],
+		expectTypecheckError: true
+	});
+	testFixture({
+		id: 'web-commonjs-untyped-named-require',
+		title: 'Accepts: require',
+		sourceFiles: [
+			'package.json',
+			'tsconfig.json',
+			'webpack.config.js',
+			'src/application.ts',
+			'src/node_modules/mymodule/index.js'
+		],
+		tscFiles: [
+			'lib/application.js'
+		],
+		webpackFiles: [
+			'dist/index.html',
+			'dist/app-commonjs-untyped-named-require.js'
+		],
+		expectedHTML: '[COMMONJS UNTYPED NAMED, REQUIRE] Type is function'
+	});
+});
+
+
+//
+//TODO commonjs default, WITH d.ts
+//
+
+//
+//TODO commonjs named, WITH d.ts
+//
+
+describe('[web] Import an ES Module default object', function(){
 	testFixture({
 		id: 'web-export-default-import-from',
-		title: 'Export default object, import from',
+		title: 'Accepts: import … from',
 		sourceFiles: [
 			'package.json',
 			'tsconfig.json',
@@ -142,10 +370,9 @@ describe('Package: Web', function(){
 		],
 		expectedHTML: '[EXPORT DEFAULT, IMPORT FROM] Value is {"mynumber":123}'
 	});
-
 	testFixture({
 		id: 'web-export-default-import-star',
-		title: 'Export default object, import * from',
+		title: 'Accepts: import * from',
 		sourceFiles: [
 			'package.json',
 			'tsconfig.json',
@@ -161,13 +388,11 @@ describe('Package: Web', function(){
 			'dist/index.html',
 			'dist/app-export-default-import-star.js'
 		],
-		// expectTypecheckError: true
 		expectedHTML: '[EXPORT DEFAULT, IMPORT STAR] Value is {"default":{"mynumber":123}}'
 	});
-
 	testFixture({
 		id: 'web-export-default-import-require',
-		title: 'Export default object, import = require',
+		title: 'Fails: import = require',
 		sourceFiles: [
 			'package.json',
 			'tsconfig.json',
@@ -185,10 +410,9 @@ describe('Package: Web', function(){
 		],
 		expectTypecheckError: true
 	});
-
 	testFixture({
 		id: 'web-export-default-require',
-		title: 'Export default object, require',
+		title: 'Accepts: require (wrapped in "{default: THEMODULE}")',
 		sourceFiles: [
 			'package.json',
 			'tsconfig.json',
@@ -206,10 +430,13 @@ describe('Package: Web', function(){
 		],
 		expectedHTML: '[EXPORT DEFAULT, REQUIRE] Value is {"default":{"mynumber":123}}'
 	});
+});
 
+
+describe('[web] Import an ES Module named function', function(){
 	testFixture({
 		id: 'web-export-named-import-from',
-		title: 'Export named function, import from',
+		title: 'Accepts: import … from',
 		sourceFiles: [
 			'package.json',
 			'tsconfig.json',
@@ -227,10 +454,9 @@ describe('Package: Web', function(){
 		],
 		expectedHTML: '[EXPORT NAMED, IMPORT FROM] Type is function'
 	});
-
 	testFixture({
 		id: 'web-export-named-import-star',
-		title: 'Export named function, import * from',
+		title: 'Accepts: import * from',
 		sourceFiles: [
 			'package.json',
 			'tsconfig.json',
@@ -246,13 +472,11 @@ describe('Package: Web', function(){
 			'dist/index.html',
 			'dist/app-export-named-import-star.js'
 		],
-		// expectTypecheckError: true
 		expectedHTML: '[EXPORT NAMED, IMPORT STAR] Type is function'
 	});
-
 	testFixture({
 		id: 'web-export-named-import-require',
-		title: 'Export named function, import = require',
+		title: 'Fails: import = require',
 		sourceFiles: [
 			'package.json',
 			'tsconfig.json',
@@ -270,10 +494,9 @@ describe('Package: Web', function(){
 		],
 		expectTypecheckError: true
 	});
-
 	testFixture({
 		id: 'web-export-named-require',
-		title: 'Export named function, require',
+		title: 'Accepts: require',
 		sourceFiles: [
 			'package.json',
 			'tsconfig.json',
@@ -291,99 +514,142 @@ describe('Package: Web', function(){
 		],
 		expectedHTML: '[EXPORT NAMED, REQUIRE] Type is function'
 	});
+});
 
+
+describe('[web] Preact', function(){
 	testFixture({
-		id: 'web-preact',
-		title: 'Preact',
+		id: 'web-preact-h',
+		title: 'Accepts: h()',
 		sourceFiles: [
 			'package.json',
 			'tsconfig.json',
 			'webpack.config.js',
-			'src/application-preact.ts'
+			'src/application.ts'
 		],
 		tscFiles: [
-			'lib/application-preact.js'
+			'lib/application.js'
 		],
 		webpackFiles: [
 			'dist/index.html',
-			'dist/app-preact.js'
+			'dist/app-preact-h.js'
 		],
-		expectedHTML: '<article class="example">TS Hello World</article>'
+		expectedHTML: '<article class="example">[PREACT H] Hello World</article>'
 	});
-
 	testFixture({
-		id: 'web-tsx',
-		title: 'TSX',
+		id: 'web-preact-class',
+		title: 'Accepts: Class Component',
 		sourceFiles: [
 			'package.json',
 			'tsconfig.json',
 			'webpack.config.js',
-			'src/application-tsx.tsx'
+			'src/application.ts',
+			'src/node_modules/components/MyComponentClass.ts'
 		],
 		tscFiles: [
-			'lib/application-tsx.js'
+			'lib/application.js',
+			'lib/node_modules/components/MyComponentClass.js'
 		],
 		webpackFiles: [
 			'dist/index.html',
-			'dist/app-tsx.js'
+			'dist/app-preact-class.js'
 		],
-		expectedHTML: '<article class="example">TSX Hello World</article>'
+		expectedHTML: '<article class="example">[PREACT CLASS] PROP Hello World STATE 123</article>'
 	});
-
 	testFixture({
-		id: 'web-css',
-		title: 'CSS',
+		id: 'web-preact-function',
+		title: 'Accepts: Functional Component',
 		sourceFiles: [
 			'package.json',
 			'tsconfig.json',
 			'webpack.config.js',
-			'src/application-css.ts',
+			'src/application.ts',
+			'src/node_modules/components/MyFunctionalComponent.ts'
+		],
+		tscFiles: [
+			'lib/application.js',
+			'lib/node_modules/components/MyFunctionalComponent.js'
+		],
+		webpackFiles: [
+			'dist/index.html',
+			'dist/app-preact-function.js'
+		],
+		expectedHTML: '<article class="example">[PREACT FUNCTION] Hello World</article>'
+	});
+	testFixture({
+		id: 'web-preact-tsx',
+		title: 'Accepts: TSX',
+		sourceFiles: [
+			'package.json',
+			'tsconfig.json',
+			'webpack.config.js',
+			'src/application.tsx'
+		],
+		tscFiles: [
+			'lib/application.js'
+		],
+		webpackFiles: [
+			'dist/index.html',
+			'dist/app-preact-tsx.js'
+		],
+		expectedHTML: '<article class="example">[PREACT TSX] Hello World</article>'
+	});
+});
+
+
+describe('[web] Import additional assets', function(){
+	testFixture({
+		id: 'web-assets-css',
+		title: 'Accepts: CSS',
+		sourceFiles: [
+			'package.json',
+			'tsconfig.json',
+			'webpack.config.js',
+			'src/application.ts',
 			'src/node_modules/mymodule-css/index.ts',
 			'src/node_modules/mymodule-css/styles.css'
 		],
 		tscFiles: [
-			'lib/application-css.js',
+			'lib/application.js',
 			'lib/node_modules/mymodule-css/index.js'
 		],
 		webpackFiles: [
 			'dist/index.html',
-			'dist/app-css.js',
-			'dist/app-css.css'
+			'dist/app-assets-css.js',
+			'dist/app-assets-css.css'
 		],
-		expectedHTML: 'CSS .myclass is a string'
+		expectedHTML: '[ASSETS CSS] .myclass is a string'
 	});
-
 	testFixture({
-		id: 'web-scss',
-		title: 'SCSS',
+		id: 'web-assets-scss',
+		title: 'Accepts: SCSS',
 		sourceFiles: [
 			'package.json',
 			'tsconfig.json',
 			'webpack.config.js',
-			'src/application-scss.ts',
+			'src/application.ts',
 			'src/node_modules/mymodule-scss/index.ts',
 			'src/node_modules/mymodule-scss/styles.scss'
 		],
 		tscFiles: [
-			'lib/application-scss.js',
+			'lib/application.js',
 			'lib/node_modules/mymodule-scss/index.js'
 		],
 		webpackFiles: [
 			'dist/index.html',
-			'dist/app-scss.js',
-			'dist/app-scss.css'
+			'dist/app-assets-scss.js',
+			'dist/app-assets-scss.css'
 		],
-		expectedHTML: 'SCSS .myclass is a string'
+		expectedHTML: '[ASSETS SCSS] .myclass is a string'
 	});
-
 	testFixture({
-		id: 'web-images',
-		title: 'Images',
+		id: 'web-assets-images',
+		title: 'Accepts: JPEG, PNG, SVG',
 		sourceFiles: [
 			'package.json',
 			'tsconfig.json',
 			'webpack.config.js',
-			'src/application-images.ts',
+			'src/application.ts',
 			'src/node_modules/mymodule-jpg/index.ts',
 			'src/node_modules/mymodule-jpg/example1.jpg',
 			'src/node_modules/mymodule-png/index.ts',
@@ -392,79 +658,80 @@ describe('Package: Web', function(){
 			'src/node_modules/mymodule-svg/example3.svg'
 		],
 		tscFiles: [
-			'lib/application-images.js',
+			'lib/application.js',
 			'lib/node_modules/mymodule-jpg/index.js',
 			'lib/node_modules/mymodule-png/index.js',
 			'lib/node_modules/mymodule-svg/index.js'
 		],
 		webpackFiles: [
 			'dist/index.html',
-			'dist/app-images.js',
+			'dist/app-assets-images.js',
 			'dist/assets/example1.jpg',
 			'dist/assets/example2.png',
 			'dist/assets/example3.svg'
 		],
 		expectedHTML: '<img src="/assets/example1.jpg"><img src="/assets/example2.png"><img src="/assets/example3.svg">'
 	});
-
 	testFixture({
-		id: 'web-webworker',
-		title: 'Webworker',
+		id: 'web-assets-webworker',
+		title: 'Accepts: Web Workers',
 		sourceFiles: [
 			'package.json',
 			'tsconfig.json',
 			'webpack.config.js',
 			'src/types.d.ts',
-			'src/application-webworker.ts',
+			'src/application.ts',
 			'src/example.webworker.ts'
 		],
 		tscFiles: [
-			'lib/application-webworker.js',
+			'lib/application.js',
 			'lib/example.webworker.js'
 		],
 		webpackFiles: [
 			'dist/index.html',
-			'dist/app-webworker.js',
+			'dist/app-assets-webworker.js',
 			'dist/example.webworker.js'
 		],
 		expectedHTML: '[REQUEST] MAIN to WORKER [RESPONSE] WORKER to MAIN'
 	});
-
 	testFixture({
-		id: 'web-raw',
-		title: 'Local type definitions',
+		id: 'web-assets-raw',
+		title: 'Accepts: Local type definitions',
 		sourceFiles: [
 			'package.json',
 			'tsconfig.json',
 			'webpack.config.js',
 			'src/types.d.ts',
-			'src/application-raw.ts',
+			'src/application.ts',
 			'src/node_modules/mymodule-raw/index.ts',
 			'src/node_modules/mymodule-raw/example.md'
 		],
 		tscFiles: [
-			'lib/application-raw.js',
+			'lib/application.js',
 			'lib/node_modules/mymodule-raw/index.js'
 		],
 		webpackFiles: [
 			'dist/index.html',
-			'dist/app-raw.js'
+			'dist/app-assets-raw.js'
 		],
 		expectedHTML: '# Hello World'
 	});
+});
 
+
+describe('[web] JSON', function(){
 	testFixture({
 		id: 'web-json-import-from',
-		title: 'JSON: import from',
+		title: 'Fails: import … from',
 		sourceFiles: [
 			'package.json',
 			'tsconfig.json',
 			'webpack.config.js',
-			'src/application-json-import-from.ts',
+			'src/application.ts',
 			'src/asset-import-from.json'
 		],
 		tscFiles: [
-			'lib/application-json-import-from.js',
+			'lib/application.js',
 			'lib/asset-import-from.json'
 		],
 		webpackFiles: [
@@ -473,19 +740,18 @@ describe('Package: Web', function(){
 		],
 		expectTypecheckError: true
 	});
-
 	testFixture({
 		id: 'web-json-import-star',
-		title: 'JSON: import * from',
+		title: 'Accepts: import * from',
 		sourceFiles: [
 			'package.json',
 			'tsconfig.json',
 			'webpack.config.js',
-			'src/application-json-import-star.ts',
+			'src/application.ts',
 			'src/asset-import-star.json'
 		],
 		tscFiles: [
-			'lib/application-json-import-star.js',
+			'lib/application.js',
 			'lib/asset-import-star.json'
 		],
 		webpackFiles: [
@@ -494,19 +760,18 @@ describe('Package: Web', function(){
 		],
 		expectedHTML: 'JSON IMPORT STAR is {"default":["hello","world"]}'
 	});
-
 	testFixture({
 		id: 'web-json-import-require',
-		title: 'JSON: import = require',
+		title: 'Fails: import = require',
 		sourceFiles: [
 			'package.json',
 			'tsconfig.json',
 			'webpack.config.js',
-			'src/application-json-import-require.ts',
+			'src/application.ts',
 			'src/asset-import-require.json'
 		],
 		tscFiles: [
-			'lib/application-json-import-require.js',
+			'lib/application.js',
 			'lib/asset-import-require.json'
 		],
 		webpackFiles: [
@@ -515,19 +780,18 @@ describe('Package: Web', function(){
 		],
 		expectTypecheckError: true
 	});
-
 	testFixture({
 		id: 'web-json-require',
-		title: 'JSON: require',
+		title: 'Accepts: require',
 		sourceFiles: [
 			'package.json',
 			'tsconfig.json',
 			'webpack.config.js',
-			'src/application-json-require.ts',
+			'src/application.ts',
 			'src/asset-require.json'
 		],
 		tscFiles: [
-			'lib/application-json-require.js'
+			'lib/application.js'
 		],
 		webpackFiles: [
 			'dist/index.html',
