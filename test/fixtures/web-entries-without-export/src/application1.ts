@@ -1,11 +1,11 @@
 /* eslint-env browser */
 'use strict';
 
+const myvariable = {
+	hello: 'APP1'
+};
+
 const container = document.createElement('div');
 container.setAttribute('id', 'hello');
-container.innerText = '[ENTRY EXPORT DEFAULT] Type is ' + (typeof window);
+container.innerText = `[ENTRY NO EXPORT] Value is ${JSON.stringify(myvariable)}`;
 document.body.appendChild(container);
-
-export function hello(): string {
-	return 'world';
-}
