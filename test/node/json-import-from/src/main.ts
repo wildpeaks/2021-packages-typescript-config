@@ -1,5 +1,5 @@
 /* eslint-env node */
 'use strict';
-import data from './asset-import-from.json';
+import data from './data.json';
 
 console.log(`JSON IMPORT FROM is ${JSON.stringify(data)}`);

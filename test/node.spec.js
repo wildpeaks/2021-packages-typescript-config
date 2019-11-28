@@ -51,14 +51,14 @@ describe('[node] Basic features', function(){
 		sourceFiles: [
 			'package.json',
 			'tsconfig.json',
-			'src/main-basic.ts'
+			'src/main.ts'
 		],
 		tscFiles: [
-			'lib/main-basic.js'
+			'lib/main.js'
 		],
-		mainFilename: 'lib/main-basic.js',
+		mainFilename: 'lib/main.js',
 		expectedOutput: [
-			'BASIC Hello World'
+			'[CLI] Hello World'
 		]
 	});
 });
@@ -71,14 +71,14 @@ describe('[node] JSON', function(){
 		sourceFiles: [
 			'package.json',
 			'tsconfig.json',
-			'src/asset-import-from.json',
-			'src/main-json-import-from.ts'
+			'src/data.json',
+			'src/main.ts'
 		],
-		tscFiles: [
-			'lib/asset-import-from.json',
-			'lib/main-json-import-from.js'
-		],
-		mainFilename: 'lib/main-json-import-from.js',
+		// tscFiles: [
+		// 	'lib/asset-import-from.json',
+		// 	'lib/main.js'
+		// ],
+		// mainFilename: 'lib/main.js',
 		expectTypecheckError: true
 	});
 
@@ -88,16 +88,16 @@ describe('[node] JSON', function(){
 		sourceFiles: [
 			'package.json',
 			'tsconfig.json',
-			'src/asset-import-star.json',
-			'src/main-json-import-star.ts'
+			'src/data.json',
+			'src/main.ts'
 		],
 		tscFiles: [
-			'lib/asset-import-star.json',
-			'lib/main-json-import-star.js'
+			'lib/data.json',
+			'lib/main.js'
 		],
-		mainFilename: 'lib/main-json-import-star.js',
+		mainFilename: 'lib/main.js',
 		expectedOutput: [
-			'JSON IMPORT STAR is ["hello","world"]'
+			'[JSON IMPORT STAR] is ["hello","world"]'
 		]
 	});
 
@@ -107,16 +107,16 @@ describe('[node] JSON', function(){
 		sourceFiles: [
 			'package.json',
 			'tsconfig.json',
-			'src/asset-import-require.json',
-			'src/main-json-import-require.ts'
+			'src/data.json',
+			'src/main.ts'
 		],
 		tscFiles: [
-			'lib/asset-import-require.json',
-			'lib/main-json-import-require.js'
+			'lib/data.json',
+			'lib/main.js'
 		],
-		mainFilename: 'lib/main-json-import-require.js',
+		mainFilename: 'lib/main.js',
 		expectedOutput: [
-			'JSON IMPORT REQUIRE is ["hello","world"]'
+			'[JSON IMPORT REQUIRE] is ["hello","world"]'
 		]
 	});
 
@@ -126,13 +126,13 @@ describe('[node] JSON', function(){
 		sourceFiles: [
 			'package.json',
 			'tsconfig.json',
-			'src/asset-require.json',
-			'src/main-json-require.ts'
+			'src/data.json',
+			'src/main.ts'
 		],
 		tscFiles: [
-			'lib/main-json-require.js'
+			'lib/main.js'
 		],
-		mainFilename: 'lib/main-json-require.js',
+		mainFilename: 'lib/main.js',
 		expectRuntimeError: true
 	});
 });
