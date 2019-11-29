@@ -1,0 +1,25 @@
+strategy:
+  maxParallel: 2
+  matrix:
+    lts:
+      node_version: 12.x
+    latest:
+      node_version: 13.x
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+  - task: NodeTool@0
+    displayName: Use Node
+    inputs:
+      versionSpec: $(node_version)
+
+  - script: npm install
+    displayName: Install dependencies
+
+  - script: npm run setup
+    displayName: Run tests setup
+
+  - script: npm test
+    displayName: Run tests
