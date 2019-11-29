@@ -31,7 +31,7 @@ function testFixture({id, title, sourceFiles, tscFiles, webpackFiles, expectType
 		deepStrictEqual(typechecked.filesBefore, sourceFiles.sort(), 'Before TSC');
 		if (expectTypecheckError){
 			if (typechecked.errors.length === 0){
-				throw new Error('Expected fixtured to fail typecheck');
+				throw new Error('Expected fixture to fail typecheck');
 			}
 			return;
 		}
