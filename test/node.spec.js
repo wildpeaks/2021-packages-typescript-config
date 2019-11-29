@@ -80,24 +80,18 @@ describe('[node] Basic features', function(){
 describe('[node] JSON', function(){
 	testFixture({
 		id: 'json-import-from',
-		title: 'JSON: import from',
+		title: 'Fails: import from',
 		sourceFiles: [
 			'package.json',
 			'tsconfig.json',
 			'src/data.json',
 			'src/main.ts'
 		],
-		// tscFiles: [
-		// 	'lib/asset-import-from.json',
-		// 	'lib/main.js'
-		// ],
-		// mainFilename: 'lib/main.js',
 		expectTypecheckError: true
 	});
-
 	testFixture({
 		id: 'json-import-star',
-		title: 'JSON: import * from',
+		title: 'Accepts: import * from',
 		sourceFiles: [
 			'package.json',
 			'tsconfig.json',
@@ -113,10 +107,9 @@ describe('[node] JSON', function(){
 			'[JSON IMPORT STAR] is ["hello","world"]'
 		]
 	});
-
 	testFixture({
 		id: 'json-import-require',
-		title: 'JSON: import = require',
+		title: 'Accepts: import = require',
 		sourceFiles: [
 			'package.json',
 			'tsconfig.json',
@@ -132,10 +125,9 @@ describe('[node] JSON', function(){
 			'[JSON IMPORT REQUIRE] is ["hello","world"]'
 		]
 	});
-
 	testFixture({
 		id: 'json-require',
-		title: 'JSON: require',
+		title: 'Fails: require (without copy)',
 		sourceFiles: [
 			'package.json',
 			'tsconfig.json',
@@ -147,6 +139,26 @@ describe('[node] JSON', function(){
 		],
 		mainFilename: 'lib/main.js',
 		expectRuntimeError: true
+	});
+	testFixture({
+		id: 'json-require',
+		title: 'Accepts: require (with copy)',
+		sourceFiles: [
+			'package.json',
+			'tsconfig.json',
+			'src/data.json',
+			'src/main.ts'
+		],
+		tscFiles: [
+			'lib/main.js'
+		],
+		mainFilename: 'lib/main.js',
+		copyFiles: {
+			'src/data.json': 'lib/data.json'
+		},
+		expectedOutput: [
+			'[JSON REQUIRE] is ["hello","world"]'
+		]
 	});
 });
 
