@@ -1,5 +1,3 @@
-/* eslint-env browser */
-'use strict';
 import {h, render} from 'preact';
 
 const container = document.createElement('div');

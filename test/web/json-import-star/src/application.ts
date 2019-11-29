@@ -1,5 +1,3 @@
-/* eslint-env browser */
-'use strict';
 import * as data from './asset-import-star.json';
 
 const container = document.createElement('div');

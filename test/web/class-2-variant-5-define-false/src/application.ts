@@ -1,5 +1,3 @@
-/* eslint-env browser */
-'use strict';
 const container = document.createElement('div');
 container.setAttribute('id', 'hello');
 document.body.appendChild(container);

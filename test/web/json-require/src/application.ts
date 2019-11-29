@@ -1,5 +1,3 @@
-/* eslint-env browser */
-'use strict';
 const data = require('./asset-require.json');
 
 const container = document.createElement('div');

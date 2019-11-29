@@ -1,4 +1,3 @@
-/* eslint-env browser */
 import {h, render} from 'preact';
 import {MyFunctionalComponent} from 'components/MyFunctionalComponent';
 

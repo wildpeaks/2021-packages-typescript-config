@@ -1,5 +1,3 @@
-/* eslint-env browser */
-'use strict';
 const MyWorker = require('./example.webworker');
 
 const container = document.createElement('div');

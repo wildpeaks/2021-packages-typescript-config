@@ -1,5 +1,3 @@
-/* eslint-env browser */
-'use strict';
 import shared = require('./shared');
 
 const myvariable = {

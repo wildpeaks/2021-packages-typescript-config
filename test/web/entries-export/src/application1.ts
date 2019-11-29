@@ -1,6 +1,3 @@
-/* eslint-env browser */
-'use strict';
-
 const myvariable = {
 	hello: 'APP1'
 };

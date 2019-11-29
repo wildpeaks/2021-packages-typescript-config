@@ -1,5 +1,3 @@
-/* eslint-env browser */
-'use strict';
 import {mymodule} from 'mymodule-scss';
 
 const container = document.createElement('div');

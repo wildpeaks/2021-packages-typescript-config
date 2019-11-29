@@ -1,5 +1,3 @@
-/* eslint-env browser */
-'use strict';
 import {myfunction} from './shared';
 
 const myvariable = {

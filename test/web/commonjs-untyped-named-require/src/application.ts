@@ -1,5 +1,3 @@
-/* eslint-env browser */
-'use strict';
 const {myfunction} = require('mymodule');
 
 const container = document.createElement('div');
