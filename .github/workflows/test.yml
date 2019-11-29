@@ -1,0 +1,32 @@
+name: Tests
+on:
+  push:
+    branches:
+      - '**'
+jobs:
+  tests:
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+	steps:
+
+      - name: Download sources
+        uses: actions/checkout@v1
+
+      - name: Use Node LTS
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+
+      - name: Install dependencies
+        run: |
+          npm install
+          npm run setup
+
+      - name: Lint the packages
+        run: npm run test:lint
+
+      - name: Test the Node config
+        run: npm run test:node
+
+      - name: Test the Web config
+        run: npm run test:web
