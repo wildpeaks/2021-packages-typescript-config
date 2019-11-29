@@ -1,8 +1,8 @@
 {
   "private": true,
   "name": "@wildpeaks/tsconfig",
-  "version": "0.0.1",
-  "description": "Typescript configuration packages",
+  "version": "1.0.0-alpha",
+  "description": "Base tsconfig packages",
   "author": "Cecile Muller",
   "license": "MIT",
   "homepage": "https://github.com/wildpeaks/packages-typescript-config#readme",
