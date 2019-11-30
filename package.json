@@ -16,12 +16,6 @@
   "eslintConfig": {
     "extends": "@wildpeaks/commonjs"
   },
-  "greenkeeper": {
-    "commitMessages": {
-      "dependencyUpdate": "fix: Update ${dependency}",
-      "devDependencyUpdate": "chore: Update ${dependency}"
-    }
-  },
   "scripts": {
     "setup": "node test/setup.js",
     "test:lint": "mocha test/lint.spec.js",
