@@ -1,0 +1,15 @@
+{
+	"commitMessages": {
+		"dependencyUpdate": "fix: Update ${dependency}",
+		"devDependencyUpdate": "chore: Update ${dependency}"
+	},
+	"groups": {
+		"configs": {
+			"packages": [
+				"package.json",
+				"packages/tsconfig-node/package.json",
+				"packages/tsconfig-web/package.json"
+			]
+		}
+	}
+}

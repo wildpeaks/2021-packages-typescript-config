@@ -94,7 +94,8 @@ describe('[web] Basic features', function(){
 			'src/application.ts'
 		],
 		tscFiles: [
-			'lib/application.js'
+			'lib/application.js',
+			'lib/application.js.map'
 		],
 		webpackFiles: [
 			'dist/index.html',
@@ -115,7 +116,9 @@ describe('[web] Basic features', function(){
 		],
 		tscFiles: [
 			'lib/application.js',
-			'lib/example.webworker.js'
+			'lib/application.js.map',
+			'lib/example.webworker.js',
+			'lib/example.webworker.js.map'
 		],
 		webpackFiles: [
 			'dist/index.html',
@@ -165,7 +168,9 @@ describe('[web] Toplevel variables are global without "import" or "export"', fun
 		],
 		tscFiles: [
 			'lib/application1.js',
-			'lib/application2.js'
+			'lib/application1.js.map',
+			'lib/application2.js',
+			'lib/application2.js.map'
 		],
 		webpackFiles: [
 			'dist/index1.html',
@@ -188,8 +193,11 @@ describe('[web] Toplevel variables are global without "import" or "export"', fun
 		],
 		tscFiles: [
 			'lib/shared.js',
+			'lib/shared.js.map',
 			'lib/application1.js',
-			'lib/application2.js'
+			'lib/application1.js.map',
+			'lib/application2.js',
+			'lib/application2.js.map'
 		],
 		webpackFiles: [
 			'dist/index1.html',
@@ -212,8 +220,11 @@ describe('[web] Toplevel variables are global without "import" or "export"', fun
 		],
 		tscFiles: [
 			'lib/shared.js',
+			'lib/shared.js.map',
 			'lib/application1.js',
-			'lib/application2.js'
+			'lib/application1.js.map',
+			'lib/application2.js',
+			'lib/application2.js.map'
 		],
 		webpackFiles: [
 			'dist/index1.html',
@@ -287,7 +298,8 @@ describe('[web] Import a CommonJS default object, without .d.ts', function(){
 			'src/node_modules/mymodule/index.js'
 		],
 		tscFiles: [
-			'lib/application.js'
+			'lib/application.js',
+			'lib/application.js.map'
 		],
 		webpackFiles: [
 			'dist/index.html',
@@ -346,7 +358,8 @@ describe('[web] Import a CommonJS named function, without .d.ts', function(){
 			'src/node_modules/mymodule/index.js'
 		],
 		tscFiles: [
-			'lib/application.js'
+			'lib/application.js',
+			'lib/application.js.map'
 		],
 		webpackFiles: [
 			'dist/index.html',
@@ -413,7 +426,8 @@ describe('[web] Import a CommonJS default object, with .d.ts', function(){
 			'src/node_modules/mymodule/mymodule.d.ts'
 		],
 		tscFiles: [
-			'lib/application.js'
+			'lib/application.js',
+			'lib/application.js.map'
 		],
 		webpackFiles: [
 			'dist/index.html',
@@ -438,7 +452,8 @@ describe('[web] Import a CommonJS named function, with .d.ts', function(){
 			'src/node_modules/mymodule/mymodule.d.ts'
 		],
 		tscFiles: [
-			'lib/application.js'
+			'lib/application.js',
+			'lib/application.js.map'
 		],
 		webpackFiles: [
 			'dist/index.html',
@@ -459,7 +474,8 @@ describe('[web] Import a CommonJS named function, with .d.ts', function(){
 			'src/node_modules/mymodule/mymodule.d.ts'
 		],
 		tscFiles: [
-			'lib/application.js'
+			'lib/application.js',
+			'lib/application.js.map'
 		],
 		webpackFiles: [
 			'dist/index.html',
@@ -494,7 +510,8 @@ describe('[web] Import a CommonJS named function, with .d.ts', function(){
 			'src/node_modules/mymodule/mymodule.d.ts'
 		],
 		tscFiles: [
-			'lib/application.js'
+			'lib/application.js',
+			'lib/application.js.map'
 		],
 		webpackFiles: [
 			'dist/index.html',
@@ -518,7 +535,9 @@ describe('[web] Import an ES Module default object', function(){
 		],
 		tscFiles: [
 			'lib/application.js',
-			'lib/node_modules/mymodule/index.js'
+			'lib/application.js.map',
+			'lib/node_modules/mymodule/index.js',
+			'lib/node_modules/mymodule/index.js.map'
 		],
 		webpackFiles: [
 			'dist/index.html',
@@ -538,7 +557,9 @@ describe('[web] Import an ES Module default object', function(){
 		],
 		tscFiles: [
 			'lib/application.js',
-			'lib/node_modules/mymodule/index.js'
+			'lib/application.js.map',
+			'lib/node_modules/mymodule/index.js',
+			'lib/node_modules/mymodule/index.js.map'
 		],
 		webpackFiles: [
 			'dist/index.html',
@@ -570,7 +591,9 @@ describe('[web] Import an ES Module default object', function(){
 		],
 		tscFiles: [
 			'lib/application.js',
-			'lib/node_modules/mymodule/index.js'
+			'lib/application.js.map',
+			'lib/node_modules/mymodule/index.js',
+			'lib/node_modules/mymodule/index.js.map'
 		],
 		webpackFiles: [
 			'dist/index.html',
@@ -594,7 +617,9 @@ describe('[web] Import an ES Module named function', function(){
 		],
 		tscFiles: [
 			'lib/application.js',
-			'lib/node_modules/mymodule/index.js'
+			'lib/application.js.map',
+			'lib/node_modules/mymodule/index.js',
+			'lib/node_modules/mymodule/index.js.map'
 		],
 		webpackFiles: [
 			'dist/index.html',
@@ -614,7 +639,9 @@ describe('[web] Import an ES Module named function', function(){
 		],
 		tscFiles: [
 			'lib/application.js',
-			'lib/node_modules/mymodule/index.js'
+			'lib/application.js.map',
+			'lib/node_modules/mymodule/index.js',
+			'lib/node_modules/mymodule/index.js.map'
 		],
 		webpackFiles: [
 			'dist/index.html',
@@ -646,7 +673,9 @@ describe('[web] Import an ES Module named function', function(){
 		],
 		tscFiles: [
 			'lib/application.js',
-			'lib/node_modules/mymodule/index.js'
+			'lib/application.js.map',
+			'lib/node_modules/mymodule/index.js',
+			'lib/node_modules/mymodule/index.js.map'
 		],
 		webpackFiles: [
 			'dist/index.html',
@@ -668,7 +697,8 @@ describe('[web] Preact', function(){
 			'src/application.ts'
 		],
 		tscFiles: [
-			'lib/application.js'
+			'lib/application.js',
+			'lib/application.js.map'
 		],
 		webpackFiles: [
 			'dist/index.html',
@@ -688,7 +718,9 @@ describe('[web] Preact', function(){
 		],
 		tscFiles: [
 			'lib/application.js',
-			'lib/node_modules/components/MyComponentClass.js'
+			'lib/application.js.map',
+			'lib/node_modules/components/MyComponentClass.js',
+			'lib/node_modules/components/MyComponentClass.js.map'
 		],
 		webpackFiles: [
 			'dist/index.html',
@@ -708,7 +740,9 @@ describe('[web] Preact', function(){
 		],
 		tscFiles: [
 			'lib/application.js',
-			'lib/node_modules/components/MyFunctionalComponent.js'
+			'lib/application.js.map',
+			'lib/node_modules/components/MyFunctionalComponent.js',
+			'lib/node_modules/components/MyFunctionalComponent.js.map'
 		],
 		webpackFiles: [
 			'dist/index.html',
@@ -726,7 +760,8 @@ describe('[web] Preact', function(){
 			'src/application.tsx'
 		],
 		tscFiles: [
-			'lib/application.js'
+			'lib/application.js',
+			'lib/application.js.map'
 		],
 		webpackFiles: [
 			'dist/index.html',
@@ -751,7 +786,9 @@ describe('[web] Import additional assets', function(){
 		],
 		tscFiles: [
 			'lib/application.js',
-			'lib/node_modules/mymodule-css/index.js'
+			'lib/application.js.map',
+			'lib/node_modules/mymodule-css/index.js',
+			'lib/node_modules/mymodule-css/index.js.map'
 		],
 		webpackFiles: [
 			'dist/index.html',
@@ -773,7 +810,9 @@ describe('[web] Import additional assets', function(){
 		],
 		tscFiles: [
 			'lib/application.js',
-			'lib/node_modules/mymodule-scss/index.js'
+			'lib/application.js.map',
+			'lib/node_modules/mymodule-scss/index.js',
+			'lib/node_modules/mymodule-scss/index.js.map'
 		],
 		webpackFiles: [
 			'dist/index.html',
@@ -799,9 +838,13 @@ describe('[web] Import additional assets', function(){
 		],
 		tscFiles: [
 			'lib/application.js',
+			'lib/application.js.map',
 			'lib/node_modules/mymodule-jpg/index.js',
+			'lib/node_modules/mymodule-jpg/index.js.map',
 			'lib/node_modules/mymodule-png/index.js',
-			'lib/node_modules/mymodule-svg/index.js'
+			'lib/node_modules/mymodule-png/index.js.map',
+			'lib/node_modules/mymodule-svg/index.js',
+			'lib/node_modules/mymodule-svg/index.js.map'
 		],
 		webpackFiles: [
 			'dist/index.html',
@@ -826,7 +869,9 @@ describe('[web] Import additional assets', function(){
 		],
 		tscFiles: [
 			'lib/application.js',
-			'lib/node_modules/mymodule-raw/index.js'
+			'lib/application.js.map',
+			'lib/node_modules/mymodule-raw/index.js',
+			'lib/node_modules/mymodule-raw/index.js.map'
 		],
 		webpackFiles: [
 			'dist/index.html',
@@ -862,6 +907,7 @@ describe('[web] JSON', function(){
 		],
 		tscFiles: [
 			'lib/application.js',
+			'lib/application.js.map',
 			'lib/asset-import-star.json'
 		],
 		webpackFiles: [
@@ -893,7 +939,8 @@ describe('[web] JSON', function(){
 			'src/asset-require.json'
 		],
 		tscFiles: [
-			'lib/application.js'
+			'lib/application.js',
+			'lib/application.js.map'
 		],
 		webpackFiles: [
 			'dist/index.html',
