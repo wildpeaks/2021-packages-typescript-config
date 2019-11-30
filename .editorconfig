@@ -14,3 +14,7 @@ indent_size = 2
 [package.json]
 indent_style = space
 indent_size = 2
+
+[greenkeeper.json]
+indent_style = space
+indent_size = 2
