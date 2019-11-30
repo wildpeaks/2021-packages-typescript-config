@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@wildpeaks/tsconfig",
-  "version": "1.0.0-alpha",
+  "version": "1.0.0-alpha2",
   "description": "Base tsconfig packages",
   "author": "Cecile Muller",
   "license": "MIT",
