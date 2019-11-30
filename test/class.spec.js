@@ -95,7 +95,8 @@ describe('[web] useDefineForClassFields: true (default)', function(){
 			'src/application.ts'
 		],
 		tscFiles: [
-			'lib/application.js'
+			'lib/application.js',
+			'lib/application.js.map'
 		],
 		webpackFiles: [
 			'dist/index.html',
@@ -124,7 +125,8 @@ describe('[web] useDefineForClassFields: true (default)', function(){
 			'src/application.ts'
 		],
 		tscFiles: [
-			'lib/application.js'
+			'lib/application.js',
+			'lib/application.js.map'
 		],
 		webpackFiles: [
 			'dist/index.html',
@@ -142,7 +144,8 @@ describe('[web] useDefineForClassFields: true (default)', function(){
 			'src/application.ts'
 		],
 		tscFiles: [
-			'lib/application.js'
+			'lib/application.js',
+			'lib/application.js.map'
 		],
 		webpackFiles: [
 			'dist/index.html',
@@ -160,7 +163,8 @@ describe('[web] useDefineForClassFields: true (default)', function(){
 			'src/application.ts'
 		],
 		tscFiles: [
-			'lib/application.js'
+			'lib/application.js',
+			'lib/application.js.map'
 		],
 		webpackFiles: [
 			'dist/index.html',
@@ -180,7 +184,8 @@ describe('[web] useDefineForClassFields: true (default)', function(){
 			'src/application.ts'
 		],
 		tscFiles: [
-			'lib/application.js'
+			'lib/application.js',
+			'lib/application.js.map'
 		],
 		webpackFiles: [
 			'dist/index.html',
@@ -198,14 +203,6 @@ describe('[web] useDefineForClassFields: true (default)', function(){
 			'src/application.ts'
 		],
 		expectTypecheckError: true
-		// tscFiles: [
-		// 	'lib/application.js'
-		// ],
-		// webpackFiles: [
-		// 	'dist/index.html',
-		// 	'dist/app-class-2-variant-2-define-true.js'
-		// ],
-		// expectedHTML: '[CLASS 2 VARIANT 2 DEFINE TRUE] BASE MODIFIED'
 	});
 	testFixture({
 		id: 'class-2-variant-3-define-true',
@@ -217,7 +214,8 @@ describe('[web] useDefineForClassFields: true (default)', function(){
 			'src/application.ts'
 		],
 		tscFiles: [
-			'lib/application.js'
+			'lib/application.js',
+			'lib/application.js.map'
 		],
 		webpackFiles: [
 			'dist/index.html',
@@ -235,7 +233,8 @@ describe('[web] useDefineForClassFields: true (default)', function(){
 			'src/application.ts'
 		],
 		tscFiles: [
-			'lib/application.js'
+			'lib/application.js',
+			'lib/application.js.map'
 		],
 		webpackFiles: [
 			'dist/index.html',
@@ -253,7 +252,8 @@ describe('[web] useDefineForClassFields: true (default)', function(){
 			'src/application.ts'
 		],
 		tscFiles: [
-			'lib/application.js'
+			'lib/application.js',
+			'lib/application.js.map'
 		],
 		webpackFiles: [
 			'dist/index.html',
@@ -273,7 +273,8 @@ describe('[web] useDefineForClassFields: true (default)', function(){
 			'src/application.ts'
 		],
 		tscFiles: [
-			'lib/application.js'
+			'lib/application.js',
+			'lib/application.js.map'
 		],
 		webpackFiles: [
 			'dist/index.html',
@@ -291,14 +292,6 @@ describe('[web] useDefineForClassFields: true (default)', function(){
 			'src/application.ts'
 		],
 		expectTypecheckError: true
-		// tscFiles: [
-		// 	'lib/application.js'
-		// ],
-		// webpackFiles: [
-		// 	'dist/index.html',
-		// 	'dist/app-class-3-variant-2-define-true.js'
-		// ],
-		// expectedHTML: '[CLASS 3 VARIANT 2 DEFINE TRUE] BASE MODIFIED'
 	});
 	testFixture({
 		id: 'class-3-variant-3-define-true',
@@ -310,7 +303,8 @@ describe('[web] useDefineForClassFields: true (default)', function(){
 			'src/application.ts'
 		],
 		tscFiles: [
-			'lib/application.js'
+			'lib/application.js',
+			'lib/application.js.map'
 		],
 		webpackFiles: [
 			'dist/index.html',
@@ -328,7 +322,8 @@ describe('[web] useDefineForClassFields: true (default)', function(){
 			'src/application.ts'
 		],
 		tscFiles: [
-			'lib/application.js'
+			'lib/application.js',
+			'lib/application.js.map'
 		],
 		webpackFiles: [
 			'dist/index.html',
@@ -346,7 +341,8 @@ describe('[web] useDefineForClassFields: true (default)', function(){
 			'src/application.ts'
 		],
 		tscFiles: [
-			'lib/application.js'
+			'lib/application.js',
+			'lib/application.js.map'
 		],
 		webpackFiles: [
 			'dist/index.html',
@@ -369,7 +365,8 @@ describe('[web] useDefineForClassFields: false (legacy)', function(){
 			'src/application.ts'
 		],
 		tscFiles: [
-			'lib/application.js'
+			'lib/application.js',
+			'lib/application.js.map'
 		],
 		webpackFiles: [
 			'dist/index.html',
@@ -387,7 +384,8 @@ describe('[web] useDefineForClassFields: false (legacy)', function(){
 			'src/application.ts'
 		],
 		tscFiles: [
-			'lib/application.js'
+			'lib/application.js',
+			'lib/application.js.map'
 		],
 		webpackFiles: [
 			'dist/index.html',
@@ -405,7 +403,8 @@ describe('[web] useDefineForClassFields: false (legacy)', function(){
 			'src/application.ts'
 		],
 		tscFiles: [
-			'lib/application.js'
+			'lib/application.js',
+			'lib/application.js.map'
 		],
 		webpackFiles: [
 			'dist/index.html',
@@ -423,7 +422,8 @@ describe('[web] useDefineForClassFields: false (legacy)', function(){
 			'src/application.ts'
 		],
 		tscFiles: [
-			'lib/application.js'
+			'lib/application.js',
+			'lib/application.js.map'
 		],
 		webpackFiles: [
 			'dist/index.html',
@@ -441,7 +441,8 @@ describe('[web] useDefineForClassFields: false (legacy)', function(){
 			'src/application.ts'
 		],
 		tscFiles: [
-			'lib/application.js'
+			'lib/application.js',
+			'lib/application.js.map'
 		],
 		webpackFiles: [
 			'dist/index.html',
@@ -461,7 +462,8 @@ describe('[web] useDefineForClassFields: false (legacy)', function(){
 			'src/application.ts'
 		],
 		tscFiles: [
-			'lib/application.js'
+			'lib/application.js',
+			'lib/application.js.map'
 		],
 		webpackFiles: [
 			'dist/index.html',
@@ -479,7 +481,8 @@ describe('[web] useDefineForClassFields: false (legacy)', function(){
 			'src/application.ts'
 		],
 		tscFiles: [
-			'lib/application.js'
+			'lib/application.js',
+			'lib/application.js.map'
 		],
 		webpackFiles: [
 			'dist/index.html',
@@ -497,7 +500,8 @@ describe('[web] useDefineForClassFields: false (legacy)', function(){
 			'src/application.ts'
 		],
 		tscFiles: [
-			'lib/application.js'
+			'lib/application.js',
+			'lib/application.js.map'
 		],
 		webpackFiles: [
 			'dist/index.html',
@@ -515,7 +519,8 @@ describe('[web] useDefineForClassFields: false (legacy)', function(){
 			'src/application.ts'
 		],
 		tscFiles: [
-			'lib/application.js'
+			'lib/application.js',
+			'lib/application.js.map'
 		],
 		webpackFiles: [
 			'dist/index.html',
@@ -533,7 +538,8 @@ describe('[web] useDefineForClassFields: false (legacy)', function(){
 			'src/application.ts'
 		],
 		tscFiles: [
-			'lib/application.js'
+			'lib/application.js',
+			'lib/application.js.map'
 		],
 		webpackFiles: [
 			'dist/index.html',
@@ -553,7 +559,8 @@ describe('[web] useDefineForClassFields: false (legacy)', function(){
 			'src/application.ts'
 		],
 		tscFiles: [
-			'lib/application.js'
+			'lib/application.js',
+			'lib/application.js.map'
 		],
 		webpackFiles: [
 			'dist/index.html',
@@ -571,7 +578,8 @@ describe('[web] useDefineForClassFields: false (legacy)', function(){
 			'src/application.ts'
 		],
 		tscFiles: [
-			'lib/application.js'
+			'lib/application.js',
+			'lib/application.js.map'
 		],
 		webpackFiles: [
 			'dist/index.html',
@@ -589,7 +597,8 @@ describe('[web] useDefineForClassFields: false (legacy)', function(){
 			'src/application.ts'
 		],
 		tscFiles: [
-			'lib/application.js'
+			'lib/application.js',
+			'lib/application.js.map'
 		],
 		webpackFiles: [
 			'dist/index.html',
@@ -607,7 +616,8 @@ describe('[web] useDefineForClassFields: false (legacy)', function(){
 			'src/application.ts'
 		],
 		tscFiles: [
-			'lib/application.js'
+			'lib/application.js',
+			'lib/application.js.map'
 		],
 		webpackFiles: [
 			'dist/index.html',
@@ -625,7 +635,8 @@ describe('[web] useDefineForClassFields: false (legacy)', function(){
 			'src/application.ts'
 		],
 		tscFiles: [
-			'lib/application.js'
+			'lib/application.js',
+			'lib/application.js.map'
 		],
 		webpackFiles: [
 			'dist/index.html',

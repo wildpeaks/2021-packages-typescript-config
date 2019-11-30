@@ -67,7 +67,8 @@ describe('[node] Basic features', function(){
 			'src/main.ts'
 		],
 		tscFiles: [
-			'lib/main.js'
+			'lib/main.js',
+			'lib/main.js.map'
 		],
 		mainFilename: 'lib/main.js',
 		expectedOutput: [
@@ -100,7 +101,8 @@ describe('[node] JSON', function(){
 		],
 		tscFiles: [
 			'lib/data.json',
-			'lib/main.js'
+			'lib/main.js',
+			'lib/main.js.map'
 		],
 		mainFilename: 'lib/main.js',
 		expectedOutput: [
@@ -118,7 +120,8 @@ describe('[node] JSON', function(){
 		],
 		tscFiles: [
 			'lib/data.json',
-			'lib/main.js'
+			'lib/main.js',
+			'lib/main.js.map'
 		],
 		mainFilename: 'lib/main.js',
 		expectedOutput: [
@@ -135,7 +138,8 @@ describe('[node] JSON', function(){
 			'src/main.ts'
 		],
 		tscFiles: [
-			'lib/main.js'
+			'lib/main.js',
+			'lib/main.js.map'
 		],
 		mainFilename: 'lib/main.js',
 		expectRuntimeError: true
@@ -150,7 +154,8 @@ describe('[node] JSON', function(){
 			'src/main.ts'
 		],
 		tscFiles: [
-			'lib/main.js'
+			'lib/main.js',
+			'lib/main.js.map'
 		],
 		mainFilename: 'lib/main.js',
 		copyFiles: {
@@ -207,7 +212,8 @@ describe('[node] Import a CommonJS default object, without .d.ts', function(){
 			'src/node_modules/mymodule/index.js'
 		],
 		tscFiles: [
-			'lib/main.js'
+			'lib/main.js',
+			'lib/main.js.map'
 		],
 		copyFiles: {
 			'src/node_modules/mymodule/index.js': 'lib/node_modules/mymodule/index.js'
@@ -264,7 +270,8 @@ describe('[node] Import a CommonJS named function, without .d.ts', function(){
 			'src/node_modules/mymodule/index.js'
 		],
 		tscFiles: [
-			'lib/main.js'
+			'lib/main.js',
+			'lib/main.js.map'
 		],
 		copyFiles: {
 			'src/node_modules/mymodule/index.js': 'lib/node_modules/mymodule/index.js'
@@ -316,7 +323,8 @@ describe('[node] Import a CommonJS default object, with .d.ts', function(){
 			'src/node_modules/mymodule/mymodule.d.ts'
 		],
 		tscFiles: [
-			'lib/main.js'
+			'lib/main.js',
+			'lib/main.js.map'
 		],
 		copyFiles: {
 			'src/node_modules/mymodule/package.json': 'lib/node_modules/mymodule/package.json',
@@ -339,7 +347,8 @@ describe('[node] Import a CommonJS default object, with .d.ts', function(){
 			'src/node_modules/mymodule/mymodule.d.ts'
 		],
 		tscFiles: [
-			'lib/main.js'
+			'lib/main.js',
+			'lib/main.js.map'
 		],
 		copyFiles: {
 			'src/node_modules/mymodule/package.json': 'lib/node_modules/mymodule/package.json',
@@ -366,7 +375,8 @@ describe('[node] Import a CommonJS named function, with .d.ts', function(){
 			'src/node_modules/mymodule/mymodule.d.ts'
 		],
 		tscFiles: [
-			'lib/main.js'
+			'lib/main.js',
+			'lib/main.js.map'
 		],
 		copyFiles: {
 			'src/node_modules/mymodule/package.json': 'lib/node_modules/mymodule/package.json',
@@ -389,7 +399,8 @@ describe('[node] Import a CommonJS named function, with .d.ts', function(){
 			'src/node_modules/mymodule/mymodule.d.ts'
 		],
 		tscFiles: [
-			'lib/main.js'
+			'lib/main.js',
+			'lib/main.js.map'
 		],
 		copyFiles: {
 			'src/node_modules/mymodule/package.json': 'lib/node_modules/mymodule/package.json',
@@ -412,7 +423,8 @@ describe('[node] Import a CommonJS named function, with .d.ts', function(){
 			'src/node_modules/mymodule/mymodule.d.ts'
 		],
 		tscFiles: [
-			'lib/main.js'
+			'lib/main.js',
+			'lib/main.js.map'
 		],
 		copyFiles: {
 			'src/node_modules/mymodule/package.json': 'lib/node_modules/mymodule/package.json',
@@ -435,7 +447,8 @@ describe('[node] Import a CommonJS named function, with .d.ts', function(){
 			'src/node_modules/mymodule/mymodule.d.ts'
 		],
 		tscFiles: [
-			'lib/main.js'
+			'lib/main.js',
+			'lib/main.js.map'
 		],
 		copyFiles: {
 			'src/node_modules/mymodule/package.json': 'lib/node_modules/mymodule/package.json',
@@ -461,7 +474,9 @@ describe('[node] Import an ES Module default object', function(){
 		],
 		tscFiles: [
 			'lib/main.js',
-			'lib/node_modules/mymodule/index.js'
+			'lib/main.js.map',
+			'lib/node_modules/mymodule/index.js',
+			'lib/node_modules/mymodule/index.js.map'
 		],
 		mainFilename: 'lib/main.js',
 		expectedOutput: [
@@ -479,7 +494,9 @@ describe('[node] Import an ES Module default object', function(){
 		],
 		tscFiles: [
 			'lib/main.js',
-			'lib/node_modules/mymodule/index.js'
+			'lib/main.js.map',
+			'lib/node_modules/mymodule/index.js',
+			'lib/node_modules/mymodule/index.js.map'
 		],
 		mainFilename: 'lib/main.js',
 		expectedOutput: [
@@ -497,7 +514,9 @@ describe('[node] Import an ES Module default object', function(){
 		],
 		tscFiles: [
 			'lib/main.js',
-			'lib/node_modules/mymodule/index.js'
+			'lib/main.js.map',
+			'lib/node_modules/mymodule/index.js',
+			'lib/node_modules/mymodule/index.js.map'
 		],
 		mainFilename: 'lib/main.js',
 		expectedOutput: [
@@ -515,7 +534,9 @@ describe('[node] Import an ES Module default object', function(){
 		],
 		tscFiles: [
 			'lib/main.js',
-			'lib/node_modules/mymodule/index.js'
+			'lib/main.js.map',
+			'lib/node_modules/mymodule/index.js',
+			'lib/node_modules/mymodule/index.js.map'
 		],
 		mainFilename: 'lib/main.js',
 		expectedOutput: [
@@ -537,7 +558,9 @@ describe('[node] Import an ES Module named function', function(){
 		],
 		tscFiles: [
 			'lib/main.js',
-			'lib/node_modules/mymodule/index.js'
+			'lib/main.js.map',
+			'lib/node_modules/mymodule/index.js',
+			'lib/node_modules/mymodule/index.js.map'
 		],
 		mainFilename: 'lib/main.js',
 		expectedOutput: [
@@ -555,7 +578,9 @@ describe('[node] Import an ES Module named function', function(){
 		],
 		tscFiles: [
 			'lib/main.js',
-			'lib/node_modules/mymodule/index.js'
+			'lib/main.js.map',
+			'lib/node_modules/mymodule/index.js',
+			'lib/node_modules/mymodule/index.js.map'
 		],
 		mainFilename: 'lib/main.js',
 		expectedOutput: [
@@ -573,7 +598,9 @@ describe('[node] Import an ES Module named function', function(){
 		],
 		tscFiles: [
 			'lib/main.js',
-			'lib/node_modules/mymodule/index.js'
+			'lib/main.js.map',
+			'lib/node_modules/mymodule/index.js',
+			'lib/node_modules/mymodule/index.js.map'
 		],
 		mainFilename: 'lib/main.js',
 		expectedOutput: [
@@ -591,7 +618,9 @@ describe('[node] Import an ES Module named function', function(){
 		],
 		tscFiles: [
 			'lib/main.js',
-			'lib/node_modules/mymodule/index.js'
+			'lib/main.js.map',
+			'lib/node_modules/mymodule/index.js',
+			'lib/node_modules/mymodule/index.js.map'
 		],
 		mainFilename: 'lib/main.js',
 		expectedOutput: [
