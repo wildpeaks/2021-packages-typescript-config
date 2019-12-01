@@ -772,7 +772,100 @@ describe('[web] Preact', function(){
 });
 
 
-describe('[web] Import additional assets', function(){
+describe('[web] JPEG, PNG, SVG', function(){
+	testFixture({
+		id: 'assets-images-import-from',
+		title: 'Accepts: import … from',
+		sourceFiles: [
+			'package.json',
+			'tsconfig.json',
+			'webpack.config.js',
+			'src/application.ts',
+			'src/example1.jpg',
+			'src/example2.png',
+			'src/example3.svg'
+		],
+		tscFiles: [
+			'lib/application.js',
+			'lib/application.js.map'
+		],
+		webpackFiles: [
+			'dist/index.html',
+			'dist/app-assets-images.js',
+			'dist/assets/example1.jpg',
+			'dist/assets/example2.png',
+			'dist/assets/example3.svg'
+		],
+		expectedHTML: '<div>"/assets/example1.jpg"</div><div>"/assets/example2.png"</div><div>"/assets/example3.svg"</div>'
+	});
+	testFixture({
+		id: 'assets-images-import-star',
+		title: 'Accepts: import * from (wrapped in "{default: THEMODULE}")',
+		sourceFiles: [
+			'package.json',
+			'tsconfig.json',
+			'webpack.config.js',
+			'src/application.ts',
+			'src/example1.jpg',
+			'src/example2.png',
+			'src/example3.svg'
+		],
+		tscFiles: [
+			'lib/application.js',
+			'lib/application.js.map'
+		],
+		webpackFiles: [
+			'dist/index.html',
+			'dist/app-assets-images.js',
+			'dist/assets/example1.jpg',
+			'dist/assets/example2.png',
+			'dist/assets/example3.svg'
+		],
+		expectedHTML: '<div>{"default":"/assets/example1.jpg"}</div><div>{"default":"/assets/example2.png"}</div><div>{"default":"/assets/example3.svg"}</div>'
+	});
+	testFixture({
+		id: 'assets-images-import-require',
+		title: 'Fails: import = require',
+		sourceFiles: [
+			'package.json',
+			'tsconfig.json',
+			'webpack.config.js',
+			'src/application.ts',
+			'src/example1.jpg',
+			'src/example2.png',
+			'src/example3.svg'
+		],
+		expectTypecheckError: true
+	});
+	testFixture({
+		id: 'assets-images-require',
+		title: 'Accepts: require (wrapped in "{default: THEMODULE}")',
+		sourceFiles: [
+			'package.json',
+			'tsconfig.json',
+			'webpack.config.js',
+			'src/application.ts',
+			'src/example1.jpg',
+			'src/example2.png',
+			'src/example3.svg'
+		],
+		tscFiles: [
+			'lib/application.js',
+			'lib/application.js.map'
+		],
+		webpackFiles: [
+			'dist/index.html',
+			'dist/app-assets-images.js',
+			'dist/assets/example1.jpg',
+			'dist/assets/example2.png',
+			'dist/assets/example3.svg'
+		],
+		expectedHTML: '<div>{"default":"/assets/example1.jpg"}</div><div>{"default":"/assets/example2.png"}</div><div>{"default":"/assets/example3.svg"}</div>'
+	});
+});
+
+
+describe('[web] Stylesheets', function(){
 	testFixture({
 		id: 'assets-css',
 		title: 'Accepts: CSS',
@@ -821,40 +914,10 @@ describe('[web] Import additional assets', function(){
 		],
 		expectedHTML: '[ASSETS SCSS] .myclass is a string'
 	});
-	testFixture({
-		id: 'assets-images',
-		title: 'Accepts: JPEG, PNG, SVG',
-		sourceFiles: [
-			'package.json',
-			'tsconfig.json',
-			'webpack.config.js',
-			'src/application.ts',
-			'src/node_modules/mymodule-jpg/index.ts',
-			'src/node_modules/mymodule-jpg/example1.jpg',
-			'src/node_modules/mymodule-png/index.ts',
-			'src/node_modules/mymodule-png/example2.png',
-			'src/node_modules/mymodule-svg/index.ts',
-			'src/node_modules/mymodule-svg/example3.svg'
-		],
-		tscFiles: [
-			'lib/application.js',
-			'lib/application.js.map',
-			'lib/node_modules/mymodule-jpg/index.js',
-			'lib/node_modules/mymodule-jpg/index.js.map',
-			'lib/node_modules/mymodule-png/index.js',
-			'lib/node_modules/mymodule-png/index.js.map',
-			'lib/node_modules/mymodule-svg/index.js',
-			'lib/node_modules/mymodule-svg/index.js.map'
-		],
-		webpackFiles: [
-			'dist/index.html',
-			'dist/app-assets-images.js',
-			'dist/assets/example1.jpg',
-			'dist/assets/example2.png',
-			'dist/assets/example3.svg'
-		],
-		expectedHTML: '<img src="/assets/example1.jpg"><img src="/assets/example2.png"><img src="/assets/example3.svg">'
-	});
+});
+
+
+describe('[web] Raw assets', function(){
 	testFixture({
 		id: 'assets-raw',
 		title: 'Accepts: Local type definitions',
