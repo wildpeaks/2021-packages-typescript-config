@@ -774,7 +774,7 @@ describe('[web] Preact', function(){
 
 describe('[web] JPEG, PNG, SVG', function(){
 	testFixture({
-		id: 'assets-images-import-from',
+		id: 'images-import-from',
 		title: 'Accepts: import … from',
 		sourceFiles: [
 			'package.json',
@@ -791,7 +791,7 @@ describe('[web] JPEG, PNG, SVG', function(){
 		],
 		webpackFiles: [
 			'dist/index.html',
-			'dist/app-assets-images.js',
+			'dist/app-images-import-from.js',
 			'dist/assets/example1.jpg',
 			'dist/assets/example2.png',
 			'dist/assets/example3.svg'
@@ -799,7 +799,7 @@ describe('[web] JPEG, PNG, SVG', function(){
 		expectedHTML: '<div>"/assets/example1.jpg"</div><div>"/assets/example2.png"</div><div>"/assets/example3.svg"</div>'
 	});
 	testFixture({
-		id: 'assets-images-import-star',
+		id: 'images-import-star',
 		title: 'Accepts: import * from (wrapped in "{default: THEMODULE}")',
 		sourceFiles: [
 			'package.json',
@@ -816,7 +816,7 @@ describe('[web] JPEG, PNG, SVG', function(){
 		],
 		webpackFiles: [
 			'dist/index.html',
-			'dist/app-assets-images.js',
+			'dist/app-images-import-star.js',
 			'dist/assets/example1.jpg',
 			'dist/assets/example2.png',
 			'dist/assets/example3.svg'
@@ -824,7 +824,7 @@ describe('[web] JPEG, PNG, SVG', function(){
 		expectedHTML: '<div>{"default":"/assets/example1.jpg"}</div><div>{"default":"/assets/example2.png"}</div><div>{"default":"/assets/example3.svg"}</div>'
 	});
 	testFixture({
-		id: 'assets-images-import-require',
+		id: 'images-import-require',
 		title: 'Fails: import = require',
 		sourceFiles: [
 			'package.json',
@@ -838,7 +838,7 @@ describe('[web] JPEG, PNG, SVG', function(){
 		expectTypecheckError: true
 	});
 	testFixture({
-		id: 'assets-images-require',
+		id: 'images-require',
 		title: 'Accepts: require (wrapped in "{default: THEMODULE}")',
 		sourceFiles: [
 			'package.json',
@@ -855,7 +855,7 @@ describe('[web] JPEG, PNG, SVG', function(){
 		],
 		webpackFiles: [
 			'dist/index.html',
-			'dist/app-assets-images.js',
+			'dist/app-images-require.js',
 			'dist/assets/example1.jpg',
 			'dist/assets/example2.png',
 			'dist/assets/example3.svg'
@@ -865,54 +865,142 @@ describe('[web] JPEG, PNG, SVG', function(){
 });
 
 
-describe('[web] Stylesheets', function(){
+describe('[web] CSS', function(){
 	testFixture({
-		id: 'assets-css',
-		title: 'Accepts: CSS',
+		id: 'css-import-from',
+		title: 'Fails: import … from',
 		sourceFiles: [
 			'package.json',
 			'tsconfig.json',
 			'webpack.config.js',
 			'src/application.ts',
-			'src/node_modules/mymodule-css/index.ts',
-			'src/node_modules/mymodule-css/styles.css'
+			'src/styles.css'
 		],
-		tscFiles: [
-			'lib/application.js',
-			'lib/application.js.map',
-			'lib/node_modules/mymodule-css/index.js',
-			'lib/node_modules/mymodule-css/index.js.map'
-		],
-		webpackFiles: [
-			'dist/index.html',
-			'dist/app-assets-css.js',
-			'dist/app-assets-css.css'
-		],
-		expectedHTML: '[ASSETS CSS] .myclass is a string'
+		expectTypecheckError: true
 	});
 	testFixture({
-		id: 'assets-scss',
-		title: 'Accepts: SCSS',
+		id: 'css-import-star',
+		title: 'Accepts: import * from',
 		sourceFiles: [
 			'package.json',
 			'tsconfig.json',
 			'webpack.config.js',
 			'src/application.ts',
-			'src/node_modules/mymodule-scss/index.ts',
-			'src/node_modules/mymodule-scss/styles.scss'
+			'src/styles.css'
 		],
 		tscFiles: [
 			'lib/application.js',
-			'lib/application.js.map',
-			'lib/node_modules/mymodule-scss/index.js',
-			'lib/node_modules/mymodule-scss/index.js.map'
+			'lib/application.js.map'
 		],
 		webpackFiles: [
 			'dist/index.html',
-			'dist/app-assets-scss.js',
-			'dist/app-assets-scss.css'
+			'dist/app-css-import-star.js',
+			'dist/app-css-import-star.css'
 		],
-		expectedHTML: '[ASSETS SCSS] .myclass is a string'
+		expectedHTML: '[CSS IMPORT STAR] Type is string'
+	});
+	testFixture({
+		id: 'css-import-require',
+		title: 'Fails: import = require',
+		sourceFiles: [
+			'package.json',
+			'tsconfig.json',
+			'webpack.config.js',
+			'src/application.ts',
+			'src/styles.css'
+		],
+		expectTypecheckError: true
+	});
+	testFixture({
+		id: 'css-require',
+		title: 'Accepts: require',
+		sourceFiles: [
+			'package.json',
+			'tsconfig.json',
+			'webpack.config.js',
+			'src/application.ts',
+			'src/styles.css'
+		],
+		tscFiles: [
+			'lib/application.js',
+			'lib/application.js.map'
+		],
+		webpackFiles: [
+			'dist/index.html',
+			'dist/app-css-require.js',
+			'dist/app-css-require.css'
+		],
+		expectedHTML: '[CSS REQUIRE] Type is string'
+	});
+});
+
+
+describe('[web] SCSS', function(){
+	testFixture({
+		id: 'scss-import-from',
+		title: 'Fails: import … from',
+		sourceFiles: [
+			'package.json',
+			'tsconfig.json',
+			'webpack.config.js',
+			'src/application.ts',
+			'src/styles.scss'
+		],
+		expectTypecheckError: true
+	});
+	testFixture({
+		id: 'scss-import-star',
+		title: 'Accepts: import * from',
+		sourceFiles: [
+			'package.json',
+			'tsconfig.json',
+			'webpack.config.js',
+			'src/application.ts',
+			'src/styles.scss'
+		],
+		tscFiles: [
+			'lib/application.js',
+			'lib/application.js.map'
+		],
+		webpackFiles: [
+			'dist/index.html',
+			'dist/app-scss-import-star.js',
+			'dist/app-scss-import-star.css'
+		],
+		expectedHTML: '[SCSS IMPORT STAR] Type is string'
+	});
+	testFixture({
+		id: 'scss-import-require',
+		title: 'Fails: import = require',
+		sourceFiles: [
+			'package.json',
+			'tsconfig.json',
+			'webpack.config.js',
+			'src/application.ts',
+			'src/styles.scss'
+		],
+		expectTypecheckError: true
+	});
+	testFixture({
+		id: 'scss-require',
+		title: 'Accepts: require',
+		sourceFiles: [
+			'package.json',
+			'tsconfig.json',
+			'webpack.config.js',
+			'src/application.ts',
+			'src/styles.scss'
+		],
+		tscFiles: [
+			'lib/application.js',
+			'lib/application.js.map'
+		],
+		webpackFiles: [
+			'dist/index.html',
+			'dist/app-scss-require.js',
+			'dist/app-scss-require.css'
+		],
+		expectedHTML: '[SCSS REQUIRE] Type is string'
 	});
 });
 
