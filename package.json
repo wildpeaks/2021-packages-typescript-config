@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@wildpeaks/tsconfig",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Base tsconfig packages",
   "author": "Cecile Muller",
   "license": "MIT",
@@ -16,7 +16,7 @@
   "eslintConfig": {
     "extends": "@wildpeaks/commonjs"
   },
-  "greenkeeper":{
+  "greenkeeper": {
     "commitMessages": {
       "dependencyUpdate": "fix: Update ${dependency}",
       "devDependencyUpdate": "chore: Update ${dependency}"
@@ -36,7 +36,7 @@
   "devDependencies": {
     "@wildpeaks/async": "1.2.2",
     "@wildpeaks/eslint-config-commonjs": "7.2.0",
-    "@wildpeaks/webpack-config-web": "4.9.0",
+    "@wildpeaks/webpack-config-web": "4.10.0",
     "ajv": "6.10.2",
     "eslint": "6.7.2",
     "express": "4.17.1",
