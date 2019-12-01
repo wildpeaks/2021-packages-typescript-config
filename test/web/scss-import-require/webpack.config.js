@@ -12,12 +12,12 @@ module.exports = function(){
 			$primary: rgb(0, 255, 0);
 		`,
 		entry: {
-			'app-assets-scss': './src/application.ts'
+			'app-scss-import-require': './src/application.ts'
 		},
 		pages: [
 			{
 				filename: 'index.html',
-				chunks: ['app-assets-scss']
+				chunks: ['app-scss-import-require']
 			}
 		]
 	});
