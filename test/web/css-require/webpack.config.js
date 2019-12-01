@@ -9,12 +9,12 @@ module.exports = function(){
 		webworkerPolyfills: [],
 		sourcemaps: false,
 		entry: {
-			'app-assets-css': './src/application.ts'
+			'app-css-require': './src/application.ts'
 		},
 		pages: [
 			{
 				filename: 'index.html',
-				chunks: ['app-assets-css']
+				chunks: ['app-css-require']
 			}
 		]
 	});
