@@ -15,17 +15,17 @@ declare module '*.scss' {
 // Url Loader
 declare module '*.svg' {
 	const _: string;
-	export = _;
+	export default _;
 }
 declare module '*.jpg' {
 	const _: string;
-	export = _;
+	export default _;
 }
 declare module '*.png' {
 	const _: string;
-	export = _;
+	export default _;
 }
 declare module '*.gif' {
 	const _: string;
-	export = _;
+	export default _;
 }
