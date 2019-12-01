@@ -10,12 +10,12 @@ module.exports = function(){
 		sourcemaps: false,
 		rawExtensions: ['md'],
 		entry: {
-			'app-assets-raw': './src/application.ts'
+			'app-raw-require': './src/application.ts'
 		},
 		pages: [
 			{
 				filename: 'index.html',
-				chunks: ['app-assets-raw']
+				chunks: ['app-raw-require']
 			}
 		]
 	});

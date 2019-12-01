@@ -1005,30 +1005,82 @@ describe('[web] SCSS', function(){
 });
 
 
-describe('[web] Raw assets', function(){
+describe('[web] Raw assets & Local type definition', function(){
 	testFixture({
-		id: 'assets-raw',
-		title: 'Accepts: Local type definitions',
+		id: 'raw-import-from',
+		title: 'Accepts: import … from',
 		sourceFiles: [
 			'package.json',
 			'tsconfig.json',
 			'webpack.config.js',
 			'src/types.d.ts',
 			'src/application.ts',
-			'src/node_modules/mymodule-raw/index.ts',
-			'src/node_modules/mymodule-raw/example.md'
+			'src/example.md'
 		],
 		tscFiles: [
 			'lib/application.js',
-			'lib/application.js.map',
-			'lib/node_modules/mymodule-raw/index.js',
-			'lib/node_modules/mymodule-raw/index.js.map'
+			'lib/application.js.map'
 		],
 		webpackFiles: [
 			'dist/index.html',
-			'dist/app-assets-raw.js'
+			'dist/app-raw-import-from.js'
 		],
-		expectedHTML: '# Hello World'
+		expectedHTML: '[RAW IMPORT FROM] "# Hello World"'
+	});
+	testFixture({
+		id: 'raw-import-star',
+		title: 'Accepts: import * from (wrapped in "{default: THEMODULE}")',
+		sourceFiles: [
+			'package.json',
+			'tsconfig.json',
+			'webpack.config.js',
+			'src/types.d.ts',
+			'src/application.ts',
+			'src/example.md'
+		],
+		tscFiles: [
+			'lib/application.js',
+			'lib/application.js.map'
+		],
+		webpackFiles: [
+			'dist/index.html',
+			'dist/app-raw-import-star.js'
+		],
+		expectedHTML: '[RAW IMPORT STAR] {"default":"# Hello World"}'
+	});
+	testFixture({
+		id: 'raw-import-require',
+		title: 'Fails: import = require',
+		sourceFiles: [
+			'package.json',
+			'tsconfig.json',
+			'webpack.config.js',
+			'src/types.d.ts',
+			'src/application.ts',
+			'src/example.md'
+		],
+		expectTypecheckError: true
+	});
+	testFixture({
+		id: 'raw-require',
+		title: 'Accepts: require (wrapped in "{default: THEMODULE}")',
+		sourceFiles: [
+			'package.json',
+			'tsconfig.json',
+			'webpack.config.js',
+			'src/types.d.ts',
+			'src/application.ts',
+			'src/example.md'
+		],
+		tscFiles: [
+			'lib/application.js',
+			'lib/application.js.map'
+		],
+		webpackFiles: [
+			'dist/index.html',
+			'dist/app-raw-require.js'
+		],
+		expectedHTML: '[RAW REQUIRE] {"default":"# Hello World"}'
 	});
 });
 
