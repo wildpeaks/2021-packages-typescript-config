@@ -42,7 +42,7 @@
     "express": "4.17.1",
     "fs-extra": "8.1.0",
     "mocha": "6.2.2",
-    "preact": "10.0.5",
+    "preact": "10.1.0",
     "puppeteer": "2.0.0",
     "recursive-readdir": "2.2.2",
     "typescript": "3.7.2",
