@@ -16,6 +16,12 @@
   "eslintConfig": {
     "extends": "@wildpeaks/commonjs"
   },
+  "prettier": {
+    "printWidth": 180,
+    "tabWidth": 4,
+    "useTabs": true,
+    "bracketSpacing": false
+  },
   "greenkeeper": {
     "commitMessages": {
       "dependencyUpdate": "feat: update ${dependency}",
@@ -35,7 +41,7 @@
   },
   "devDependencies": {
     "@wildpeaks/async": "1.2.2",
-    "@wildpeaks/eslint-config-commonjs": "8.0.0-alpha2",
+    "@wildpeaks/eslint-config-commonjs": "8.0.0-alpha3",
     "@wildpeaks/webpack-config-web": "4.11.0",
     "ajv": "6.10.2",
     "eslint": "6.7.2",
