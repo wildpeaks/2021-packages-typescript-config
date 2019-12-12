@@ -31,11 +31,5 @@
 		"lib": ["es2017", "dom"],
 		"target": "es5",
 		"outDir": "../../../lib"
-	},
-	"include": [
-		"../../../node_modules/@wildpeaks/**/*",
-		"../../../src/**/*",
-		"../../../src/node_modules/**/*",
-		"../../../test/**/*"
-	]
+	}
 }

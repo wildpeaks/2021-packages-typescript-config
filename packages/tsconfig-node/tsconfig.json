@@ -28,11 +28,5 @@
 		"lib": ["es2017"],
 		"target": "es2017",
 		"outDir": "../../../lib"
-	},
-	"include": [
-		"../../../node_modules/@wildpeaks/**/*",
-		"../../../src/**/*",
-		"../../../src/node_modules/**/*",
-		"../../../test/**/*"
-	]
+	}
 }
