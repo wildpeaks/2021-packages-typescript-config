@@ -1,4 +1,4 @@
 /* eslint-env node */
-const mymodule = require('mymodule');
+const mymodule = require("./mymodule");
 
-console.log('[COMMONJS UNTYPED DEFAULT, REQUIRE] Type is ' + (typeof mymodule));
+console.log("[COMMONJS UNTYPED DEFAULT, REQUIRE] Type is " + typeof mymodule);

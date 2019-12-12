@@ -1,4 +1,4 @@
 /* eslint-env node */
-const {myfunction} = require('mymodule');
+const {myfunction} = require("./mymodule");
 
-console.log('[EXPORT NAMED, REQUIRE] Type is ' + (typeof myfunction));
+console.log("[EXPORT NAMED, REQUIRE] Type is " + typeof myfunction);

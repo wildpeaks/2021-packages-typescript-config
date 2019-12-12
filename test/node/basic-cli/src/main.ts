@@ -1,2 +1,2 @@
 /* eslint-env shared-node-browser */
-console.log('[CLI] Hello World');
+console.log("[CLI] Hello World");
