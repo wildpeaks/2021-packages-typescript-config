@@ -1,10 +1,8 @@
-import {h, render} from 'preact';
+import {h, render} from "preact";
 
-const container = document.createElement('div');
-container.setAttribute('id', 'hello');
+const container = document.createElement("div");
+container.setAttribute("id", "hello");
 document.body.appendChild(container);
 
-render(
-	<article class="example">[PREACT TSX] Hello World</article>,
-	container
-);
+const article = <article class="example">[PREACT TSX] Hello World</article>;
+render(article, container);

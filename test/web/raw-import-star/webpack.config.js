@@ -1,21 +1,21 @@
 /* eslint-env node */
-'use strict';
-const getConfig = require('@wildpeaks/webpack-config-web');
+"use strict";
+const getConfig = require("@wildpeaks/webpack-config-web");
 
-module.exports = function(){
+module.exports = function() {
 	return getConfig({
-		mode: 'development',
+		mode: "development",
 		polyfills: [],
 		webworkerPolyfills: [],
 		sourcemaps: false,
-		rawExtensions: ['md'],
+		rawExtensions: ["md"],
 		entry: {
-			'app-raw-import-star': './src/application.ts'
+			"app-raw-import-star": "./src/application.ts"
 		},
 		pages: [
 			{
-				filename: 'index.html',
-				chunks: ['app-raw-import-star']
+				filename: "index.html",
+				chunks: ["app-raw-import-star"]
 			}
 		]
 	});

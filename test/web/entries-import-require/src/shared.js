@@ -1,6 +1,6 @@
-'use strict';
+"use strict";
 
-function myfunction(){
+function myfunction() {
 	return 123;
 }
 
