@@ -66,11 +66,43 @@ before("Setup", function() {
 describe("[node] Basic features", function() {
 	testFixture({
 		id: "basic-cli",
-		title: "CLI",
+		title: "Accepts: cli",
 		sourceFiles: ["package.json", "tsconfig.json", "src/main.ts"],
 		tscFiles: ["lib/main.js", "lib/main.js.map"],
 		mainFilename: "lib/main.js",
 		expectedOutput: ["[CLI] Hello World"]
+	});
+	testFixture({
+		id: "basic-local-modules",
+		title: "Fails: local modules",
+		sourceFiles: ["package.json", "tsconfig.json", "src/main.ts", "src/node_modules/mymodule/index.ts"],
+		tscFiles: ["lib/main.js", "lib/main.js.map"],
+		mainFilename: "lib/main.js",
+		expectRuntimeError: true
+	});
+	testFixture({
+		id: "basic-relative-path",
+		title: "Accepts: relative path, index.ts",
+		sourceFiles: ["package.json", "tsconfig.json", "src/main.ts", "src/modules/mymodule.ts"],
+		tscFiles: ["lib/main.js", "lib/main.js.map", "lib/modules/mymodule.js", "lib/modules/mymodule.js.map"],
+		mainFilename: "lib/main.js",
+		expectedOutput: ["[RELATIVE PATH] 123"]
+	});
+	testFixture({
+		id: "basic-relative-path-index",
+		title: "Accepts: relative path, index.ts",
+		sourceFiles: ["package.json", "tsconfig.json", "src/main.ts", "src/mymodule/index.ts"],
+		tscFiles: ["lib/main.js", "lib/main.js.map", "lib/mymodule/index.js", "lib/mymodule/index.js.map"],
+		mainFilename: "lib/main.js",
+		expectedOutput: ["[RELATIVE PATH INDEX] 123"]
+	});
+	testFixture({
+		id: "basic-relative-path-package",
+		title: "Fails: relative path, custom.ts, package.json",
+		sourceFiles: ["package.json", "tsconfig.json", "src/main.ts", "src/mymodule/custom.ts", "src/mymodule/package.json"],
+		tscFiles: ["lib/main.js", "lib/main.js.map", "lib/mymodule/custom.js", "lib/mymodule/custom.js.map"],
+		mainFilename: "lib/main.js",
+		expectRuntimeError: true
 	});
 });
 
