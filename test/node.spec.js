@@ -397,3 +397,110 @@ describe("[node] Import an ES Module named function", function() {
 		expectedOutput: ["[EXPORT NAMED, REQUIRE] Type is function"]
 	});
 });
+
+describe("[node] Class & Properties", function() {
+	testFixture({
+		id: "class-not-initialized",
+		title: "Accepts: public property",
+		sourceFiles: ["package.json", "tsconfig.json", "src/main.ts"],
+		tscFiles: ["lib/main.js", "lib/main.js.map"],
+		mainFilename: "lib/main.js",
+		expectedOutput: ["[CLASS NOT INITIALIZED] undefined"]
+	});
+	testFixture({
+		id: "class-initialized",
+		title: "Accepts: public property, initialized",
+		sourceFiles: ["package.json", "tsconfig.json", "src/main.ts"],
+		tscFiles: ["lib/main.js", "lib/main.js.map"],
+		mainFilename: "lib/main.js",
+		expectedOutput: ["[CLASS INITIALIZED] number"]
+	});
+	testFixture({
+		id: "class-constructor-property-not-initialized",
+		title: "Accepts: public property, constructor",
+		sourceFiles: ["package.json", "tsconfig.json", "src/main.ts"],
+		tscFiles: ["lib/main.js", "lib/main.js.map"],
+		mainFilename: "lib/main.js",
+		expectedOutput: ["[CLASS CONSTRUCTOR PROPERTY NOT INITIALIZED] number"]
+	});
+	testFixture({
+		id: "class-constructor-property-initialized",
+		title: "Accepts: public property, initialized, constructor",
+		sourceFiles: ["package.json", "tsconfig.json", "src/main.ts"],
+		tscFiles: ["lib/main.js", "lib/main.js.map"],
+		mainFilename: "lib/main.js",
+		expectedOutput: ["[CLASS CONSTRUCTOR PROPERTY INITIALIZED] number"]
+	});
+	testFixture({
+		id: "class-generic-property-constructor",
+		title: "Accepts: public property, generic type, constructor",
+		sourceFiles: ["package.json", "tsconfig.json", "src/main.ts"],
+		tscFiles: ["lib/main.js", "lib/main.js.map"],
+		mainFilename: "lib/main.js",
+		expectedOutput: ["[CLASS GENERIC PROPERTY CONSTRUCTOR] number"]
+	});
+	testFixture({
+		id: "class-generic-property-not-initialized",
+		title: "Accepts: public property, generic type",
+		sourceFiles: ["package.json", "tsconfig.json", "src/main.ts"],
+		tscFiles: ["lib/main.js", "lib/main.js.map"],
+		mainFilename: "lib/main.js",
+		expectedOutput: ["[CLASS GENERIC PROPERTY NOT INITIALIZED] undefined"]
+	});
+	testFixture({
+		id: "class-getter-setter-constructor",
+		title: "Accepts: private property, getter setter, constructor",
+		sourceFiles: ["package.json", "tsconfig.json", "src/main.ts"],
+		tscFiles: ["lib/main.js", "lib/main.js.map"],
+		mainFilename: "lib/main.js",
+		expectedOutput: ["[CLASS GETTER SETTER CONSTRUCTOR] number"]
+	});
+	testFixture({
+		id: "class-getter-setter-initialized",
+		title: "Accepts: private property, getter setter, initialized",
+		sourceFiles: ["package.json", "tsconfig.json", "src/main.ts"],
+		tscFiles: ["lib/main.js", "lib/main.js.map"],
+		mainFilename: "lib/main.js",
+		expectedOutput: ["[CLASS GETTER SETTER INITIALIZED] number"]
+	});
+	testFixture({
+		id: "class-getter-setter-not-initialized",
+		title: "Accepts: private property, getter setter",
+		sourceFiles: ["package.json", "tsconfig.json", "src/main.ts"],
+		tscFiles: ["lib/main.js", "lib/main.js.map"],
+		mainFilename: "lib/main.js",
+		expectedOutput: ["[CLASS GETTER SETTER NOT INITIALIZED] undefined"]
+	});
+	testFixture({
+		id: "class-optional-property-initialized",
+		title: "Accepts: public property, optional, initialized",
+		sourceFiles: ["package.json", "tsconfig.json", "src/main.ts"],
+		tscFiles: ["lib/main.js", "lib/main.js.map"],
+		mainFilename: "lib/main.js",
+		expectedOutput: ["[CLASS OPTIONAL PROPERTY INITIALIZED] number"]
+	});
+	testFixture({
+		id: "class-optional-property-initialized-constructor",
+		title: "Accepts: public property, optional, initialized, constructor",
+		sourceFiles: ["package.json", "tsconfig.json", "src/main.ts"],
+		tscFiles: ["lib/main.js", "lib/main.js.map"],
+		mainFilename: "lib/main.js",
+		expectedOutput: ["[CLASS OPTIONAL PROPERTY INITIALIZED CONSTRUCTOR] number"]
+	});
+	testFixture({
+		id: "class-optional-property-not-initialized",
+		title: "Accepts: public property, optional",
+		sourceFiles: ["package.json", "tsconfig.json", "src/main.ts"],
+		tscFiles: ["lib/main.js", "lib/main.js.map"],
+		mainFilename: "lib/main.js",
+		expectedOutput: ["[CLASS OPTIONAL PROPERTY NOT INITIALIZED] undefined"]
+	});
+	testFixture({
+		id: "class-optional-property-not-initialized-constructor",
+		title: "Accepts: public property, optional, constructor",
+		sourceFiles: ["package.json", "tsconfig.json", "src/main.ts"],
+		tscFiles: ["lib/main.js", "lib/main.js.map"],
+		mainFilename: "lib/main.js",
+		expectedOutput: ["[CLASS OPTIONAL PROPERTY NOT INITIALIZED CONSTRUCTOR] number"]
+	});
+});
