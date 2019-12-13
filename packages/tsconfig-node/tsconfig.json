@@ -10,7 +10,7 @@
 		"noUnusedParameters": true,
 		"strictNullChecks": true,
 		"preserveConstEnums": true,
-		"useDefineForClassFields": true,
+		"useDefineForClassFields": false,
 		"moduleResolution": "node",
 		"resolveJsonModule": true,
 		"allowJs": false,
