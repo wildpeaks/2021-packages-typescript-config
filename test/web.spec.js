@@ -84,6 +84,78 @@ after("Shutdown", function() {
 
 describe("[web] Basic features", function() {
 	testFixture({
+		id: "basic-local-modules",
+		title: "Accepts: local modules", // TODO only until the webpack config is updated
+		sourceFiles: [
+			"package.json",
+			"tsconfig.json",
+			"webpack.config.js",
+			"src/application.ts",
+			"src/node_modules/mymodule/index.ts"
+		],
+		tscFiles: ["lib/application.js", "lib/application.js.map"],
+		webpackFiles: ["dist/index.html", "dist/app-basic-local-modules.js"],
+		expectedHTML: "[LOCAL MODULES] 123"
+	});
+	testFixture({
+		id: "basic-relative-path",
+		title: "Accepts: relative path, index.ts",
+		sourceFiles: [
+			"package.json",
+			"tsconfig.json",
+			"webpack.config.js",
+			"src/application.ts",
+			"src/modules/mymodule.ts"
+		],
+		tscFiles: [
+			"lib/application.js",
+			"lib/application.js.map",
+			"lib/modules/mymodule.js",
+			"lib/modules/mymodule.js.map"
+		],
+		webpackFiles: ["dist/index.html", "dist/app-basic-relative-path.js"],
+		expectedHTML: "[RELATIVE PATH] 123"
+	});
+	testFixture({
+		id: "basic-relative-path-index",
+		title: "Accepts: relative path, index.ts",
+		sourceFiles: [
+			"package.json",
+			"tsconfig.json",
+			"webpack.config.js",
+			"src/application.ts",
+			"src/mymodule/index.ts"
+		],
+		tscFiles: [
+			"lib/application.js",
+			"lib/application.js.map",
+			"lib/mymodule/index.js",
+			"lib/mymodule/index.js.map"
+		],
+		webpackFiles: ["dist/index.html", "dist/app-basic-relative-path-index.js"],
+		expectedHTML: "[RELATIVE PATH INDEX] 123"
+	});
+	testFixture({
+		id: "basic-relative-path-package",
+		title: "Accepts: relative path, custom.ts, package.json",
+		sourceFiles: [
+			"package.json",
+			"tsconfig.json",
+			"webpack.config.js",
+			"src/application.ts",
+			"src/mymodule/custom.ts",
+			"src/mymodule/package.json"
+		],
+		tscFiles: [
+			"lib/application.js",
+			"lib/application.js.map",
+			"lib/mymodule/custom.js",
+			"lib/mymodule/custom.js.map"
+		],
+		webpackFiles: ["dist/index.html", "dist/app-basic-relative-path-package.js"],
+		expectedHTML: "[RELATIVE PATH PACKAGE] 123"
+	});
+	testFixture({
 		id: "basic-dom",
 		title: "Accepts: DOM",
 		sourceFiles: ["package.json", "tsconfig.json", "webpack.config.js", "src/application.ts"],
