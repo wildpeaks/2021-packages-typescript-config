@@ -536,3 +536,51 @@ describe("[node] Class & Properties", function() {
 		expectedOutput: ["[CLASS OPTIONAL PROPERTY NOT INITIALIZED CONSTRUCTOR] number"]
 	});
 });
+
+describe("[node] Include", function() {
+	testFixture({
+		id: "include-src-default",
+		title: "Include: src, default list",
+		sourceFiles: ["package.json", "tsconfig.json", "src/main.ts"],
+		tscFiles: ["lib/main.js", "lib/main.js.map"],
+		mainFilename: "lib/main.js",
+		expectedOutput: ["[INCLUDE SRC DEFAULT] Hello World"]
+	});
+	testFixture({
+		id: "include-src-inside",
+		title: "Include: src, inside list",
+		sourceFiles: ["package.json", "tsconfig.json", "src/main.ts"],
+		tscFiles: ["lib/main.js", "lib/main.js.map"],
+		mainFilename: "lib/main.js",
+		expectedOutput: ["[INCLUDE SRC INSIDE] Hello World"]
+	});
+	testFixture({
+		id: "include-src-outside",
+		title: "Include: src, outside list",
+		sourceFiles: ["package.json", "tsconfig.json", "src/main.ts"],
+		expectTypecheckError: true
+	});
+
+	testFixture({
+		id: "include-custom-default",
+		title: "Include: custom path, default list",
+		sourceFiles: ["package.json", "tsconfig.json", "custom-path/main.ts"],
+		tscFiles: ["lib/main.js", "lib/main.js.map"],
+		mainFilename: "lib/main.js",
+		expectedOutput: ["[INCLUDE CUSTOM DEFAULT] Hello World"]
+	});
+	testFixture({
+		id: "include-custom-inside",
+		title: "Include: custom path, inside list",
+		sourceFiles: ["package.json", "tsconfig.json", "custom-path/main.ts"],
+		tscFiles: ["lib/main.js", "lib/main.js.map"],
+		mainFilename: "lib/main.js",
+		expectedOutput: ["[INCLUDE CUSTOM INSIDE] Hello World"]
+	});
+	testFixture({
+		id: "include-custom-outside",
+		title: "Include: custom path, outside list",
+		sourceFiles: ["package.json", "tsconfig.json", "custom-path/main.ts"],
+		expectTypecheckError: true
+	});
+});
