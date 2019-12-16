@@ -85,7 +85,7 @@ after("Shutdown", function() {
 describe("[web] Basic features", function() {
 	testFixture({
 		id: "basic-local-modules",
-		title: "Accepts: local modules", // TODO only until the webpack config is updated
+		title: "Accepts: local modules",
 		sourceFiles: [
 			"package.json",
 			"tsconfig.json",
@@ -993,5 +993,82 @@ describe("[web] JSON", function() {
 		tscFiles: ["lib/application.js", "lib/application.js.map"],
 		webpackFiles: ["dist/index.html", "dist/app-json-require.js"],
 		expectedHTML: 'JSON REQUIRE is ["hello","world"]'
+	});
+});
+
+describe("[web] Include", function() {
+	testFixture({
+		id: "include-src-default",
+		title: "Accepts: src, default list",
+		sourceFiles: [
+			"package.json",
+			"tsconfig.json",
+			"webpack.config.js",
+			"src/application.ts"
+		],
+		tscFiles: ["lib/application.js", "lib/application.js.map"],
+		webpackFiles: ["dist/index.html", "dist/app-include-src-default.js"],
+		expectedHTML: "[INCLUDE SRC DEFAULT] Type is object"
+	});
+	testFixture({
+		id: "include-src-inside",
+		title: "Accepts: src, inside list",
+		sourceFiles: [
+			"package.json",
+			"tsconfig.json",
+			"webpack.config.js",
+			"src/application.ts"
+		],
+		tscFiles: ["lib/application.js", "lib/application.js.map"],
+		webpackFiles: ["dist/index.html", "dist/app-include-src-inside.js"],
+		expectedHTML: "[INCLUDE SRC INSIDE] Type is object"
+	});
+	testFixture({
+		id: "include-src-outside",
+		title: "Accepts: src, outside list",
+		sourceFiles: [
+			"package.json",
+			"tsconfig.json",
+			"webpack.config.js",
+			"src/application.ts"
+		],
+		expectTypecheckError: true
+	});
+	testFixture({
+		id: "include-custom-default",
+		title: "Accepts: custom path, default list",
+		sourceFiles: [
+			"package.json",
+			"tsconfig.json",
+			"webpack.config.js",
+			"custom-path/application.ts"
+		],
+		tscFiles: ["lib/application.js", "lib/application.js.map"],
+		webpackFiles: ["dist/index.html", "dist/app-include-custom-default.js"],
+		expectedHTML: "[INCLUDE CUSTOM DEFAULT] Type is object"
+	});
+	testFixture({
+		id: "include-custom-inside",
+		title: "Accepts: custom path, inside list",
+		sourceFiles: [
+			"package.json",
+			"tsconfig.json",
+			"webpack.config.js",
+			"custom-path/application.ts"
+		],
+		tscFiles: ["lib/application.js", "lib/application.js.map"],
+		webpackFiles: ["dist/index.html", "dist/app-include-custom-inside.js"],
+		expectedHTML: "[INCLUDE CUSTOM INSIDE] Type is object"
+	});
+	testFixture({
+		id: "include-custom-outside",
+		title: "Accepts: custom path, outside list",
+		sourceFiles: [
+			"package.json",
+			"tsconfig.json",
+			"webpack.config.js",
+			"custom-path/application.ts"
+		],
+		expectTypecheckError: true
 	});
 });

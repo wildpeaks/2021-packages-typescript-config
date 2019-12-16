@@ -1,0 +1,4 @@
+{
+	"extends": "@wildpeaks/tsconfig-web",
+	"include": ["./custom-path/*.*"]
+}
