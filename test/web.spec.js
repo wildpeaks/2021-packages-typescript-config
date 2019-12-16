@@ -20,7 +20,7 @@ function sleep(duration) {
 	});
 }
 
-function testFixture({id, title, sourceFiles, tscFiles, webpackFiles, expectTypecheckError, expectedHTML}) {
+function testFixture({id, title, sourceFiles, tscFiles, webpackFiles, expectTypecheckError, expectBuildError, expectedHTML}) {
 	it(
 		title,
 		/* @this */ async function() {
@@ -40,6 +40,12 @@ function testFixture({id, title, sourceFiles, tscFiles, webpackFiles, expectType
 
 			const compiled = await compileFixture("web", `web/${id}`, "webpack");
 			deepStrictEqual(compiled.filesBefore, sourceFiles.sort(), "Before Webpack");
+			if (expectBuildError) {
+				if (compiled.errors.length === 0) {
+					throw new Error("Expected fixture to fail build");
+				}
+				return;
+			}
 			deepStrictEqual(compiled.errors, [], "No Webpack errors");
 			deepStrictEqual(compiled.filesAfter, sourceFiles.concat(webpackFiles).sort(), "After Webpack");
 
