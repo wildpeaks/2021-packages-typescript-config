@@ -540,7 +540,7 @@ describe("[node] Class & Properties", function() {
 describe("[node] Include", function() {
 	testFixture({
 		id: "include-src-default",
-		title: "Include: src, default list",
+		title: "Accepts: src, default list",
 		sourceFiles: ["package.json", "tsconfig.json", "src/main.ts"],
 		tscFiles: ["lib/main.js", "lib/main.js.map"],
 		mainFilename: "lib/main.js",
@@ -548,7 +548,7 @@ describe("[node] Include", function() {
 	});
 	testFixture({
 		id: "include-src-inside",
-		title: "Include: src, inside list",
+		title: "Accepts: src, inside list",
 		sourceFiles: ["package.json", "tsconfig.json", "src/main.ts"],
 		tscFiles: ["lib/main.js", "lib/main.js.map"],
 		mainFilename: "lib/main.js",
@@ -556,14 +556,14 @@ describe("[node] Include", function() {
 	});
 	testFixture({
 		id: "include-src-outside",
-		title: "Include: src, outside list",
+		title: "Fails: src, outside list",
 		sourceFiles: ["package.json", "tsconfig.json", "src/main.ts"],
 		expectTypecheckError: true
 	});
 
 	testFixture({
 		id: "include-custom-default",
-		title: "Include: custom path, default list",
+		title: "Accepts: custom path, default list",
 		sourceFiles: ["package.json", "tsconfig.json", "custom-path/main.ts"],
 		tscFiles: ["lib/main.js", "lib/main.js.map"],
 		mainFilename: "lib/main.js",
@@ -571,7 +571,7 @@ describe("[node] Include", function() {
 	});
 	testFixture({
 		id: "include-custom-inside",
-		title: "Include: custom path, inside list",
+		title: "Accepts: custom path, inside list",
 		sourceFiles: ["package.json", "tsconfig.json", "custom-path/main.ts"],
 		tscFiles: ["lib/main.js", "lib/main.js.map"],
 		mainFilename: "lib/main.js",
@@ -579,7 +579,7 @@ describe("[node] Include", function() {
 	});
 	testFixture({
 		id: "include-custom-outside",
-		title: "Include: custom path, outside list",
+		title: "Fails: custom path, outside list",
 		sourceFiles: ["package.json", "tsconfig.json", "custom-path/main.ts"],
 		expectTypecheckError: true
 	});
