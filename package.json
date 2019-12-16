@@ -41,7 +41,7 @@
   },
   "devDependencies": {
     "@wildpeaks/async": "1.2.2",
-    "@wildpeaks/eslint-config-commonjs": "8.0.0-alpha4",
+    "@wildpeaks/eslint-config-commonjs": "8.0.0-alpha6",
     "@wildpeaks/webpack-config-web": "4.11.0",
     "ajv": "6.10.2",
     "eslint": "6.7.2",
