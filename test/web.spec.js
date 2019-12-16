@@ -33,10 +33,10 @@ function testFixture({id, title, sourceFiles, tscFiles, webpackFiles, expectType
 				if (typechecked.errors.length === 0) {
 					throw new Error("Expected fixture to fail typecheck");
 				}
-				return;
+			} else {
+				deepStrictEqual(typechecked.errors, [], "No TSC errors");
+				deepStrictEqual(typechecked.filesAfter, sourceFiles.concat(tscFiles).sort(), "After TSC");
 			}
-			deepStrictEqual(typechecked.errors, [], "No TSC errors");
-			deepStrictEqual(typechecked.filesAfter, sourceFiles.concat(tscFiles).sort(), "After TSC");
 
 			const compiled = await compileFixture("web", `web/${id}`, "webpack");
 			deepStrictEqual(compiled.filesBefore, sourceFiles.sort(), "Before Webpack");
@@ -44,26 +44,25 @@ function testFixture({id, title, sourceFiles, tscFiles, webpackFiles, expectType
 				if (compiled.errors.length === 0) {
 					throw new Error("Expected fixture to fail build");
 				}
-				return;
-			}
-			deepStrictEqual(compiled.errors, [], "No Webpack errors");
-			deepStrictEqual(compiled.filesAfter, sourceFiles.concat(webpackFiles).sort(), "After Webpack");
-
-			const browser = await puppeteer.launch();
-			try {
-				const page = await browser.newPage();
-				await page.goto(`http://localhost:${port}/`);
-				await sleep(300);
-				const actualHTML = await page.evaluate(() => {
-					const el = document.getElementById("hello");
-					if (el === null) {
-						return "Error: #hello not found";
-					}
-					return el.innerHTML;
-				});
-				strictEqual(actualHTML, expectedHTML);
-			} finally {
-				await browser.close();
+			} else {
+				deepStrictEqual(compiled.errors, [], "No Webpack errors");
+				deepStrictEqual(compiled.filesAfter, sourceFiles.concat(webpackFiles).sort(), "After Webpack");
+				const browser = await puppeteer.launch();
+				try {
+					const page = await browser.newPage();
+					await page.goto(`http://localhost:${port}/`);
+					await sleep(300);
+					const actualHTML = await page.evaluate(() => {
+						const el = document.getElementById("hello");
+						if (el === null) {
+							return "Error: #hello not found";
+						}
+						return el.innerHTML;
+					});
+					strictEqual(actualHTML, expectedHTML);
+				} finally {
+					await browser.close();
+				}
 			}
 		}
 	);
@@ -194,7 +193,7 @@ describe("[web] Basic features", function() {
 describe('[web] Toplevel variables are global without "import" or "export"', function() {
 	testFixture({
 		id: "entries",
-		title: "Global: no export or import",
+		title: "Fails typecheck: global, no export or import",
 		sourceFiles: [
 			"package.json",
 			"tsconfig.json",
@@ -202,11 +201,18 @@ describe('[web] Toplevel variables are global without "import" or "export"', fun
 			"src/application1.ts",
 			"src/application2.ts"
 		],
-		expectTypecheckError: true
+		expectTypecheckError: true,
+		webpackFiles: [
+			"dist/app-entries-1.js",
+			"dist/app-entries-2.js",
+			"dist/index.html",
+			"dist/index1.html"
+		],
+		expectedHTML: '[ENTRIES] Value is {"hello":"APP2"}'
 	});
 	testFixture({
 		id: "entries-require",
-		title: "Global: require",
+		title: "Fails typecheck: Global, require",
 		sourceFiles: [
 			"package.json",
 			"tsconfig.json",
@@ -215,11 +221,18 @@ describe('[web] Toplevel variables are global without "import" or "export"', fun
 			"src/application1.ts",
 			"src/application2.ts"
 		],
-		expectTypecheckError: true
+		expectTypecheckError: true,
+		webpackFiles: [
+			"dist/app-entries-require-1.js",
+			"dist/app-entries-require-2.js",
+			"dist/index.html",
+			"dist/index1.html"
+		],
+		expectedHTML: '[ENTRIES REQUIRE] Value is {"hello":"APP2"}'
 	});
 	testFixture({
 		id: "entries-export",
-		title: "Local: export {}",
+		title: "Accepts: local, export {}",
 		sourceFiles: [
 			"package.json",
 			"tsconfig.json",
@@ -238,7 +251,7 @@ describe('[web] Toplevel variables are global without "import" or "export"', fun
 	});
 	testFixture({
 		id: "entries-import-from",
-		title: "Local: import … from",
+		title: "Accepts: local, import … from",
 		sourceFiles: [
 			"package.json",
 			"tsconfig.json",
@@ -265,7 +278,7 @@ describe('[web] Toplevel variables are global without "import" or "export"', fun
 	});
 	testFixture({
 		id: "entries-import-star",
-		title: "Local: import * from",
+		title: "Accepts: local, import * from",
 		sourceFiles: [
 			"package.json",
 			"tsconfig.json",
@@ -292,7 +305,7 @@ describe('[web] Toplevel variables are global without "import" or "export"', fun
 	});
 	testFixture({
 		id: "entries-import-require",
-		title: "Fails: import = require (cannot compile)",
+		title: "Fails typecheck: import = require",
 		sourceFiles: [
 			"package.json",
 			"tsconfig.json",
@@ -301,14 +314,21 @@ describe('[web] Toplevel variables are global without "import" or "export"', fun
 			"src/application1.ts",
 			"src/application2.ts"
 		],
-		expectTypecheckError: true
+		expectTypecheckError: true,
+		webpackFiles: [
+			"dist/app-entries-import-require-1.js",
+			"dist/app-entries-import-require-2.js",
+			"dist/index.html",
+			"dist/index1.html"
+		],
+		expectedHTML: '[ENTRIES IMPORT REQUIRE] Value is {"hello":"APP2"}'
 	});
 });
 
 describe("[web] Import a CommonJS default object, without .d.ts", function() {
 	testFixture({
 		id: "commonjs-untyped-default-import-from",
-		title: "Fails: import … from",
+		title: "Fails typecheck: import … from",
 		sourceFiles: [
 			"package.json",
 			"tsconfig.json",
@@ -316,11 +336,16 @@ describe("[web] Import a CommonJS default object, without .d.ts", function() {
 			"src/application.ts",
 			"src/mymodule/index.js"
 		],
-		expectTypecheckError: true
+		expectTypecheckError: true,
+		webpackFiles: [
+			"dist/app-commonjs-untyped-default-import-from.js",
+			"dist/index.html"
+		],
+		expectedHTML: "[COMMONJS UNTYPED DEFAULT, IMPORT FROM] Type is function"
 	});
 	testFixture({
 		id: "commonjs-untyped-default-import-star",
-		title: "Fails: import * from",
+		title: "Fails typecheck: import * from",
 		sourceFiles: [
 			"package.json",
 			"tsconfig.json",
@@ -328,11 +353,16 @@ describe("[web] Import a CommonJS default object, without .d.ts", function() {
 			"src/application.ts",
 			"src/mymodule/index.js"
 		],
-		expectTypecheckError: true
+		expectTypecheckError: true,
+		webpackFiles: [
+			"dist/app-commonjs-untyped-default-import-star.js",
+			"dist/index.html"
+		],
+		expectedHTML: "[COMMONJS UNTYPED DEFAULT, IMPORT STAR] Type is function"
 	});
 	testFixture({
 		id: "commonjs-untyped-default-import-require",
-		title: "Fails: import = require",
+		title: "Fails typecheck: import = require",
 		sourceFiles: [
 			"package.json",
 			"tsconfig.json",
@@ -340,7 +370,12 @@ describe("[web] Import a CommonJS default object, without .d.ts", function() {
 			"src/application.ts",
 			"src/mymodule/index.js"
 		],
-		expectTypecheckError: true
+		expectTypecheckError: true,
+		webpackFiles: [
+			"dist/app-commonjs-untyped-default-import-require.js",
+			"dist/index.html"
+		],
+		expectedHTML: "[COMMONJS UNTYPED DEFAULT, IMPORT REQUIRE] Type is undefined"
 	});
 	testFixture({
 		id: "commonjs-untyped-default-require",
@@ -361,7 +396,7 @@ describe("[web] Import a CommonJS default object, without .d.ts", function() {
 describe("[web] Import a CommonJS named function, without .d.ts", function() {
 	testFixture({
 		id: "commonjs-untyped-named-import-from",
-		title: "Fails: import … from",
+		title: "Fails typecheck: import … from",
 		sourceFiles: [
 			"package.json",
 			"tsconfig.json",
@@ -369,7 +404,12 @@ describe("[web] Import a CommonJS named function, without .d.ts", function() {
 			"src/application.ts",
 			"src/mymodule/index.js"
 		],
-		expectTypecheckError: true
+		expectTypecheckError: true,
+		webpackFiles: [
+			"dist/app-commonjs-untyped-named-import-from.js",
+			"dist/index.html"
+		],
+		expectedHTML: "[COMMONJS UNTYPED NAMED, IMPORT FROM] Type is function"
 	});
 	testFixture({
 		id: "commonjs-untyped-named-import-star",
@@ -381,7 +421,12 @@ describe("[web] Import a CommonJS named function, without .d.ts", function() {
 			"src/application.ts",
 			"src/mymodule/index.js"
 		],
-		expectTypecheckError: true
+		expectTypecheckError: true,
+		webpackFiles: [
+			"dist/app-commonjs-untyped-named-import-star.js",
+			"dist/index.html"
+		],
+		expectedHTML: "[COMMONJS UNTYPED NAMED, IMPORT STAR] Type is function"
 	});
 	testFixture({
 		id: "commonjs-untyped-named-import-require",
@@ -393,7 +438,12 @@ describe("[web] Import a CommonJS named function, without .d.ts", function() {
 			"src/application.ts",
 			"src/mymodule/index.js"
 		],
-		expectTypecheckError: true
+		expectTypecheckError: true,
+		webpackFiles: [
+			"dist/app-commonjs-untyped-named-import-require.js",
+			"dist/index.html"
+		],
+		expectedHTML: "Error: #hello not found"
 	});
 	testFixture({
 		id: "commonjs-untyped-named-require",
@@ -414,7 +464,7 @@ describe("[web] Import a CommonJS named function, without .d.ts", function() {
 describe("[web] Import a CommonJS default object, with .d.ts", function() {
 	testFixture({
 		id: "commonjs-typed-default-import-from",
-		title: "Fails: import … from",
+		title: "Fails typecheck: import … from",
 		sourceFiles: [
 			"package.json",
 			"tsconfig.json",
@@ -424,11 +474,13 @@ describe("[web] Import a CommonJS default object, with .d.ts", function() {
 			"src/mymodule/mymodule.js",
 			"src/mymodule/mymodule.d.ts"
 		],
-		expectTypecheckError: true
+		expectTypecheckError: true,
+		webpackFiles: ["dist/index.html", "dist/app-commonjs-typed-default-import-from.js"],
+		expectedHTML: "[COMMONJS TYPED DEFAULT, IMPORT FROM] Type is function"
 	});
 	testFixture({
 		id: "commonjs-typed-default-import-star",
-		title: "Fails: import * from",
+		title: "Fails typecheck: import * from",
 		sourceFiles: [
 			"package.json",
 			"tsconfig.json",
@@ -438,11 +490,13 @@ describe("[web] Import a CommonJS default object, with .d.ts", function() {
 			"src/mymodule/mymodule.js",
 			"src/mymodule/mymodule.d.ts"
 		],
-		expectTypecheckError: true
+		expectTypecheckError: true,
+		webpackFiles: ["dist/index.html", "dist/app-commonjs-typed-default-import-star.js"],
+		expectedHTML: "[COMMONJS TYPED DEFAULT, IMPORT STAR] Type is function"
 	});
 	testFixture({
 		id: "commonjs-typed-default-import-require",
-		title: "Fails: import = require",
+		title: "Fails typecheck: import = require",
 		sourceFiles: [
 			"package.json",
 			"tsconfig.json",
@@ -452,7 +506,9 @@ describe("[web] Import a CommonJS default object, with .d.ts", function() {
 			"src/mymodule/mymodule.js",
 			"src/mymodule/mymodule.d.ts"
 		],
-		expectTypecheckError: true
+		expectTypecheckError: true,
+		webpackFiles: ["dist/index.html", "dist/app-commonjs-typed-default-import-require.js"],
+		expectedHTML: "[COMMONJS TYPED DEFAULT, IMPORT REQUIRE] Type is undefined"
 	});
 	testFixture({
 		id: "commonjs-typed-default-require",
@@ -517,7 +573,10 @@ describe("[web] Import a CommonJS named function, with .d.ts", function() {
 			"src/mymodule/mymodule.js",
 			"src/mymodule/mymodule.d.ts"
 		],
-		expectTypecheckError: true
+		expectTypecheckError: true,
+		webpackFiles: ["dist/index.html", "dist/app-commonjs-typed-named-import-require.js"],
+		expectedHTML: "Error: #hello not found"
+
 	});
 	testFixture({
 		id: "commonjs-typed-named-require",
@@ -586,7 +645,9 @@ describe("[web] Import an ES Module default object", function() {
 			"src/application.ts",
 			"src/mymodule/index.ts"
 		],
-		expectTypecheckError: true
+		expectTypecheckError: true,
+		webpackFiles: ["dist/index.html", "dist/app-export-default-import-require.js"],
+		expectedHTML: "Error: #hello not found"
 	});
 	testFixture({
 		id: "export-default-require",
@@ -658,7 +719,9 @@ describe("[web] Import an ES Module named function", function() {
 			"src/application.ts",
 			"src/mymodule/index.ts"
 		],
-		expectTypecheckError: true
+		expectTypecheckError: true,
+		webpackFiles: ["dist/index.html", "dist/app-export-named-import-require.js"],
+		expectedHTML: "Error: #hello not found"
 	});
 	testFixture({
 		id: "export-named-require",
@@ -797,7 +860,13 @@ describe("[web] JPEG, PNG, SVG", function() {
 			"src/example2.png",
 			"src/example3.svg"
 		],
-		expectTypecheckError: true
+		expectTypecheckError: true,
+		webpackFiles: [
+			"dist/index.html",
+			"dist/app-images-import-require.js"
+		],
+		expectedHTML: ""
+
 	});
 	testFixture({
 		id: "images-require",
@@ -827,9 +896,11 @@ describe("[web] JPEG, PNG, SVG", function() {
 describe("[web] CSS", function() {
 	testFixture({
 		id: "css-import-from",
-		title: "Fails: import … from",
+		title: "Fails typecheck: import … from",
 		sourceFiles: ["package.json", "tsconfig.json", "webpack.config.js", "src/application.ts", "src/styles.css"],
-		expectTypecheckError: true
+		expectTypecheckError: true,
+		webpackFiles: ["dist/index.html", "dist/app-css-import-from.js", "dist/app-css-import-from.css"],
+		expectedHTML: "[CSS IMPORT FROM] Type is string"
 	});
 	testFixture({
 		id: "css-import-star",
@@ -843,7 +914,9 @@ describe("[web] CSS", function() {
 		id: "css-import-require",
 		title: "Fails: import = require",
 		sourceFiles: ["package.json", "tsconfig.json", "webpack.config.js", "src/application.ts", "src/styles.css"],
-		expectTypecheckError: true
+		expectTypecheckError: true,
+		webpackFiles: ["dist/index.html", "dist/app-css-import-require.js"],
+		expectedHTML: "Error: #hello not found"
 	});
 	testFixture({
 		id: "css-require",
@@ -858,9 +931,11 @@ describe("[web] CSS", function() {
 describe("[web] SCSS", function() {
 	testFixture({
 		id: "scss-import-from",
-		title: "Fails: import … from",
+		title: "Fails typecheck: import … from",
 		sourceFiles: ["package.json", "tsconfig.json", "webpack.config.js", "src/application.ts", "src/styles.scss"],
-		expectTypecheckError: true
+		expectTypecheckError: true,
+		webpackFiles: ["dist/index.html", "dist/app-scss-import-from.js", "dist/app-scss-import-from.css"],
+		expectedHTML: "[SCSS IMPORT FROM] Type is string"
 	});
 	testFixture({
 		id: "scss-import-star",
@@ -874,7 +949,9 @@ describe("[web] SCSS", function() {
 		id: "scss-import-require",
 		title: "Fails: import = require",
 		sourceFiles: ["package.json", "tsconfig.json", "webpack.config.js", "src/application.ts", "src/styles.scss"],
-		expectTypecheckError: true
+		expectTypecheckError: true,
+		webpackFiles: ["dist/index.html", "dist/app-scss-import-require.js"],
+		expectedHTML: "Error: #hello not found"
 	});
 	testFixture({
 		id: "scss-require",
@@ -928,7 +1005,9 @@ describe("[web] Raw assets & Local type definition", function() {
 			"src/application.ts",
 			"src/example.md"
 		],
-		expectTypecheckError: true
+		expectTypecheckError: true,
+		webpackFiles: ["dist/index.html", "dist/app-raw-import-require.js"],
+		expectedHTML: "Error: #hello not found"
 	});
 	testFixture({
 		id: "raw-require",
@@ -950,7 +1029,7 @@ describe("[web] Raw assets & Local type definition", function() {
 describe("[web] JSON", function() {
 	testFixture({
 		id: "json-import-from",
-		title: "Fails: import … from",
+		title: "Fails typecheck: import … from",
 		sourceFiles: [
 			"package.json",
 			"tsconfig.json",
@@ -958,7 +1037,9 @@ describe("[web] JSON", function() {
 			"src/application.ts",
 			"src/asset-import-from.json"
 		],
-		expectTypecheckError: true
+		expectTypecheckError: true,
+		webpackFiles: ["dist/index.html", "dist/app-json-import-from.js"],
+		expectedHTML: 'JSON IMPORT FROM is ["hello","world"]'
 	});
 	testFixture({
 		id: "json-import-star",
@@ -984,7 +1065,9 @@ describe("[web] JSON", function() {
 			"src/application.ts",
 			"src/asset-import-require.json"
 		],
-		expectTypecheckError: true
+		expectTypecheckError: true,
+		webpackFiles: ["dist/index.html", "dist/app-json-import-require.js"],
+		expectedHTML: "Error: #hello not found"
 	});
 	testFixture({
 		id: "json-require",
@@ -1031,14 +1114,15 @@ describe("[web] Include", function() {
 	});
 	testFixture({
 		id: "include-src-outside",
-		title: "Accepts: src, outside list",
+		title: "Fails typecheck: src, outside list",
 		sourceFiles: [
 			"package.json",
 			"tsconfig.json",
 			"webpack.config.js",
 			"src/application.ts"
 		],
-		expectTypecheckError: true
+		expectTypecheckError: true,
+		expectBuildError: true
 	});
 	testFixture({
 		id: "include-custom-default",
@@ -1068,13 +1152,14 @@ describe("[web] Include", function() {
 	});
 	testFixture({
 		id: "include-custom-outside",
-		title: "Accepts: custom path, outside list",
+		title: "Fails typecheck: custom path, outside list",
 		sourceFiles: [
 			"package.json",
 			"tsconfig.json",
 			"webpack.config.js",
 			"custom-path/application.ts"
 		],
-		expectTypecheckError: true
+		expectTypecheckError: true,
+		expectBuildError: true
 	});
 });
