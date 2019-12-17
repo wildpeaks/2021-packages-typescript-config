@@ -1,25 +1,24 @@
 {
   "private": true,
-  "name": "@wildpeaks/tsconfig",
-  "version": "1.1.0",
   "description": "Base tsconfig packages",
   "author": "Cecile Muller",
   "license": "MIT",
-  "homepage": "https://github.com/wildpeaks/packages-typescript-config#readme",
-  "repository": "https://github.com/wildpeaks/packages-typescript-config",
-  "bugs": {
-    "url": "https://github.com/wildpeaks/packages-typescript-config/issues"
-  },
   "eslintIgnore": [
     "packages"
   ],
   "eslintConfig": {
     "extends": "@wildpeaks/commonjs"
   },
+  "prettier": {
+    "printWidth": 120,
+    "tabWidth": 4,
+    "useTabs": true,
+    "bracketSpacing": false
+  },
   "greenkeeper": {
     "commitMessages": {
-      "dependencyUpdate": "fix: Update ${dependency}",
-      "devDependencyUpdate": "chore: Update ${dependency}"
+      "dependencyUpdate": "feat: update ${dependency}",
+      "devDependencyUpdate": "chore: update ${dependency}"
     }
   },
   "scripts": {
@@ -35,17 +34,17 @@
   },
   "devDependencies": {
     "@wildpeaks/async": "1.2.2",
-    "@wildpeaks/eslint-config-commonjs": "7.2.0",
+    "@wildpeaks/eslint-config-commonjs": "8.0.0-alpha6",
     "@wildpeaks/webpack-config-web": "4.11.0",
     "ajv": "6.10.2",
     "eslint": "6.7.2",
     "express": "4.17.1",
     "fs-extra": "8.1.0",
     "mocha": "6.2.2",
-    "preact": "10.0.5",
+    "preact": "10.1.0",
     "puppeteer": "2.0.0",
     "recursive-readdir": "2.2.2",
-    "typescript": "3.7.2",
+    "typescript": "3.7.3",
     "webpack": "4.41.2",
     "webpack-cli": "3.3.10"
   }

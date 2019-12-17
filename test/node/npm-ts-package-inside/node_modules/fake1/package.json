@@ -1,0 +1,4 @@
+{
+  "main": "custom.ts",
+  "types": "custom.ts"
+}

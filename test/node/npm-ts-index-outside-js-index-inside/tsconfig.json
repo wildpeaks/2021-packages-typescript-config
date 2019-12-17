@@ -1,0 +1,7 @@
+{
+	"extends": "@wildpeaks/tsconfig-node",
+	"include": [
+		"./src/**/*.*",
+		"./node_modules/fake2/**/*.*"
+	]
+}

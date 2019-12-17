@@ -3,12 +3,11 @@
 **Typescript configuration for projects targeting Node, such as a CLI script.**
 
 
-It expects the sources to be in `/src`, is compatible with Local Modules (`/src/node_modules`),
-and outputs to `/lib`, targeting ES2017 CommonJS.
+It outputs to `/lib`, targeting ES2017 CommonJS.
 
 It is configured for ES2017 and accepts:
  - CommonJS modules
- - ES Modules
+ - ES modules
  - JSON modules
 
 Note: TSC only copies JSON files to `/lib` if they're imported using `import`.

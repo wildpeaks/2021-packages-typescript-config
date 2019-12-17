@@ -3,8 +3,7 @@
 **Typescript configuration for Web projects.**
 
 
-It expects the sources to be in `/src`, is compatible with Local Modules (`/src/node_modules`),
-and outputs to `/lib`, targeting ES5 + ES Modules.
+It outputs to `/lib`, targeting ES5 + ES Modules.
 
 It is configured for ES2017 and accepts:
  - CommonJS modules

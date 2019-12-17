@@ -1,8 +1,8 @@
 const myvariable = {
-	hello: 'APP2'
+	hello: "APP2"
 };
 
-const container = document.createElement('div');
-container.setAttribute('id', 'hello');
+const container = document.createElement("div");
+container.setAttribute("id", "hello");
 container.innerText = `[ENTRIES] Value is ${JSON.stringify(myvariable)}`;
 document.body.appendChild(container);
