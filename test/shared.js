@@ -7,12 +7,19 @@ const {join, relative} = require("path");
 const {copySync, removeSync} = require("fs-extra");
 const rreaddir = require("recursive-readdir");
 
-
 function execCommand(command, folder) {
 	return new Promise(resolve => {
 		exec(command, {cwd: folder}, (error, stdout, stderr) => {
-			const output = stdout.trim().split("\n").map(line => line.trim()).filter(line => (line !== ""));
-			const errors = stderr.trim().split("\n").map(line => line.trim()).filter(line => (line !== ""));
+			const output = stdout
+				.trim()
+				.split("\n")
+				.map(line => line.trim())
+				.filter(line => line !== "");
+			const errors = stderr
+				.trim()
+				.split("\n")
+				.map(line => line.trim())
+				.filter(line => line !== "");
 			if (error) {
 				errors.push(error);
 			}
@@ -20,7 +27,6 @@ function execCommand(command, folder) {
 		});
 	});
 }
-
 
 function copyConfig(configId = "node") {
 	const fromPackageFolder = join(__dirname, `../packages/tsconfig-${configId}`);
@@ -32,12 +38,13 @@ function copyConfig(configId = "node") {
 	copySync(fromPackageFolder, toPackageFolder);
 }
 
-
 async function getFiles(folder) {
 	const files = await rreaddir(folder);
-	return files.map(filepath => relative(folder, filepath).replace(/\\/g, "/")).sort().filter(filepath => !filepath.startsWith("node_modules"));
+	return files
+		.map(filepath => relative(folder, filepath).replace(/\\/g, "/"))
+		.sort()
+		.filter(filepath => filepath.startsWith("node_modules/fake") || !filepath.startsWith("node_modules"));
 }
-
 
 async function compileFixture(configId, fixtureId, command) {
 	const fromFixtureFolder = join(__dirname, fixtureId);
@@ -51,6 +58,12 @@ async function compileFixture(configId, fixtureId, command) {
 	} catch (e) {}
 	try {
 		removeSync(join(toTmpFolder, "custom-path"));
+	} catch (e) {}
+	try {
+		removeSync(join(toTmpFolder, "node_modules/fake1"));
+	} catch (e) {}
+	try {
+		removeSync(join(toTmpFolder, "node_modules/fake2"));
 	} catch (e) {}
 	try {
 		removeSync(join(toTmpFolder, "lib"));
@@ -75,12 +88,22 @@ async function compileFixture(configId, fixtureId, command) {
 		copySync(join(fromFixtureFolder, "custom-path"), join(toTmpFolder, "custom-path"));
 	} catch (e) {}
 	try {
+		copySync(join(fromFixtureFolder, "node_modules/fake1"), join(toTmpFolder, "node_modules/fake1"));
+	} catch (e) {}
+	try {
+		copySync(join(fromFixtureFolder, "node_modules/fake2"), join(toTmpFolder, "node_modules/fake2"));
+	} catch (e) {}
+	try {
 		copySync(join(fromFixtureFolder, "webpack.config.js"), join(toTmpFolder, "webpack.config.js"));
 	} catch (e) {}
 	try {
 		copySync(join(fromFixtureFolder, "tsconfig.json"), join(toTmpFolder, "tsconfig.json"));
 	} catch (e) {}
-	writeFileSync(join(toTmpFolder, "package.json"), JSON.stringify({private: true, scripts: {build: command}}), "utf8");
+	writeFileSync(
+		join(toTmpFolder, "package.json"),
+		JSON.stringify({private: true, scripts: {build: command}}),
+		"utf8"
+	);
 
 	const filesBefore = await getFiles(toTmpFolder);
 	const {output, errors} = await execCommand("npm run build", toTmpFolder);
@@ -94,7 +117,6 @@ async function compileFixture(configId, fixtureId, command) {
 		filesAfter
 	};
 }
-
 
 module.exports.execCommand = execCommand;
 module.exports.getFiles = getFiles;

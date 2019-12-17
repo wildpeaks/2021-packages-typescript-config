@@ -20,7 +20,16 @@ function sleep(duration) {
 	});
 }
 
-function testFixture({id, title, sourceFiles, tscFiles, webpackFiles, expectTypecheckError, expectBuildError, expectedHTML}) {
+function testFixture({
+	id,
+	title,
+	sourceFiles,
+	tscFiles,
+	webpackFiles,
+	expectTypecheckError,
+	expectBuildError,
+	expectedHTML
+}) {
 	it(
 		title,
 		/* @this */ async function() {
@@ -202,12 +211,7 @@ describe('[web] Toplevel variables are global without "import" or "export"', fun
 			"src/application2.ts"
 		],
 		expectTypecheckError: true,
-		webpackFiles: [
-			"dist/app-entries-1.js",
-			"dist/app-entries-2.js",
-			"dist/index.html",
-			"dist/index1.html"
-		],
+		webpackFiles: ["dist/app-entries-1.js", "dist/app-entries-2.js", "dist/index.html", "dist/index1.html"],
 		expectedHTML: '[ENTRIES] Value is {"hello":"APP2"}'
 	});
 	testFixture({
@@ -337,10 +341,7 @@ describe("[web] Import a CommonJS default object, without .d.ts", function() {
 			"src/mymodule/index.js"
 		],
 		expectTypecheckError: true,
-		webpackFiles: [
-			"dist/app-commonjs-untyped-default-import-from.js",
-			"dist/index.html"
-		],
+		webpackFiles: ["dist/app-commonjs-untyped-default-import-from.js", "dist/index.html"],
 		expectedHTML: "[COMMONJS UNTYPED DEFAULT, IMPORT FROM] Type is function"
 	});
 	testFixture({
@@ -354,10 +355,7 @@ describe("[web] Import a CommonJS default object, without .d.ts", function() {
 			"src/mymodule/index.js"
 		],
 		expectTypecheckError: true,
-		webpackFiles: [
-			"dist/app-commonjs-untyped-default-import-star.js",
-			"dist/index.html"
-		],
+		webpackFiles: ["dist/app-commonjs-untyped-default-import-star.js", "dist/index.html"],
 		expectedHTML: "[COMMONJS UNTYPED DEFAULT, IMPORT STAR] Type is function"
 	});
 	testFixture({
@@ -371,10 +369,7 @@ describe("[web] Import a CommonJS default object, without .d.ts", function() {
 			"src/mymodule/index.js"
 		],
 		expectTypecheckError: true,
-		webpackFiles: [
-			"dist/app-commonjs-untyped-default-import-require.js",
-			"dist/index.html"
-		],
+		webpackFiles: ["dist/app-commonjs-untyped-default-import-require.js", "dist/index.html"],
 		expectedHTML: "[COMMONJS UNTYPED DEFAULT, IMPORT REQUIRE] Type is undefined"
 	});
 	testFixture({
@@ -405,10 +400,7 @@ describe("[web] Import a CommonJS named function, without .d.ts", function() {
 			"src/mymodule/index.js"
 		],
 		expectTypecheckError: true,
-		webpackFiles: [
-			"dist/app-commonjs-untyped-named-import-from.js",
-			"dist/index.html"
-		],
+		webpackFiles: ["dist/app-commonjs-untyped-named-import-from.js", "dist/index.html"],
 		expectedHTML: "[COMMONJS UNTYPED NAMED, IMPORT FROM] Type is function"
 	});
 	testFixture({
@@ -422,10 +414,7 @@ describe("[web] Import a CommonJS named function, without .d.ts", function() {
 			"src/mymodule/index.js"
 		],
 		expectTypecheckError: true,
-		webpackFiles: [
-			"dist/app-commonjs-untyped-named-import-star.js",
-			"dist/index.html"
-		],
+		webpackFiles: ["dist/app-commonjs-untyped-named-import-star.js", "dist/index.html"],
 		expectedHTML: "[COMMONJS UNTYPED NAMED, IMPORT STAR] Type is function"
 	});
 	testFixture({
@@ -439,10 +428,7 @@ describe("[web] Import a CommonJS named function, without .d.ts", function() {
 			"src/mymodule/index.js"
 		],
 		expectTypecheckError: true,
-		webpackFiles: [
-			"dist/app-commonjs-untyped-named-import-require.js",
-			"dist/index.html"
-		],
+		webpackFiles: ["dist/app-commonjs-untyped-named-import-require.js", "dist/index.html"],
 		expectedHTML: "Error: #hello not found"
 	});
 	testFixture({
@@ -576,7 +562,6 @@ describe("[web] Import a CommonJS named function, with .d.ts", function() {
 		expectTypecheckError: true,
 		webpackFiles: ["dist/index.html", "dist/app-commonjs-typed-named-import-require.js"],
 		expectedHTML: "Error: #hello not found"
-
 	});
 	testFixture({
 		id: "commonjs-typed-named-require",
@@ -861,12 +846,8 @@ describe("[web] JPEG, PNG, SVG", function() {
 			"src/example3.svg"
 		],
 		expectTypecheckError: true,
-		webpackFiles: [
-			"dist/index.html",
-			"dist/app-images-import-require.js"
-		],
+		webpackFiles: ["dist/index.html", "dist/app-images-import-require.js"],
 		expectedHTML: ""
-
 	});
 	testFixture({
 		id: "images-require",
@@ -1085,81 +1066,203 @@ describe("[web] JSON", function() {
 	});
 });
 
-describe("[web] Include", function() {
+describe("[web] Include paths", function() {
 	testFixture({
 		id: "include-src-default",
-		title: "Accepts: src, default list",
-		sourceFiles: [
-			"package.json",
-			"tsconfig.json",
-			"webpack.config.js",
-			"src/application.ts"
-		],
+		title: "Accepts: src, no include",
+		sourceFiles: ["package.json", "tsconfig.json", "webpack.config.js", "src/application.ts"],
 		tscFiles: ["lib/application.js", "lib/application.js.map"],
 		webpackFiles: ["dist/index.html", "dist/app-include-src-default.js"],
 		expectedHTML: "[INCLUDE SRC DEFAULT] Type is object"
 	});
 	testFixture({
 		id: "include-src-inside",
-		title: "Accepts: src, inside list",
-		sourceFiles: [
-			"package.json",
-			"tsconfig.json",
-			"webpack.config.js",
-			"src/application.ts"
-		],
+		title: "Accepts: src, inside include",
+		sourceFiles: ["package.json", "tsconfig.json", "webpack.config.js", "src/application.ts"],
 		tscFiles: ["lib/application.js", "lib/application.js.map"],
 		webpackFiles: ["dist/index.html", "dist/app-include-src-inside.js"],
 		expectedHTML: "[INCLUDE SRC INSIDE] Type is object"
 	});
 	testFixture({
 		id: "include-src-outside",
-		title: "Fails typecheck: src, outside list",
-		sourceFiles: [
-			"package.json",
-			"tsconfig.json",
-			"webpack.config.js",
-			"src/application.ts"
-		],
+		title: "Fails typecheck: src, outside include",
+		sourceFiles: ["package.json", "tsconfig.json", "webpack.config.js", "src/application.ts"],
 		expectTypecheckError: true,
 		expectBuildError: true
 	});
 	testFixture({
 		id: "include-custom-default",
-		title: "Accepts: custom path, default list",
-		sourceFiles: [
-			"package.json",
-			"tsconfig.json",
-			"webpack.config.js",
-			"custom-path/application.ts"
-		],
+		title: "Accepts: custom path, no include",
+		sourceFiles: ["package.json", "tsconfig.json", "webpack.config.js", "custom-path/application.ts"],
 		tscFiles: ["lib/application.js", "lib/application.js.map"],
 		webpackFiles: ["dist/index.html", "dist/app-include-custom-default.js"],
 		expectedHTML: "[INCLUDE CUSTOM DEFAULT] Type is object"
 	});
 	testFixture({
 		id: "include-custom-inside",
-		title: "Accepts: custom path, inside list",
-		sourceFiles: [
-			"package.json",
-			"tsconfig.json",
-			"webpack.config.js",
-			"custom-path/application.ts"
-		],
+		title: "Accepts: custom path, inside include",
+		sourceFiles: ["package.json", "tsconfig.json", "webpack.config.js", "custom-path/application.ts"],
 		tscFiles: ["lib/application.js", "lib/application.js.map"],
 		webpackFiles: ["dist/index.html", "dist/app-include-custom-inside.js"],
 		expectedHTML: "[INCLUDE CUSTOM INSIDE] Type is object"
 	});
 	testFixture({
 		id: "include-custom-outside",
-		title: "Fails typecheck: custom path, outside list",
+		title: "Fails typecheck: custom path, outside include",
+		sourceFiles: ["package.json", "tsconfig.json", "webpack.config.js", "custom-path/application.ts"],
+		expectTypecheckError: true,
+		expectBuildError: true
+	});
+});
+
+describe("[web] Include node_modules", function() {
+	testFixture({
+		id: "npm-ts-index-default",
+		title: "Accepts: TS index, JS index, no include",
 		sourceFiles: [
 			"package.json",
 			"tsconfig.json",
 			"webpack.config.js",
-			"custom-path/application.ts"
+			"src/application.ts",
+			"node_modules/fake1/index.ts"
 		],
-		expectTypecheckError: true,
-		expectBuildError: true
+		tscFiles: ["lib/application.js", "lib/application.js.map"],
+		webpackFiles: ["dist/index.html", "dist/app-ts-index-default.js"],
+		expectedHTML: "[NPM TS INDEX DEFAULT] Value is 111"
+	});
+	testFixture({
+		id: "npm-ts-index-inside",
+		title: "Accepts: TS index.ts, inside list",
+		sourceFiles: [
+			"package.json",
+			"tsconfig.json",
+			"webpack.config.js",
+			"src/application.ts",
+			"node_modules/fake1/index.ts"
+		],
+		tscFiles: [
+			"lib/src/application.js",
+			"lib/src/application.js.map",
+			"lib/node_modules/fake1/index.js",
+			"lib/node_modules/fake1/index.js.map"
+		],
+		webpackFiles: ["dist/index.html", "dist/app-ts-index-inside.js"],
+		expectedHTML: "[NPM TS INDEX INSIDE] Value is 111"
+	});
+	testFixture({
+		id: "npm-ts-index-outside",
+		title: "Accepts: TS index.ts, outside list",
+		sourceFiles: [
+			"package.json",
+			"tsconfig.json",
+			"webpack.config.js",
+			"src/application.ts",
+			"node_modules/fake1/index.ts"
+		],
+		tscFiles: ["lib/application.js", "lib/application.js.map"],
+		webpackFiles: ["dist/index.html", "dist/app-ts-index-outside.js"],
+		expectedHTML: "[NPM TS INDEX OUTSIDE] Value is 111"
+	});
+
+	testFixture({
+		id: "npm-ts-package-default",
+		title: "Accepts: TS package.json, JS index, no include",
+		sourceFiles: [
+			"package.json",
+			"tsconfig.json",
+			"webpack.config.js",
+			"src/application.ts",
+			"node_modules/fake1/package.json",
+			"node_modules/fake1/custom.ts"
+		],
+		tscFiles: ["lib/application.js", "lib/application.js.map"],
+		webpackFiles: ["dist/index.html", "dist/app-ts-package-default.js"],
+		expectedHTML: "[NPM TS PACKAGE DEFAULT] Value is 111"
+	});
+	testFixture({
+		id: "npm-ts-package-inside",
+		title: "Accepts: TS package.json, inside list",
+		sourceFiles: [
+			"package.json",
+			"tsconfig.json",
+			"webpack.config.js",
+			"src/application.ts",
+			"node_modules/fake1/package.json",
+			"node_modules/fake1/custom.ts"
+		],
+		tscFiles: [
+			"lib/src/application.js",
+			"lib/src/application.js.map",
+			"lib/node_modules/fake1/custom.js",
+			"lib/node_modules/fake1/custom.js.map"
+		],
+		webpackFiles: ["dist/index.html", "dist/app-ts-package-inside.js"],
+		expectedHTML: "[NPM TS PACKAGE INSIDE] Value is 111"
+	});
+	testFixture({
+		id: "npm-ts-package-outside",
+		title: "Accepts: TS package.json, outside list",
+		sourceFiles: [
+			"package.json",
+			"tsconfig.json",
+			"webpack.config.js",
+			"src/application.ts",
+			"node_modules/fake1/package.json",
+			"node_modules/fake1/custom.ts"
+		],
+		tscFiles: ["lib/application.js", "lib/application.js.map"],
+		webpackFiles: ["dist/index.html", "dist/app-ts-package-outside.js"],
+		expectedHTML: "[NPM TS PACKAGE OUTSIDE] Value is 111"
+	});
+
+	testFixture({
+		id: "npm-ts-index-js-index-default",
+		title: "Accepts: TS index, JS index, no include",
+		sourceFiles: [
+			"package.json",
+			"tsconfig.json",
+			"webpack.config.js",
+			"src/application.ts",
+			"node_modules/fake1/index.ts",
+			"node_modules/fake2/index.js"
+		],
+		tscFiles: ["lib/application.js", "lib/application.js.map"],
+		webpackFiles: ["dist/index.html", "dist/app-npm-ts-index-js-index-default.js"],
+		expectedHTML: "[NPM TS INDEX JS INDEX DEFAULT] Value is 111 222"
+	});
+	testFixture({
+		id: "npm-ts-index-inside-js-index-inside",
+		title: "Accepts: TS index inside, JS index inside",
+		sourceFiles: [
+			"package.json",
+			"tsconfig.json",
+			"webpack.config.js",
+			"src/application.ts",
+			"node_modules/fake1/index.ts",
+			"node_modules/fake2/index.js"
+		],
+		tscFiles: [
+			"lib/src/application.js",
+			"lib/src/application.js.map",
+			"lib/node_modules/fake1/index.js",
+			"lib/node_modules/fake1/index.js.map"
+		],
+		webpackFiles: ["dist/index.html", "dist/app-npm-ts-index-inside-js-index-inside.js"],
+		expectedHTML: "[NPM TS INDEX INSIDE JS INDEX INSIDE] Value is 111 222"
+	});
+	testFixture({
+		id: "npm-ts-index-outside-js-index-inside",
+		title: "Accepts: TS index outside, JS index inside",
+		sourceFiles: [
+			"package.json",
+			"tsconfig.json",
+			"webpack.config.js",
+			"src/application.ts",
+			"node_modules/fake1/index.ts",
+			"node_modules/fake2/index.js"
+		],
+		tscFiles: ["lib/application.js", "lib/application.js.map"],
+		webpackFiles: ["dist/index.html", "dist/app-npm-ts-index-outside-js-index-inside.js"],
+		expectedHTML: "[NPM TS INDEX OUTSIDE JS INDEX INSIDE] Value is 111 222"
 	});
 });
