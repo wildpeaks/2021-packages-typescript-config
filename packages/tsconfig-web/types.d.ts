@@ -1,11 +1,11 @@
 // CSS Modules
-declare module '*.css' {
+declare module "*.css" {
 	const _: {
 		[key: string]: string;
 	};
 	export = _;
 }
-declare module '*.scss' {
+declare module "*.scss" {
 	const _: {
 		[key: string]: string;
 	};
@@ -13,19 +13,19 @@ declare module '*.scss' {
 }
 
 // Url Loader
-declare module '*.svg' {
+declare module "*.svg" {
 	const _: string;
 	export default _;
 }
-declare module '*.jpg' {
+declare module "*.jpg" {
 	const _: string;
 	export default _;
 }
-declare module '*.png' {
+declare module "*.png" {
 	const _: string;
 	export default _;
 }
-declare module '*.gif' {
+declare module "*.gif" {
 	const _: string;
 	export default _;
 }
