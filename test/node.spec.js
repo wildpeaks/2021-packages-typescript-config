@@ -584,3 +584,146 @@ describe("[node] Include", function() {
 		expectTypecheckError: true
 	});
 });
+
+describe("[node] Include node_modules", function() {
+	testFixture({
+		id: "npm-ts-index-default",
+		title: "Fails: TS index, JS index, no include",
+		sourceFiles: [
+			"package.json",
+			"tsconfig.json",
+			"src/main.ts",
+			"node_modules/fake1/index.ts"
+		],
+		tscFiles: ["lib/main.js", "lib/main.js.map"],
+		mainFilename: "lib/main.js",
+		expectRuntimeError: true
+	});
+	testFixture({
+		id: "npm-ts-index-inside",
+		title: "Accepts: TS index.ts, inside list",
+		sourceFiles: [
+			"package.json",
+			"tsconfig.json",
+			"src/main.ts",
+			"node_modules/fake1/index.ts"
+		],
+		tscFiles: [
+			"lib/src/main.js",
+			"lib/src/main.js.map",
+			"lib/node_modules/fake1/index.js",
+			"lib/node_modules/fake1/index.js.map"
+		],
+		mainFilename: "lib/src/main.js",
+		expectedOutput: ["[NPM TS INDEX INSIDE] Value is 111"]
+	});
+	testFixture({
+		id: "npm-ts-index-outside",
+		title: "Fails: TS index.ts, outside list",
+		sourceFiles: [
+			"package.json",
+			"tsconfig.json",
+			"src/main.ts",
+			"node_modules/fake1/index.ts"
+		],
+		tscFiles: ["lib/main.js", "lib/main.js.map"],
+		mainFilename: "lib/main.js",
+		expectRuntimeError: true
+	});
+
+	testFixture({
+		id: "npm-ts-package-default",
+		title: "Fails: TS package.json, JS index, no include",
+		sourceFiles: [
+			"package.json",
+			"tsconfig.json",
+			"src/main.ts",
+			"node_modules/fake1/package.json",
+			"node_modules/fake1/custom.ts"
+		],
+		tscFiles: ["lib/main.js", "lib/main.js.map"],
+		mainFilename: "lib/main.js",
+		expectRuntimeError: true
+	});
+	testFixture({
+		id: "npm-ts-package-inside",
+		title: "Fails: TS package.json, inside list",
+		sourceFiles: [
+			"package.json",
+			"tsconfig.json",
+			"src/main.ts",
+			"node_modules/fake1/package.json",
+			"node_modules/fake1/custom.ts"
+		],
+		tscFiles: [
+			"lib/src/main.js",
+			"lib/src/main.js.map",
+			"lib/node_modules/fake1/custom.js",
+			"lib/node_modules/fake1/custom.js.map"
+		],
+		mainFilename: "lib/src/main.js",
+		expectRuntimeError: true
+	});
+	testFixture({
+		id: "npm-ts-package-outside",
+		title: "Fails: TS package.json, outside list",
+		sourceFiles: [
+			"package.json",
+			"tsconfig.json",
+			"src/main.ts",
+			"node_modules/fake1/package.json",
+			"node_modules/fake1/custom.ts"
+		],
+		tscFiles: ["lib/main.js", "lib/main.js.map"],
+		mainFilename: "lib/main.js",
+		expectRuntimeError: true
+	});
+
+	testFixture({
+		id: "npm-ts-index-js-index-default",
+		title: "Fails: TS index, JS index, no include",
+		sourceFiles: [
+			"package.json",
+			"tsconfig.json",
+			"src/main.ts",
+			"node_modules/fake1/index.ts",
+			"node_modules/fake2/index.js"
+		],
+		tscFiles: ["lib/main.js", "lib/main.js.map"],
+		mainFilename: "lib/main.js",
+		expectRuntimeError: true
+	});
+	testFixture({
+		id: "npm-ts-index-inside-js-index-inside",
+		title: "Accepts: TS index inside, JS index inside",
+		sourceFiles: [
+			"package.json",
+			"tsconfig.json",
+			"src/main.ts",
+			"node_modules/fake1/index.ts",
+			"node_modules/fake2/index.js"
+		],
+		tscFiles: [
+			"lib/src/main.js",
+			"lib/src/main.js.map",
+			"lib/node_modules/fake1/index.js",
+			"lib/node_modules/fake1/index.js.map"
+		],
+		mainFilename: "lib/src/main.js",
+		expectedOutput: ["[NPM TS INDEX INSIDE JS INDEX INSIDE] Value is 111 222"]
+	});
+	testFixture({
+		id: "npm-ts-index-outside-js-index-inside",
+		title: "Fails: TS index outside, JS index inside",
+		sourceFiles: [
+			"package.json",
+			"tsconfig.json",
+			"src/main.ts",
+			"node_modules/fake1/index.ts",
+			"node_modules/fake2/index.js"
+		],
+		tscFiles: ["lib/main.js", "lib/main.js.map"],
+		mainFilename: "lib/main.js",
+		expectRuntimeError: true
+	});
+});
