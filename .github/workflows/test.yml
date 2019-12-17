@@ -5,7 +5,7 @@ on:
       - '**'
 jobs:
   tests:
-    timeout-minutes: 20
+    timeout-minutes: 25
     runs-on: ubuntu-latest
     steps:
 
