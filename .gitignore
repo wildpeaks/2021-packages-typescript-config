@@ -2,7 +2,7 @@
 /*
 /*/
 
-# But allow those files and folders:
+# But allow these files and folders:
 !/LICENSE
 !/README.md
 !/.editorconfig
@@ -12,12 +12,16 @@
 !/.npmrc
 !/.prettierignore
 !/.vscode
+!/src
 !/test
 !/packages
 !/package.json
+!/tsconfig.json
+!/register.typescript.js
 !/azure-pipelines.yml
 !/greenkeeper.json
+!/wallaby.js
 
-# But make sure to ignore those regardless:
-/test/tmp
+# But make sure to ignore these regardless:
 WAS *
+/test/tmp
