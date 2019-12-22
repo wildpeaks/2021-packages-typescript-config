@@ -3,12 +3,12 @@
   "description": "Base tsconfig packages",
   "author": "Cecile Muller",
   "license": "MIT",
-  "eslintIgnore": [
-    "packages"
-  ],
   "eslintConfig": {
     "extends": "@wildpeaks/commonjs"
   },
+  "eslintIgnore": [
+    "packages"
+  ],
   "prettier": {
     "printWidth": 120,
     "tabWidth": 4,
