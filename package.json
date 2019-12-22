@@ -33,7 +33,7 @@
     "typescript": "*"
   },
   "devDependencies": {
-    "@wildpeaks/async": "1.2.2",
+    "@wildpeaks/async": "1.3.0",
     "@wildpeaks/eslint-config-commonjs": "8.0.0-alpha7",
     "@wildpeaks/webpack-config-web": "4.12.0",
     "ajv": "6.10.2",
