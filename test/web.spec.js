@@ -113,7 +113,7 @@ describe("[web] Basic features", function() {
 	});
 	testFixture({
 		id: "basic-relative-path",
-		title: "Accepts: relative path, index.ts",
+		title: "Accepts: relative path",
 		sourceFiles: [
 			"package.json",
 			"tsconfig.json",

@@ -1,6 +1,6 @@
 {
 	"eslint.validate": [
-		"javascript",
+		"javascript"
 	],
 	"files.exclude": {
 		"LICENSE": true,
