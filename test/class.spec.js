@@ -10,7 +10,7 @@ const {copyConfig, compileFixture} = require("./shared");
 let app;
 let server;
 const port = 8888;
-const outputFolder = join(__dirname, `tmp/web/dist`);
+const outputFolder = join(process.cwd(), `tmp/web/dist`);
 
 function sleep(duration) {
 	return new Promise(resolve => {

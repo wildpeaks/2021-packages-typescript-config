@@ -30,7 +30,7 @@ function execCommand(command, folder) {
 
 function copyConfig(configId = "node") {
 	const fromPackageFolder = join(__dirname, `../packages/tsconfig-${configId}`);
-	const toPackageFolder = join(__dirname, `tmp/${configId}/node_modules/@wildpeaks/tsconfig-${configId}`);
+	const toPackageFolder = join(process.cwd(), `tmp/${configId}/node_modules/@wildpeaks/tsconfig-${configId}`);
 	try {
 		removeSync(toPackageFolder);
 	} catch (e) {}
@@ -48,7 +48,7 @@ async function getFiles(folder) {
 
 async function compileFixture(configId, fixtureId, command) {
 	const fromFixtureFolder = join(__dirname, fixtureId);
-	const toTmpFolder = join(__dirname, `tmp/${configId}`);
+	const toTmpFolder = join(process.cwd(), `tmp/${configId}`);
 
 	try {
 		removeSync(join(toTmpFolder, "bin"));

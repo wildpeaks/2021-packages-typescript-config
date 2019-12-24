@@ -5,7 +5,7 @@ const {join} = require("path");
 const {deepStrictEqual} = require("assert");
 const {copySync} = require("fs-extra");
 const {copyConfig, compileFixture, execCommand} = require("./shared");
-const tmpFolder = join(__dirname, "tmp/node");
+const tmpFolder = join(process.cwd(), "tmp/node");
 
 function testFixture(
 	{
