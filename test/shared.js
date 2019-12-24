@@ -6,6 +6,8 @@ const {writeFileSync} = require("fs");
 const {join, relative} = require("path");
 const {copySync, removeSync} = require("fs-extra");
 const rreaddir = require("recursive-readdir");
+const packagesFolder = join(__dirname, "../packages");
+const tmpFolder = join(__dirname, "../tmp");
 
 function execCommand(command, folder) {
 	return new Promise(resolve => {
@@ -29,8 +31,8 @@ function execCommand(command, folder) {
 }
 
 function copyConfig(configId = "node") {
-	const fromPackageFolder = join(__dirname, `../packages/tsconfig-${configId}`);
-	const toPackageFolder = join(__dirname, `tmp/${configId}/node_modules/@wildpeaks/tsconfig-${configId}`);
+	const fromPackageFolder = join(packagesFolder, `tsconfig-${configId}`);
+	const toPackageFolder = join(tmpFolder, `${configId}/node_modules/@wildpeaks/tsconfig-${configId}`);
 	try {
 		removeSync(toPackageFolder);
 	} catch (e) {}
@@ -48,77 +50,81 @@ async function getFiles(folder) {
 
 async function compileFixture(configId, fixtureId, command) {
 	const fromFixtureFolder = join(__dirname, fixtureId);
-	const toTmpFolder = join(__dirname, `tmp/${configId}`);
+	const toTmpSubfolder = join(tmpFolder, configId);
 
 	try {
-		removeSync(join(toTmpFolder, "bin"));
+		removeSync(join(toTmpSubfolder, "bin"));
 	} catch (e) {}
 	try {
-		removeSync(join(toTmpFolder, "src"));
+		removeSync(join(toTmpSubfolder, "src"));
 	} catch (e) {}
 	try {
-		removeSync(join(toTmpFolder, "custom-path"));
+		removeSync(join(toTmpSubfolder, "custom-path"));
 	} catch (e) {}
 	try {
-		removeSync(join(toTmpFolder, "node_modules/fake1"));
+		removeSync(join(toTmpSubfolder, "node_modules/fake1"));
 	} catch (e) {}
 	try {
-		removeSync(join(toTmpFolder, "node_modules/fake2"));
+		removeSync(join(toTmpSubfolder, "node_modules/fake2"));
 	} catch (e) {}
 	try {
-		removeSync(join(toTmpFolder, "lib"));
+		removeSync(join(toTmpSubfolder, "lib"));
 	} catch (e) {}
 	try {
-		removeSync(join(toTmpFolder, "dist"));
+		removeSync(join(toTmpSubfolder, "dist"));
 	} catch (e) {}
 	try {
-		removeSync(join(toTmpFolder, "webpack.config.js"));
+		removeSync(join(toTmpSubfolder, "webpack.config.js"));
 	} catch (e) {}
 	try {
-		removeSync(join(toTmpFolder, "tsconfig.json"));
+		removeSync(join(toTmpSubfolder, "tsconfig.json"));
 	} catch (e) {}
 
 	try {
-		copySync(join(fromFixtureFolder, "bin"), join(toTmpFolder, "bin"));
+		copySync(join(fromFixtureFolder, "bin"), join(toTmpSubfolder, "bin"));
 	} catch (e) {}
 	try {
-		copySync(join(fromFixtureFolder, "src"), join(toTmpFolder, "src"));
+		copySync(join(fromFixtureFolder, "src"), join(toTmpSubfolder, "src"));
 	} catch (e) {}
 	try {
-		copySync(join(fromFixtureFolder, "custom-path"), join(toTmpFolder, "custom-path"));
+		copySync(join(fromFixtureFolder, "custom-path"), join(toTmpSubfolder, "custom-path"));
 	} catch (e) {}
 	try {
-		copySync(join(fromFixtureFolder, "node_modules/fake1"), join(toTmpFolder, "node_modules/fake1"));
+		copySync(join(fromFixtureFolder, "node_modules/fake1"), join(toTmpSubfolder, "node_modules/fake1"));
 	} catch (e) {}
 	try {
-		copySync(join(fromFixtureFolder, "node_modules/fake2"), join(toTmpFolder, "node_modules/fake2"));
+		copySync(join(fromFixtureFolder, "node_modules/fake2"), join(toTmpSubfolder, "node_modules/fake2"));
 	} catch (e) {}
 	try {
-		copySync(join(fromFixtureFolder, "webpack.config.js"), join(toTmpFolder, "webpack.config.js"));
+		copySync(join(fromFixtureFolder, "webpack.config.js"), join(toTmpSubfolder, "webpack.config.js"));
 	} catch (e) {}
 	try {
-		copySync(join(fromFixtureFolder, "tsconfig.json"), join(toTmpFolder, "tsconfig.json"));
+		copySync(join(fromFixtureFolder, "tsconfig.json"), join(toTmpSubfolder, "tsconfig.json"));
 	} catch (e) {}
 	writeFileSync(
-		join(toTmpFolder, "package.json"),
+		join(toTmpSubfolder, "package.json"),
 		JSON.stringify({private: true, scripts: {build: command}}),
 		"utf8"
 	);
 
-	const filesBefore = await getFiles(toTmpFolder);
-	const {output, errors} = await execCommand("npm run build", toTmpFolder);
-	const filesAfter = await getFiles(toTmpFolder);
+	const filesBefore = await getFiles(toTmpSubfolder);
+	const {output, errors} = await execCommand("npm run build", toTmpSubfolder);
+	const filesAfter = await getFiles(toTmpSubfolder);
 
 	return {
 		output,
 		errors,
-		folder: toTmpFolder,
+		folder: toTmpSubfolder,
 		filesBefore,
 		filesAfter
 	};
 }
 
-module.exports.execCommand = execCommand;
-module.exports.getFiles = getFiles;
-module.exports.copyConfig = copyConfig;
-module.exports.compileFixture = compileFixture;
+module.exports = {
+	tmpFolder,
+	packagesFolder,
+	execCommand,
+	getFiles,
+	copyConfig,
+	compileFixture
+};

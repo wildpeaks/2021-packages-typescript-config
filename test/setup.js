@@ -4,7 +4,7 @@ const {join} = require("path");
 const {writeFileSync} = require("fs");
 const {removeSync, mkdirpSync} = require("fs-extra");
 const {devDependencies} = require("../package.json");
-const tmpFolder = join(__dirname, `tmp`);
+const tmpFolder = join(process.cwd(), `tmp`);
 const {execCommand} = require("./shared");
 
 async function setupFolder(id, extraPackages) {
