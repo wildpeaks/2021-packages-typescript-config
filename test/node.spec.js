@@ -4,8 +4,9 @@
 const {join} = require("path");
 const {deepStrictEqual} = require("assert");
 const {copySync} = require("fs-extra");
-const {copyConfig, compileFixture, execCommand} = require("./shared");
-const tmpFolder = join(process.cwd(), "tmp/node");
+const {tmpFolder, copyConfig, compileFixture, execCommand} = require("./shared");
+const tmpSubfolder = join(tmpFolder, "node");
+
 
 function testFixture(
 	{
@@ -40,7 +41,7 @@ function testFixture(
 			if (typeof copyFiles === "object" && copyFiles !== null) {
 				for (const relativeSrc in copyFiles) {
 					const relativeDest = copyFiles[relativeSrc];
-					copySync(join(tmpFolder, relativeSrc), join(tmpFolder, relativeDest));
+					copySync(join(tmpSubfolder, relativeSrc), join(tmpSubfolder, relativeDest));
 				}
 			}
 

@@ -5,12 +5,12 @@ const {strictEqual, deepStrictEqual} = require("assert");
 const {join} = require("path");
 const express = require("express");
 const puppeteer = require("puppeteer");
-const {copyConfig, compileFixture} = require("./shared");
+const {tmpFolder, copyConfig, compileFixture} = require("./shared");
 
 let app;
 let server;
 const port = 8888;
-const outputFolder = join(process.cwd(), `tmp/web/dist`);
+const distFolder = join(tmpFolder, "web/dist");
 
 function sleep(duration) {
 	return new Promise(resolve => {
@@ -67,7 +67,7 @@ before("Setup", function() {
 	return new Promise(resolve => {
 		copyConfig("web");
 		app = express();
-		app.use(express.static(outputFolder));
+		app.use(express.static(distFolder));
 		server = app.listen(port, () => {
 			resolve();
 		});
