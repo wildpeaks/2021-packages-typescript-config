@@ -19,6 +19,6 @@
     "tsconfig.json"
   ],
   "dependencies": {
-    "@types/node": "13.1.1"
+    "@types/node": "13.5.2"
   }
 }
