@@ -21,6 +21,6 @@
     "types.d.ts"
   ],
   "dependencies": {
-    "@types/node": "13.7.0"
+    "@types/node": "13.7.1"
   }
 }
