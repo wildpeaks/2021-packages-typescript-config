@@ -1,6 +1,6 @@
 {
   "name": "@wildpeaks/tsconfig-web",
-  "version": "2.4.1",
+  "version": "2.4.2",
   "description": "Base tsconfig for Webpack projects",
   "author": "Cecile Muller",
   "license": "MIT",
