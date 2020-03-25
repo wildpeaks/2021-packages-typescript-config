@@ -13,7 +13,7 @@ const port = 8888;
 const distFolder = join(tmpFolder, "web/dist");
 
 function sleep(duration) {
-	return new Promise(resolve => {
+	return new Promise((resolve) => {
 		setTimeout(() => {
 			resolve();
 		}, duration);
@@ -23,7 +23,7 @@ function sleep(duration) {
 function testFixture({id, title, sourceFiles, tscFiles, webpackFiles, expectTypecheckError, expectedHTML}) {
 	it(
 		title,
-		/* @this */ async function() {
+		/* @this */ async function () {
 			this.slow(30000);
 			this.timeout(30000);
 
@@ -63,8 +63,8 @@ function testFixture({id, title, sourceFiles, tscFiles, webpackFiles, expectType
 	);
 }
 
-before("Setup", function() {
-	return new Promise(resolve => {
+before("Setup", function () {
+	return new Promise((resolve) => {
 		copyConfig("web");
 		app = express();
 		app.use(express.static(distFolder));
@@ -74,15 +74,15 @@ before("Setup", function() {
 	});
 });
 
-after("Shutdown", function() {
-	return new Promise(resolve => {
+after("Shutdown", function () {
+	return new Promise((resolve) => {
 		server.close(() => {
 			resolve();
 		});
 	});
 });
 
-describe("[web] useDefineForClassFields: true (default)", function() {
+describe("[web] useDefineForClassFields: true (default)", function () {
 	// Class 1
 	testFixture({
 		id: "class-1-variant-1-define-true",
@@ -204,7 +204,7 @@ describe("[web] useDefineForClassFields: true (default)", function() {
 	});
 });
 
-describe("[web] useDefineForClassFields: false (legacy)", function() {
+describe("[web] useDefineForClassFields: false (legacy)", function () {
 	// Class 1
 	testFixture({
 		id: "class-1-variant-1-define-false",

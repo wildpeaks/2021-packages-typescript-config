@@ -10,18 +10,18 @@ const packagesFolder = join(__dirname, "../packages");
 const tmpFolder = join(__dirname, "../tmp");
 
 function execCommand(command, folder) {
-	return new Promise(resolve => {
+	return new Promise((resolve) => {
 		exec(command, {cwd: folder}, (error, stdout, stderr) => {
 			const output = stdout
 				.trim()
 				.split("\n")
-				.map(line => line.trim())
-				.filter(line => line !== "");
+				.map((line) => line.trim())
+				.filter((line) => line !== "");
 			const errors = stderr
 				.trim()
 				.split("\n")
-				.map(line => line.trim())
-				.filter(line => line !== "");
+				.map((line) => line.trim())
+				.filter((line) => line !== "");
 			if (error) {
 				errors.push(error);
 			}
@@ -43,9 +43,9 @@ function copyConfig(configId = "node") {
 async function getFiles(folder) {
 	const files = await rreaddir(folder);
 	return files
-		.map(filepath => relative(folder, filepath).replace(/\\/g, "/"))
+		.map((filepath) => relative(folder, filepath).replace(/\\/g, "/"))
 		.sort()
-		.filter(filepath => filepath.startsWith("node_modules/fake") || !filepath.startsWith("node_modules"));
+		.filter((filepath) => filepath.startsWith("node_modules/fake") || !filepath.startsWith("node_modules"));
 }
 
 async function compileFixture(configId, fixtureId, command) {

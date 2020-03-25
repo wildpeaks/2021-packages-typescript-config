@@ -7,7 +7,6 @@ const {copySync} = require("fs-extra");
 const {tmpFolder, copyConfig, compileFixture, execCommand} = require("./shared");
 const tmpSubfolder = join(tmpFolder, "node");
 
-
 function testFixture(
 	{
 		id,
@@ -23,7 +22,7 @@ function testFixture(
 ) {
 	it(
 		title,
-		/* @this */ async function() {
+		/* @this */ async function () {
 			this.slow(10000);
 			this.timeout(15000);
 
@@ -60,11 +59,11 @@ function testFixture(
 	);
 }
 
-before("Setup", function() {
+before("Setup", function () {
 	copyConfig("node");
 });
 
-describe("[node] Basic features", function() {
+describe("[node] Basic features", function () {
 	testFixture({
 		id: "basic-cli",
 		title: "Accepts: cli",
@@ -100,14 +99,20 @@ describe("[node] Basic features", function() {
 	testFixture({
 		id: "basic-relative-path-package",
 		title: "Fails: relative path, custom.ts, package.json",
-		sourceFiles: ["package.json", "tsconfig.json", "src/main.ts", "src/mymodule/custom.ts", "src/mymodule/package.json"],
+		sourceFiles: [
+			"package.json",
+			"tsconfig.json",
+			"src/main.ts",
+			"src/mymodule/custom.ts",
+			"src/mymodule/package.json"
+		],
 		tscFiles: ["lib/main.js", "lib/main.js.map", "lib/mymodule/custom.js", "lib/mymodule/custom.js.map"],
 		mainFilename: "lib/main.js",
 		expectRuntimeError: true
 	});
 });
 
-describe("[node] JSON", function() {
+describe("[node] JSON", function () {
 	testFixture({
 		id: "json-import-from",
 		title: "Fails: import from",
@@ -151,7 +156,7 @@ describe("[node] JSON", function() {
 	});
 });
 
-describe("[node] Import a CommonJS default object, without .d.ts", function() {
+describe("[node] Import a CommonJS default object, without .d.ts", function () {
 	testFixture({
 		id: "commonjs-untyped-default-import-from",
 		title: "Fails: import … from",
@@ -183,7 +188,7 @@ describe("[node] Import a CommonJS default object, without .d.ts", function() {
 	});
 });
 
-describe("[node] Import a CommonJS named function, without .d.ts", function() {
+describe("[node] Import a CommonJS named function, without .d.ts", function () {
 	testFixture({
 		id: "commonjs-untyped-named-import-from",
 		title: "Fails: import … from",
@@ -215,7 +220,7 @@ describe("[node] Import a CommonJS named function, without .d.ts", function() {
 	});
 });
 
-describe("[node] Import a CommonJS default object, with .d.ts", function() {
+describe("[node] Import a CommonJS default object, with .d.ts", function () {
 	testFixture({
 		id: "commonjs-typed-default-import-from",
 		title: "Fails: import … from",
@@ -282,7 +287,7 @@ describe("[node] Import a CommonJS default object, with .d.ts", function() {
 	});
 });
 
-describe("[node] Import a CommonJS named function, with .d.ts", function() {
+describe("[node] Import a CommonJS named function, with .d.ts", function () {
 	testFixture({
 		id: "commonjs-typed-named-import-from",
 		title: "Accepts: import … from",
@@ -361,7 +366,7 @@ describe("[node] Import a CommonJS named function, with .d.ts", function() {
 	});
 });
 
-describe("[node] Import an ES Module default object", function() {
+describe("[node] Import an ES Module default object", function () {
 	testFixture({
 		id: "export-default-import-from",
 		title: "Accepts: import … from",
@@ -396,7 +401,7 @@ describe("[node] Import an ES Module default object", function() {
 	});
 });
 
-describe("[node] Import an ES Module named function", function() {
+describe("[node] Import an ES Module named function", function () {
 	testFixture({
 		id: "export-named-import-from",
 		title: "Accepts: import … from",
@@ -431,7 +436,7 @@ describe("[node] Import an ES Module named function", function() {
 	});
 });
 
-describe("[node] Class & Properties", function() {
+describe("[node] Class & Properties", function () {
 	testFixture({
 		id: "class-not-initialized",
 		title: "Accepts: public property",
@@ -538,7 +543,7 @@ describe("[node] Class & Properties", function() {
 	});
 });
 
-describe("[node] Include", function() {
+describe("[node] Include", function () {
 	testFixture({
 		id: "include-src-default",
 		title: "Accepts: src, default list",
@@ -586,16 +591,11 @@ describe("[node] Include", function() {
 	});
 });
 
-describe("[node] Include node_modules", function() {
+describe("[node] Include node_modules", function () {
 	testFixture({
 		id: "npm-ts-index-default",
 		title: "Fails: TS index, JS index, no include",
-		sourceFiles: [
-			"package.json",
-			"tsconfig.json",
-			"src/main.ts",
-			"node_modules/fake1/index.ts"
-		],
+		sourceFiles: ["package.json", "tsconfig.json", "src/main.ts", "node_modules/fake1/index.ts"],
 		tscFiles: ["lib/main.js", "lib/main.js.map"],
 		mainFilename: "lib/main.js",
 		expectRuntimeError: true
@@ -603,12 +603,7 @@ describe("[node] Include node_modules", function() {
 	testFixture({
 		id: "npm-ts-index-inside",
 		title: "Accepts: TS index.ts, inside list",
-		sourceFiles: [
-			"package.json",
-			"tsconfig.json",
-			"src/main.ts",
-			"node_modules/fake1/index.ts"
-		],
+		sourceFiles: ["package.json", "tsconfig.json", "src/main.ts", "node_modules/fake1/index.ts"],
 		tscFiles: [
 			"lib/src/main.js",
 			"lib/src/main.js.map",
@@ -621,12 +616,7 @@ describe("[node] Include node_modules", function() {
 	testFixture({
 		id: "npm-ts-index-outside",
 		title: "Fails: TS index.ts, outside list",
-		sourceFiles: [
-			"package.json",
-			"tsconfig.json",
-			"src/main.ts",
-			"node_modules/fake1/index.ts"
-		],
+		sourceFiles: ["package.json", "tsconfig.json", "src/main.ts", "node_modules/fake1/index.ts"],
 		tscFiles: ["lib/main.js", "lib/main.js.map"],
 		mainFilename: "lib/main.js",
 		expectRuntimeError: true

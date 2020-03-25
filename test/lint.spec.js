@@ -17,12 +17,12 @@ function assertSchema(tsconfig) {
 	deepStrictEqual(validate.errors, null);
 }
 
-describe("Lint", function() {
-	it("Node", function() {
+describe("Lint", function () {
+	it("Node", function () {
 		const tsconfig = require(join(packagesFolder, "tsconfig-node/tsconfig.json"));
 		assertSchema(tsconfig);
 	});
-	it("Web", function() {
+	it("Web", function () {
 		const tsconfig = require(join(packagesFolder, "tsconfig-web/tsconfig.json"));
 		assertSchema(tsconfig);
 	});
