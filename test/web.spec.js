@@ -13,7 +13,7 @@ const port = 8888;
 const distFolder = join(tmpFolder, `web/dist`);
 
 function sleep(duration) {
-	return new Promise(resolve => {
+	return new Promise((resolve) => {
 		setTimeout(() => {
 			resolve();
 		}, duration);
@@ -32,7 +32,7 @@ function testFixture({
 }) {
 	it(
 		title,
-		/* @this */ async function() {
+		/* @this */ async function () {
 			this.slow(30000);
 			this.timeout(30000);
 
@@ -77,8 +77,8 @@ function testFixture({
 	);
 }
 
-before("Setup", function() {
-	return new Promise(resolve => {
+before("Setup", function () {
+	return new Promise((resolve) => {
 		copyConfig("web");
 		app = express();
 		app.use(express.static(distFolder));
@@ -88,15 +88,15 @@ before("Setup", function() {
 	});
 });
 
-after("Shutdown", function() {
-	return new Promise(resolve => {
+after("Shutdown", function () {
+	return new Promise((resolve) => {
 		server.close(() => {
 			resolve();
 		});
 	});
 });
 
-describe("[web] Basic features", function() {
+describe("[web] Basic features", function () {
 	testFixture({
 		id: "basic-local-modules",
 		title: "Accepts: local modules",
@@ -199,7 +199,7 @@ describe("[web] Basic features", function() {
 	});
 });
 
-describe('[web] Toplevel variables are global without "import" or "export"', function() {
+describe('[web] Toplevel variables are global without "import" or "export"', function () {
 	testFixture({
 		id: "entries",
 		title: "Fails typecheck: global, no export or import",
@@ -329,7 +329,7 @@ describe('[web] Toplevel variables are global without "import" or "export"', fun
 	});
 });
 
-describe("[web] Import a CommonJS default object, without .d.ts", function() {
+describe("[web] Import a CommonJS default object, without .d.ts", function () {
 	testFixture({
 		id: "commonjs-untyped-default-import-from",
 		title: "Fails typecheck: import … from",
@@ -388,7 +388,7 @@ describe("[web] Import a CommonJS default object, without .d.ts", function() {
 	});
 });
 
-describe("[web] Import a CommonJS named function, without .d.ts", function() {
+describe("[web] Import a CommonJS named function, without .d.ts", function () {
 	testFixture({
 		id: "commonjs-untyped-named-import-from",
 		title: "Fails typecheck: import … from",
@@ -447,7 +447,7 @@ describe("[web] Import a CommonJS named function, without .d.ts", function() {
 	});
 });
 
-describe("[web] Import a CommonJS default object, with .d.ts", function() {
+describe("[web] Import a CommonJS default object, with .d.ts", function () {
 	testFixture({
 		id: "commonjs-typed-default-import-from",
 		title: "Fails typecheck: import … from",
@@ -514,7 +514,7 @@ describe("[web] Import a CommonJS default object, with .d.ts", function() {
 	});
 });
 
-describe("[web] Import a CommonJS named function, with .d.ts", function() {
+describe("[web] Import a CommonJS named function, with .d.ts", function () {
 	testFixture({
 		id: "commonjs-typed-named-import-from",
 		title: "Accepts: import … from",
@@ -581,7 +581,7 @@ describe("[web] Import a CommonJS named function, with .d.ts", function() {
 	});
 });
 
-describe("[web] Import an ES Module default object", function() {
+describe("[web] Import an ES Module default object", function () {
 	testFixture({
 		id: "export-default-import-from",
 		title: "Accepts: import … from",
@@ -655,7 +655,7 @@ describe("[web] Import an ES Module default object", function() {
 	});
 });
 
-describe("[web] Import an ES Module named function", function() {
+describe("[web] Import an ES Module named function", function () {
 	testFixture({
 		id: "export-named-import-from",
 		title: "Accepts: import … from",
@@ -729,7 +729,7 @@ describe("[web] Import an ES Module named function", function() {
 	});
 });
 
-describe("[web] Preact", function() {
+describe("[web] Preact", function () {
 	testFixture({
 		id: "preact-h",
 		title: "Accepts: h()",
@@ -786,7 +786,7 @@ describe("[web] Preact", function() {
 	});
 });
 
-describe("[web] JPEG, PNG, SVG", function() {
+describe("[web] JPEG, PNG, SVG", function () {
 	testFixture({
 		id: "images-import-from",
 		title: "Accepts: import … from",
@@ -874,7 +874,7 @@ describe("[web] JPEG, PNG, SVG", function() {
 	});
 });
 
-describe("[web] CSS", function() {
+describe("[web] CSS", function () {
 	testFixture({
 		id: "css-import-from",
 		title: "Fails typecheck: import … from",
@@ -909,7 +909,7 @@ describe("[web] CSS", function() {
 	});
 });
 
-describe("[web] SCSS", function() {
+describe("[web] SCSS", function () {
 	testFixture({
 		id: "scss-import-from",
 		title: "Fails typecheck: import … from",
@@ -944,7 +944,7 @@ describe("[web] SCSS", function() {
 	});
 });
 
-describe("[web] Raw assets & Local type definition", function() {
+describe("[web] Raw assets & Local type definition", function () {
 	testFixture({
 		id: "raw-import-from",
 		title: "Accepts: import … from",
@@ -1007,7 +1007,7 @@ describe("[web] Raw assets & Local type definition", function() {
 	});
 });
 
-describe("[web] JSON", function() {
+describe("[web] JSON", function () {
 	testFixture({
 		id: "json-import-from",
 		title: "Fails typecheck: import … from",
@@ -1066,7 +1066,7 @@ describe("[web] JSON", function() {
 	});
 });
 
-describe("[web] Include paths", function() {
+describe("[web] Include paths", function () {
 	testFixture({
 		id: "include-src-default",
 		title: "Accepts: src, no include",
@@ -1115,7 +1115,7 @@ describe("[web] Include paths", function() {
 	});
 });
 
-describe("[web] Include node_modules", function() {
+describe("[web] Include node_modules", function () {
 	testFixture({
 		id: "npm-ts-index-default",
 		title: "Accepts: TS index, JS index, no include",
