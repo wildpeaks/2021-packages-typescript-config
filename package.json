@@ -16,12 +16,6 @@
     "bracketSpacing": false,
     "trailingComma": "none"
   },
-  "greenkeeper": {
-    "commitMessages": {
-      "dependencyUpdate": "feat: update ${dependency}",
-      "devDependencyUpdate": "chore: update ${dependency}"
-    }
-  },
   "scripts": {
     "setup": "node test/setup.js",
     "test:lint": "mocha test/lint.spec.js",
