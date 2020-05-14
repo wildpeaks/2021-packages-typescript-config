@@ -28,7 +28,7 @@
     "typescript": "*"
   },
   "devDependencies": {
-    "@wildpeaks/eslint-config-commonjs": "9.3.0",
+    "@wildpeaks/eslint-config-commonjs": "10.0.0",
     "@wildpeaks/webpack-config-web": "4.22.0",
     "ajv": "6.12.2",
     "eslint": "7.0.0",
