@@ -18,10 +18,10 @@
   },
   "scripts": {
     "setup": "node test/setup.js",
-    "test:lint": "mocha test/lint.spec.js",
-    "test:node": "mocha test/node.spec.js",
-    "test:web": "mocha test/web.spec.js",
-    "test:class": "mocha test/class.spec.js",
+    "test:lint": "mocha test/lint.test.js",
+    "test:node": "mocha test/node.test.js",
+    "test:web": "mocha test/web.test.js",
+    "test:class": "mocha test/class.test.js",
     "test": "npm run test:lint && npm run test:node && npm run test:web"
   },
   "peerDependencies": {
