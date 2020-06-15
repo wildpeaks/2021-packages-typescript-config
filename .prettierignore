@@ -1,3 +1,4 @@
+*.yml
 package.json
 /test/fixtures
 /test/fixtures-prettier
