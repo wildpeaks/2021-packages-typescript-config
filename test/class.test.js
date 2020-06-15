@@ -4,13 +4,35 @@
 const {strictEqual, deepStrictEqual} = require("assert");
 const {join} = require("path");
 const express = require("express");
-const puppeteer = require("puppeteer");
+const {chromium} = require("playwright");
 const {tmpFolder, copyConfig, compileFixture} = require("./shared");
 
-let app;
 let server;
-const port = 8888;
+let port = 0;
 const distFolder = join(tmpFolder, "web/dist");
+function startExpress() {
+	return new Promise((resolve) => {
+		const app = express();
+		app.use(express.static(distFolder));
+		server = app.listen(0, () => {
+			resolve(server.address().port);
+		});
+	});
+}
+function stopExpress() {
+	return new Promise((resolve) => {
+		server.close(() => {
+			resolve();
+		});
+	});
+}
+before(async function () {
+	copyConfig("web");
+	port = await startExpress();
+});
+after(async function () {
+	await stopExpress();
+});
 
 function sleep(duration) {
 	return new Promise((resolve) => {
@@ -43,11 +65,12 @@ function testFixture({id, title, sourceFiles, tscFiles, webpackFiles, expectType
 			deepStrictEqual(compiled.errors, [], "No Webpack errors");
 			deepStrictEqual(compiled.filesAfter, sourceFiles.concat(webpackFiles).sort(), "After Webpack");
 
-			const browser = await puppeteer.launch();
+			const browser = await chromium.launch();
 			try {
-				const page = await browser.newPage();
-				await page.goto(`http://localhost:${port}/`);
-				await sleep(300);
+				const ctx = await browser.newContext();
+				const page = await ctx.newPage();
+				await page.goto(`http://localhost:${port}/`, {waitUntil: "networkidle"});
+				// await sleep(300);
 				const actualHTML = await page.evaluate(() => {
 					const el = document.getElementById("hello");
 					if (el === null) {
@@ -63,24 +86,27 @@ function testFixture({id, title, sourceFiles, tscFiles, webpackFiles, expectType
 	);
 }
 
-before("Setup", function () {
-	return new Promise((resolve) => {
-		copyConfig("web");
-		app = express();
-		app.use(express.static(distFolder));
-		server = app.listen(port, () => {
-			resolve();
-		});
-	});
-});
+// let app;
+// let server;
+// const port = 8888;
+// before("Setup", function () {
+// 	return new Promise((resolve) => {
+// 		copyConfig("web");
+// 		app = express();
+// 		app.use(express.static(distFolder));
+// 		server = app.listen(port, () => {
+// 			resolve();
+// 		});
+// 	});
+// });
+// after("Shutdown", function () {
+// 	return new Promise((resolve) => {
+// 		server.close(() => {
+// 			resolve();
+// 		});
+// 	});
+// });
 
-after("Shutdown", function () {
-	return new Promise((resolve) => {
-		server.close(() => {
-			resolve();
-		});
-	});
-});
 
 describe("[web] useDefineForClassFields: true (default)", function () {
 	// Class 1

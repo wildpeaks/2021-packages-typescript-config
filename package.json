@@ -18,26 +18,26 @@
   },
   "scripts": {
     "setup": "node test/setup.js",
-    "test:lint": "mocha test/lint.spec.js",
-    "test:node": "mocha test/node.spec.js",
-    "test:web": "mocha test/web.spec.js",
-    "test:class": "mocha test/class.spec.js",
+    "test:lint": "mocha test/lint.test.js",
+    "test:node": "mocha test/node.test.js",
+    "test:web": "mocha test/web.test.js",
+    "test:class": "mocha test/class.test.js",
     "test": "npm run test:lint && npm run test:node && npm run test:web"
   },
   "peerDependencies": {
     "typescript": "*"
   },
   "devDependencies": {
-    "@wildpeaks/eslint-config-commonjs": "10.3.0",
+    "@wildpeaks/eslint-config-commonjs": "10.4.0",
     "@wildpeaks/webpack-config-web": "4.24.0",
     "ajv": "6.12.2",
     "eslint": "7.2.0",
     "express": "4.17.1",
     "fs-extra": "9.0.1",
     "mocha": "8.0.1",
+    "playwright": "1.1.1",
     "preact": "10.4.4",
     "prettier": "2.0.5",
-    "puppeteer": "3.3.0",
     "recursive-readdir": "2.2.2",
     "typescript": "3.9.5",
     "webpack": "4.43.0",

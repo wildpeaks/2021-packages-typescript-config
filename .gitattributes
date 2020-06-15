@@ -3,23 +3,23 @@
 .editorconfig   text
 .gitattributes  text
 .gitignore      text
+.prettierignore text
 LICENSE         text
 *.md            text
+
+
 *.sh            text
 *.xml           text
 *.yml           text
-
 *.css           text
 *.json          text
 *.js            text
 *.ts            text
-
 *.svg           text
 *.jpg           binary
 *.gif           binary
 *.png           binary
 *.mp4           binary
-
 *.eot           binary
 *.ttf           binary
 *.woff          binary
