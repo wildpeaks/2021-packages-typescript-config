@@ -2,22 +2,25 @@ name: Tests
 on:
   push:
     branches:
-      - "**"
+    - "**"
   pull_request:
     branches:
-      - master
+    - master
 jobs:
   tests:
+    strategy:
+      matrix:
+        node: [12.x, 14.x]
     timeout-minutes: 25
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 12.x
-      - run: npm install
-      - run: npm run setup
-      - run: npm run test:lint
-      - run: npm run test:node
-      - uses: microsoft/playwright-github-action@v1
-      - run: npm run test:web
+    - uses: actions/checkout@v1
+    - uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node }}
+    - run: npm install
+    - run: npm run setup
+    - run: npm run test:lint
+    - run: npm run test:node
+    - uses: microsoft/playwright-github-action@v1
+    - run: npm run test:web
