@@ -30,7 +30,7 @@
   "devDependencies": {
     "@wildpeaks/eslint-config-commonjs": "10.7.0",
     "@wildpeaks/webpack-config-web": "5.6.0",
-    "ajv": "6.12.4",
+    "ajv": "6.12.5",
     "eslint": "7.9.0",
     "express": "4.17.1",
     "fs-extra": "9.0.1",
