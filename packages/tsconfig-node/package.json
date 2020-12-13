@@ -1,6 +1,6 @@
 {
   "name": "@wildpeaks/tsconfig-node",
-  "version": "2.11.0",
+  "version": "2.11.1",
   "description": "Base tsconfig for Node projects",
   "author": "Cecile Muller",
   "license": "MIT",
