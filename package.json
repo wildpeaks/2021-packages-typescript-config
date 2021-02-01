@@ -31,7 +31,7 @@
     "@wildpeaks/eslint-config-commonjs": "11.0.0",
     "@wildpeaks/webpack-config-web": "5.16.0",
     "ajv": "6.12.6",
-    "eslint": "7.18.0",
+    "eslint": "7.19.0",
     "express": "4.17.1",
     "fs-extra": "9.0.1",
     "mocha": "8.2.1",
