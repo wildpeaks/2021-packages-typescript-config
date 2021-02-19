@@ -21,6 +21,6 @@
     "types.d.ts"
   ],
   "dependencies": {
-    "@types/node": "14.14.28"
+    "@types/node": "14.14.30"
   }
 }
